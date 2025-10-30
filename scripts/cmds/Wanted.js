@@ -1,130 +1,122 @@
-const { loadImage, createCanvas } = require("canvas");
-const fs = require("fs-extra"); // fs-extra ব্যবহার করা হবে, কারণ এটি fs এর চেয়ে বেশি কার্যকরী
+const fs = require("fs-extra");
 const axios = require("axios");
-const path = require("path"); // path মডিউল যোগ করা হয়েছে ফাইল পাথ তৈরির জন্য
+const { loadImage, createCanvas } = require("canvas");
+
+const toEnglishName = (name) => {
+  const map = {
+    'আ': 'A', 'ই': 'I', 'উ': 'U', 'এ': 'E', 'ও': 'O',
+    'ক': 'K', 'খ': 'Kh', 'গ': 'G', 'ঘ': 'Gh', 'ঙ': 'Ng',
+    'চ': 'Ch', 'ছ': 'Chh', 'জ': 'J', 'ঝ': 'Jh', 'ঞ': 'Ny',
+    'ট': 'T', 'ঠ': 'Th', 'ড': 'D', 'ঢ': 'Dh', 'ণ': 'N',
+    'ত': 'T', 'থ': 'Th', 'দ': 'D', 'ধ': 'Dh', 'ন': 'N',
+    'প': 'P', 'ফ': 'Ph', 'ব': 'B', 'ভ': 'Bh', 'ম': 'M',
+    'য': 'Y', 'র': 'R', 'ল': 'L', 'শ': 'Sh', 'ষ': 'Sh', 'স': 'S', 'হ': 'H',
+    'া': 'a', 'ি': 'i', 'ী': 'i', 'ু': 'u', 'ূ': 'u', 'ে': 'e', 'ৈ': 'ai', 'ো': 'o', 'ৌ': 'au'
+  };
+  return name.split('').map(c => map[c] || c).join('').replace(/\s+/g, ' ').trim() || "Unknown";
+};
 
 module.exports = {
   config: {
     name: "wanted",
-    aliases: ["wtd"], // আপনি চাইলে অন্য অ্যালিয়াস যোগ করতে পারেন
-    version: "1.2.0",
-    author: "Rx Abdullah Convert To Goat bot v2 by Akash",
-    countdown: 5, // কুলডাউন সেকেন্ডে
-    role: 0, // 0 = সব ইউজার, 1 = অ্যাডমিন, 2 = বট মালিক
-    description: "Generate a wanted poster with user's avatar.",
+    version: "1.1",
+    author: "MOHAMMAD AKASH",
+    countDown: 5,
+    role: 0,
+    shortDescription: "Wanted poster",
+    longDescription: "Mention someone to create a high quality wanted poster.",
     category: "fun",
-    guide: {
-      en: "{pn} mention\nor reply to a message." // {pn} কমান্ডের নাম দ্বারা প্রতিস্থাপিত হবে
-    }
+    guide: { en: "{pn} @mention" }
   },
 
-  onstart: async function ({ api, event }) {
+  getCrime() {
+    const crimes = [
+      "Stealing Hearts", "Being Too Cool", "Spreading Chaos",
+      "Hacking Laughter", "Breaking Rules", "Too Much Swag"
+    ];
+    return crimes[Math.floor(Math.random() * crimes.length)];
+  },
+
+  getReward() {
+    const rewards = [1000, 5000, 10000, 50000, 100000];
+    return "$" + rewards[Math.floor(Math.random() * rewards.length)];
+  },
+
+  onStart: async function ({ event, message, api, usersData }) {
     try {
-      const mentions = Object.keys(event.mentions || {});
-      let targetuid;
+      const mentionID = Object.keys(event.mentions)[0];
+      if (!mentionID) return message.reply("Mention someone!");
 
-      // টার্গেট ইউজার নির্ধারণ করুন (রিপ্লাই বা মেনশন)
-      if (event.messageReply) {
-        targetuid = event.messageReply.senderID;
-      } else if (mentions.length > 0) {
-        targetuid = mentions[0];
-      } else {
-        // যদি টার্গেট ইউজার না থাকে, তাহলে সেন্ডারকেই টার্গেট করা হবে (আগের লজিকে ছিল)
-        // অথবা আপনি ইউজারকে রিপ্লাই বা মেনশন করতে বলতে পারেন।
-        targetuid = event.senderID; 
-        // আপনি চাইলে এটিও ব্যবহার করতে পারেন:
-        // return api.sendMessage("Please reply to a message or mention a user to use this command.", event.threadID, event.messageID);
-      }
+      const rawName = await usersData.getName(mentionID);
+      const name = toEnglishName(rawName);
 
-      // টার্গেট ইউজারের তথ্য আনুন
-      const userInfo = await api.getUserInfo(targetuid);
-      const name = userInfo[targetuid].name;
+      // ✅ Always use HD Graph API photo
+      const photoUrl = `https://graph.facebook.com/${mentionID}/picture?height=2048&width=2048&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
 
-      const cacheDir = path.join(__dirname, "cache");
-      await fs.ensureDir(cacheDir); // নিশ্চিত করুন যে /cache ফোল্ডার আছে
-      
-      const pathBg = path.join(cacheDir, "wanted_bg.png");
-      const pathAvt = path.join(cacheDir, "wanted_avt.png");
-      const pathOut = path.join(cacheDir, `wanted_${targetuid}_result.png`); // ফাইল নাম ইউনিক করা হয়েছে
+      const res = await axios.get(photoUrl, { responseType: "arraybuffer" });
+      const avatarPath = __dirname + "/cache/wanted_avatar.jpg";
+      const outputPath = __dirname + "/cache/wanted_poster.jpg";
 
-      // 🖼️ ব্যাকগ্রাউন্ড (কাস্টম Imgur wanted poster)
-      const bgLink = "https://i.imgur.com/hNj6wpU.jpeg"; // পরিষ্কার, উচ্চ মানের পোস্টার ফ্রেম
-      const bgResponse = await axios.get(bgLink, { responseType: "arraybuffer" });
-      fs.writeFileSync(pathBg, Buffer.from(bgResponse.data));
+      fs.writeFileSync(avatarPath, Buffer.from(res.data));
 
-      // 👤 প্রোফাইল ছবি
-      const avtLink = `https://graph.facebook.com/${targetuid}/picture?width=720&height=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
-      const avtResponse = await axios.get(avtLink, { responseType: "arraybuffer" });
-      fs.writeFileSync(pathAvt, Buffer.from(avtResponse.data));
-
-      // 🧩 দুটি ছবি লোড করুন
-      const base = await loadImage(pathBg);
-      const avatar = await loadImage(pathAvt);
-      const canvas = createCanvas(base.width, base.height);
+      const canvas = createCanvas(700, 900);
       const ctx = canvas.getContext("2d");
 
-      // 🖌️ ব্যাকগ্রাউন্ড এবং প্রোফাইল ছবি আঁকুন
-      ctx.drawImage(base, 0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#f5f5f5";
+      ctx.fillRect(0, 0, 700, 900);
 
-      // প্রোফাইল ছবির অবস্থান (GoatBot স্টাইল): ফ্রেমের মাঝখানে
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0, 0, 700, 150);
+
+      ctx.font = "bold 100px Arial";
+      ctx.fillStyle = "#fff";
+      ctx.textAlign = "center";
+      ctx.fillText("WANTED", 350, 120);
+
+      const avatar = await loadImage(avatarPath);
+
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(100, 180, 500, 500);
       ctx.save();
       ctx.beginPath();
-      ctx.arc(350, 420, 150, 0, Math.PI * 2, true); // গোলাকার মাস্ক
-      ctx.closePath();
+      ctx.rect(100, 180, 500, 500);
       ctx.clip();
-      ctx.drawImage(avatar, 200, 270, 300, 300);
+
+      // ✅ Resize keeping ratio + better draw quality
+      ctx.drawImage(avatar, 100, 180, 500, 500);
       ctx.restore();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = "#000";
+      ctx.strokeRect(100, 180, 500, 500);
 
-      // ✍️ টেক্সট (নাম)
-      ctx.font = "bold 38px Times New Roman";
-      ctx.fillStyle = "#3e2d00"; // গাঢ় খয়েরি রং
-      ctx.textAlign = "center";
+      ctx.font = "bold 50px Arial";
+      ctx.fillStyle = "#000";
+      ctx.fillText(name.toUpperCase(), 350, 750);
 
-      // টেক্সট র্যাপিং ফাংশন
-      const wrapText = async (ctx, text, maxWidth) => {
-        if (ctx.measureText(text).width < maxWidth) return [text];
-        const words = text.split(" ");
-        const lines = [];
-        let line = "";
-        for (const word of words) {
-          if (ctx.measureText(line + word).width < maxWidth) line += word + " ";
-          else {
-            lines.push(line.trim());
-            line = word + " ";
-          }
-        }
-        if (line) lines.push(line.trim());
-        return lines;
-      };
+      const crime = this.getCrime();
+      ctx.font = "italic 32px Arial";
+      ctx.fillText("CRIME: " + crime, 350, 800);
 
-      const lines = await wrapText(ctx, name, 400); // নামের টেক্সট র্যাপ করা
-      lines.forEach((line, i) => {
-        ctx.fillText(line, canvas.width / 2, 640 + i * 42); // পোস্টারে নাম লেখা
+      const reward = this.getReward();
+      ctx.font = "bold 36px Arial";
+      ctx.fillStyle = "#d35400";
+      ctx.fillText("REWARD: " + reward, 350, 850);
+
+      ctx.font = "italic 24px Arial";
+      ctx.fillStyle = "#7f8c8d";
+      ctx.fillText("Author: MOHAMMAD AKASH", 350, 890);
+
+      fs.writeFileSync(outputPath, canvas.toBuffer("image/jpeg"));
+
+      await message.reply({
+        body: `📜 WANTED POSTER\n👤 Name: ${name}\n💣 Crime: ${crime}\n💰 Reward: ${reward}`,
+        attachment: fs.createReadStream(outputPath)
       });
 
-      // 🧾 ফলাফল সংরক্ষণ করুন
-      const imgBuffer = canvas.toBuffer();
-      fs.writeFileSync(pathOut, imgBuffer);
-
-      // 📨 ছবি পাঠান
-      api.sendMessage(
-        {
-          body: `🚨 WANTED ALERT 🚨\n${name} is a dangerous outlaw!\n💰 Reward: $1 (dead or alive)`,
-          attachment: fs.createReadStream(pathOut)
-        },
-        event.threadID,
-        () => {
-          // টেম্পোরারি ফাইলগুলো ডিলিট করুন
-          fs.unlinkSync(pathBg);
-          fs.unlinkSync(pathAvt);
-          fs.unlinkSync(pathOut);
-        },
-        event.messageID
-      );
-
-    } catch (e) {
-      console.error("Error generating wanted image:", e); // বিস্তারিত ত্রুটি লগ করুন
-      api.sendMessage("❌ Couldn't generate wanted image. Please try again later.", event.threadID, event.messageID);
+      [avatarPath, outputPath].forEach(p => fs.existsSync(p) && fs.unlinkSync(p));
+    } catch (err) {
+      console.error("Wanted Error:", err);
+      message.reply("❌ Error while generating wanted poster!");
     }
   }
 };
