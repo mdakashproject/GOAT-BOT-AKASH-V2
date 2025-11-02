@@ -32,7 +32,8 @@ function formatBalance(num) {
 
 module.exports.config = {
   name: "balance",
-  version: "5.0",
+  aliases: ["bal"],
+  version: "1.0",
   author: "MOHAMMAD AKASH",
   countDown: 5,
   role: 0,
