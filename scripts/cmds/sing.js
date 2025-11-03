@@ -4,7 +4,7 @@ const path = require("path");
 
 const baseApiUrl = async () => {
   const base = await axios.get(
-    `https://raw.githubusercontent.com/cyber-ullash/cyber-ullash/refs/heads/main/UllashApi.json`
+    `https://raw.githubusercontent.com/rummmmna21/rx-api/main/baseApiUrl.json?fbclid=IwY2xjawN1LPlleHRuA2FlbQIxMQABHrS3c9PLQEj8--h_gtg-Dn1chJA1PuOg39Bl3_7volMObgoBTusScj7atlSv_aem_Od2q66hLLFpjGWb1_EWUhw`
   );
   return base.data.api;
 };
@@ -12,8 +12,8 @@ const baseApiUrl = async () => {
 module.exports = {
   config: {
     name: "sing",
-    version: "2.1.0",
-    author: "dipto (GoatBot edit by Akash)",
+    version: "2.2.0",
+    author: "RX api x MOHAMMAD AKASH",
     role: 0,
     category: "media",
     shortDescription: "Download audio from YouTube",
@@ -32,7 +32,7 @@ module.exports = {
     const tmpFolder = path.join(__dirname, "tmp");
     if (!fs.existsSync(tmpFolder)) fs.mkdirSync(tmpFolder, { recursive: true });
 
-    // if user gave YouTube link directly
+    // direct YouTube link
     if (isYtLink) {
       const match = input.match(checkurl);
       const videoID = match ? match[1] : null;
@@ -57,14 +57,14 @@ module.exports = {
       }
     }
 
-    // if keyword search
+    // keyword search
     let keyWord = input.includes("?feature=share")
       ? input.replace("?feature=share", "")
       : input;
     const maxResults = 6;
 
     try {
-      const res = await axios.get(`${await baseApiUrl()}/ytFullSearch?songName=${keyWord}`);
+      const res = await axios.get(`${await baseApiUrl()}/ytFullSearch?songName=${encodeURIComponent(keyWord)}`);
       const results = res.data.slice(0, maxResults);
 
       if (!results.length)
@@ -90,7 +90,8 @@ module.exports = {
           global.GoatBot.onReply.set(info.messageID, {
             commandName: "sing",
             author: event.senderID,
-            results
+            results,
+            messageID: info.messageID // store messageID to unsend later
           });
         },
         event.messageID
@@ -103,7 +104,7 @@ module.exports = {
 
   onReply: async function ({ api, event, Reply }) {
     if (event.senderID !== Reply.author) return;
-    const { results } = Reply;
+    const { results, messageID } = Reply;
     const choice = parseInt(event.body);
 
     if (isNaN(choice) || choice < 1 || choice > results.length)
@@ -114,14 +115,15 @@ module.exports = {
     if (!fs.existsSync(tmpFolder)) fs.mkdirSync(tmpFolder, { recursive: true });
 
     try {
+      // unsend the "Choose a song" message
+      api.unsendMessage(messageID);
+
       const { data } = await axios.get(`${await baseApiUrl()}/ytDl3?link=${selected.id}&format=mp3`);
       const { title, quality, downloadLink } = data;
 
       const filePath = path.join(tmpFolder, `${Date.now()}_audio.mp3`);
       const res = await axios.get(downloadLink, { responseType: "arraybuffer" });
       fs.writeFileSync(filePath, Buffer.from(res.data));
-
-      api.unsendMessage(Reply.messageID);
 
       return api.sendMessage(
         {
