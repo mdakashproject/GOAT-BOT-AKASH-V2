@@ -104,7 +104,7 @@ module.exports = {
     const text = event.body?.toLowerCase()?.trim();
     if (!text) return;
 
-    const triggers = ["baby", "bby", "xan", "bbz", "sadiya", "mim", "akash", "বট", "আকাশ"];
+    const triggers = ["baby", "bby", "xan", "bbz", "sadiya", "mim", "akash", "বট", "আকাশ", "bot", "oi", "oii"];
     const userName = await usersData.getName(event.senderID);
 
     // Trigger words
