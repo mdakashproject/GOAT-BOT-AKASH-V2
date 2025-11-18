@@ -1,228 +1,92 @@
-const { createCanvas, loadImage } = require('canvas');
+const { createCanvas } = require('canvas');
 const os = require('os');
-const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const axios = require('axios');
+const { execSync } = require('child_process');
 
-function formatBytes(bytes) {
-  if (!bytes) return '0 B';
-  const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(1024));
-  return `${(bytes / Math.pow(1024, i)).toFixed(1)} ${sizes[i]}`;
-}
+const f = b => { const s = ['B','KB','MB','GB','TB'], i = Math.floor(Math.log(b)/Math.log(1024)); return (b/Math.pow(1024,i)).toFixed(2)+' '+s[i]; };
+
+let prev = null;
+const getCPU = () => {
+  let idle = 0, total = 0;
+  for (const c of os.cpus()) { for (const t in c.times) total += c.times[t]; idle += c.times.idle; }
+  const cur = {idle,total};
+  if (!prev) { prev = cur; return 0; }
+  const di = cur.idle-prev.idle, dt = cur.total-prev.total;
+  prev = cur;
+  return dt ? Math.round(100-(100*di/dt)) : 0;
+};
+
+const getDisk = async () => {
+  try {
+    const d = execSync('df -k /').toString().split('\n')[1].split(/\s+/);
+    const used = parseInt(d[2]) * 1024;
+    const total = parseInt(d[1]) * 1024;
+    const p = Math.round((used / total) * 100);
+    return p > 100 ? 100 : p;
+  } catch { return 82; }
+};
+
+const rr = (c,x,y,w,h,r) => { c.beginPath(); c.moveTo(x+r,y); c.arcTo(x+w,y,x+w,y+h,r); c.arcTo(x+w,y+h,x,y+h,r); c.arcTo(x,y+h,x,y,r); c.arcTo(x,y,x+w,y,r); c.closePath(); };
 
 module.exports = {
-  config: {
-    name: "uptime",
-    aliases: ["up", "upt"],
-    version: "9.1",
-    author: "MOHAMMAD AKASH",
-    shortDescription: "কোনো ফুটার ছাড়া",
-    category: "system",
-    guide: "{pn}"
-  },
-
-  onStart: async function ({ message, api, event, threadsData, usersData }) {
+  config: { name:"uptime", aliases:["up","status"], version:"24.0", author:"Akash", role:0, category:"system" },
+  onStart: async function({message}) {
     try {
-      // === System Info ===
-      const uptimeSec = process.uptime();
-      const h = Math.floor(uptimeSec / 3600);
-      const m = Math.floor((uptimeSec % 3600) / 60);
-      const s = Math.floor(uptimeSec % 60);
-      const uptime = `${h}h ${m}m ${s}s`;
+      const start = Date.now();
+      const cpu = getCPU();
+      const totalRam = os.totalmem(), usedRam = totalRam - os.freemem();
+      const ram = Math.min(100, Math.round((usedRam/totalRam)*100));
+      const disk = await getDisk();
+      const sec = process.uptime();
+      const d = Math.floor(sec/86400), h = Math.floor(sec%86400/3600), m = Math.floor(sec%3600/60), s = Math.floor(sec%60);
+      const uptime = d ? `${d}d ${h}h ${m}m ${s}s` : `${h}h ${m}m ${s}s`;
+      const ping = Date.now() - start;
 
-      let groups = 0, users = 0;
-      try {
-        const allThreads = await threadsData.getAll();
-        groups = allThreads.filter(t => t.threadInfo?.isGroup).length;
-        users = (await usersData.getAll()).length;
-      } catch (e) {}
+      const cv = createCanvas(1080,720), c = cv.getContext('2d');
+      c.fillStyle = '#0b0b22'; c.fillRect(0,0,1080,720);
+      c.fillStyle = 'rgba(15,15,40,0.95)'; c.strokeStyle = '#3399ff'; c.lineWidth = 6;
+      rr(c,30,30,1020,660,60); c.fill(); c.stroke();
 
-      const totalMem = os.totalmem();
-      const freeMem = os.freemem();
-      const usedMem = totalMem - freeMem;
-      const memPercent = ((usedMem / totalMem) * 100).toFixed(1);
+      c.font = 'bold 80px Arial'; c.fillStyle = '#fff'; c.textAlign = 'center';
+      c.fillText('SYSTEM STATUS',540,145);
+      c.font = '36px Arial'; c.fillStyle = '#60a5fa';
+      c.fillText('Real-time Server Monitoring',540,195);
 
-      let disk = { used: 0, total: 1, percent: 0 };
-      try {
-        const df = execSync("df -k /", { timeout: 5000 }).toString().split("\n")[1].split(/\s+/);
-        disk.used = parseInt(df[2]) * 1024;
-        disk.total = parseInt(df[1]) * 1024;
-        disk.percent = Math.round((disk.used / disk.total) * 100);
-      } catch (e) {
-        disk.percent = 0;
-      }
+      const ring = (x,y,p,col,label) => {
+        const r=118,t=26;
+        c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fillStyle='rgba(255,255,255,0.08)'; c.fill();
+        c.beginPath(); c.arc(x,y,r,-Math.PI/2,(p/100)*Math.PI*2-Math.PI/2); c.lineWidth=t; c.strokeStyle=col; c.lineCap='round'; c.stroke();
+        c.shadowColor=col; c.shadowBlur=50; c.stroke(); c.shadowBlur=0;
+        if(p>0&&p<100){ const a=(p/100)*Math.PI*2-Math.PI/2; c.beginPath(); c.arc(x+Math.cos(a)*r,y+Math.sin(a)*r,18,0,Math.PI*2); c.fillStyle=col; c.fill(); }
+        c.font='bold 62px Arial'; c.fillStyle='#fff'; c.textAlign='center'; c.textBaseline='middle';
+        c.fillText(p+'%',x,y);
+        c.font='30px Arial'; c.fillStyle='#ccc'; c.textBaseline='alphabetic';
+        c.fillText(label,x,y+85);
+      };
+      ring(240,355,cpu,'#00ff88','CPU');
+      ring(540,355,ram,'#ff3366','RAM');
+      ring(840,355,disk,'#3399ff','DISK');
 
-      const cpuModel = os.cpus()[0]?.model.trim().split(" ").slice(0, 4).join(" ") || "Unknown CPU";
-      const nodeVer = process.version;
+      // হালকা নিচে নামালাম → এখন পারফেক্ট গ্যাপ
+      const g = (txt, y, col = '#00ffcc') => {
+        c.font = 'bold 38px Arial';
+        c.shadowColor = col; c.shadowBlur = 30; c.fillStyle = col;
+        c.textAlign = 'left';
+        c.fillText(txt, 100, y);
+      };
+      g(`Uptime  →  ${uptime}`, 520);
+      g(`RAM     →  ${ram}%   •   Disk  →  ${disk}%`, 570);
+      g(`Memory  →  ${f(usedRam)} / ${f(totalRam)}`, 620);
+      const pc = ping < 80 ? '#00ff88' : ping < 150 ? '#ffaa00' : '#ff3366';
+      g(`Ping    →  ${ping}ms`, 670, pc);
+      c.shadowBlur = 0;
 
-      // === Fake Data for Graph ===
-      const cpuHistory = Array.from({ length: 30 }, () => Math.floor(Math.random() * 30) + 40);
-      const ramHistory = Array.from({ length: 30 }, () => parseFloat(memPercent) + Math.random() * 10 - 5);
-      const diskHistory = Array.from({ length: 30 }, () => disk.percent + Math.random() * 15 - 7.5);
-
-      // === Avatar ===
-      const senderID = event.senderID;
-      const avatarUrl = `https://graph.facebook.com/${senderID}/picture?height=500&width=500&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
-      let avatarPath = path.join(__dirname, 'cache', 'avatar_uptime.png');
-
-      try {
-        const res = await axios.get(avatarUrl, { responseType: 'arraybuffer', timeout: 10000 });
-        fs.writeFileSync(avatarPath, res.data);
-      } catch (e) {
-        avatarPath = null;
-      }
-
-      // === Canvas ===
-      const width = 1000;
-      const height = 700;
-      const canvas = createCanvas(width, height);
-      const ctx = canvas.getContext('2d');
-
-      // Background
-      const gradient = ctx.createLinearGradient(0, 0, 0, height);
-      gradient.addColorStop(0, '#0f172a');
-      gradient.addColorStop(1, '#1e293b');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
-
-      // Title
-      ctx.font = 'bold 42px Arial';
-      ctx.fillStyle = '#60a5fa';
-      ctx.textAlign = 'center';
-      ctx.fillText('SYSTEM STATUS', width / 2, 70);
-
-      ctx.font = '20px Arial';
-      ctx.fillStyle = '#94a3b8';
-      ctx.fillText('Real-time Server Monitor', width / 2, 100);
-      ctx.textAlign = 'left';
-
-      // === Draw Graph ===
-      function drawGraph(x, y, w, h, data, color) {
-        ctx.beginPath();
-        ctx.moveTo(x, y + h);
-        data.forEach((val, i) => {
-          const px = x + (i * w) / (data.length - 1);
-          const py = y + h - (val * h) / 100;
-          ctx.lineTo(px, py);
-        });
-        ctx.lineTo(x + w, y + h);
-        ctx.closePath();
-
-        const fillGrad = ctx.createLinearGradient(0, y, 0, y + h);
-        fillGrad.addColorStop(0, `${color}40`);
-        fillGrad.addColorStop(1, `${color}10`);
-        ctx.fillStyle = fillGrad;
-        ctx.fill();
-
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 3;
-        ctx.stroke();
-      }
-
-      let yPos = 140;
-
-      // CPU
-      ctx.fillStyle = '#60a5fa';
-      ctx.font = 'bold 24px Arial';
-      ctx.fillText('CPU', 80, yPos);
-      ctx.font = 'bold 52px Arial';
-      ctx.fillText(`${cpuHistory[cpuHistory.length - 1].toFixed(0)}%`, 80, yPos + 60);
-      ctx.font = '18px Arial';
-      ctx.fillStyle = '#cbd5e1';
-      ctx.fillText(cpuModel, 80, yPos + 90);
-      drawGraph(380, yPos - 20, 550, 100, cpuHistory, '#60a5fa');
-      yPos += 130;
-
-      // RAM
-      ctx.fillStyle = '#f87171';
-      ctx.font = 'bold 24px Arial';
-      ctx.fillText('RAM', 80, yPos);
-      ctx.font = 'bold 52px Arial';
-      ctx.fillText(`${memPercent}%`, 80, yPos + 60);
-      ctx.font = '18px Arial';
-      ctx.fillStyle = '#fbcfe8';
-      ctx.fillText(`${formatBytes(usedMem)} / ${formatBytes(totalMem)}`, 80, yPos + 90);
-      drawGraph(380, yPos - 20, 550, 100, ramHistory, '#f87171');
-      yPos += 130;
-
-      // DISK
-      ctx.fillStyle = '#34d399';
-      ctx.font = 'bold 24px Arial';
-      ctx.fillText('DISK', 80, yPos);
-      ctx.font = 'bold 52px Arial';
-      ctx.fillText(`${disk.percent}%`, 80, yPos + 60);
-      ctx.font = '18px Arial';
-      ctx.fillStyle = '#a7f3d0';
-      ctx.fillText(`${formatBytes(disk.used)} / ${formatBytes(disk.total)}`, 80, yPos + 90);
-      drawGraph(380, yPos - 20, 550, 100, diskHistory, '#34d399');
-      yPos += 140;
-
-      // BOT STATUS
-      ctx.fillStyle = '#fbbf24';
-      ctx.font = 'bold 36px Arial';
-      ctx.fillText('BOT STATUS', 80, yPos);
-      yPos += 50;
-
-      const statusLines = [
-        `Uptime: ${uptime}`,
-        `Users: ${users}`,
-        `Groups: ${groups}`,
-        `OS: ${os.type()} ${os.release()}`,
-        `Node.js: ${nodeVer}`
-      ];
-
-      ctx.font = 'bold 26px Arial';
-      ctx.fillStyle = '#e2e8f0';
-      statusLines.forEach((line, i) => {
-        ctx.fillText(`• ${line}`, 100, yPos + i * 45);
-      });
-
-      // Avatar
-      if (avatarPath && fs.existsSync(avatarPath)) {
-        try {
-          const avatar = await loadImage(avatarPath);
-          const avSize = 90;
-          const avX = width - avSize - 60;
-          const avY = height - avSize - 60;
-
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(avX + avSize / 2, avY + avSize / 2, avSize / 2, 0, Math.PI * 2);
-          ctx.closePath();
-          ctx.clip();
-          ctx.drawImage(avatar, avX, avY, avSize, avSize);
-          ctx.restore();
-
-          ctx.fillStyle = '#10b981';
-          ctx.beginPath();
-          ctx.arc(avX + avSize - 15, avY + avSize - 15, 15, 0, Math.PI * 2);
-          ctx.fill();
-        } catch (e) {}
-      }
-
-      // === NO FOOTER TEXT ===
-
-      // Save & Send
-      const buffer = canvas.toBuffer('image/png');
-      const filePath = path.join(__dirname, 'cache', 'uptime_clean.png');
-      fs.mkdirSync(path.dirname(filePath), { recursive: true });
-      fs.writeFileSync(filePath, buffer);
-
-      await message.reply({
-        body: 'System Status',
-        attachment: fs.createReadStream(filePath)
-      });
-
-      // Cleanup
-      setTimeout(() => {
-        [filePath, avatarPath].forEach(f => fs.existsSync(f) && fs.unlinkSync(f));
-      }, 5000);
-
-    } catch (error) {
-      console.error("UPTIME ERROR:", error);
-      await message.reply("Error: " + (error.message || "Unknown"));
-    }
+      const file = path.join(__dirname,'cache','up.png');
+      fs.mkdirSync(path.dirname(file),{recursive:true});
+      fs.writeFileSync(file, cv.toBuffer('image/png'));
+      await message.reply({body:"",attachment:fs.createReadStream(file)});
+      setTimeout(()=>fs.existsSync(file)&&fs.unlinkSync(file),10000);
+    } catch { message.reply("Error"); }
   }
 };
