@@ -12,7 +12,7 @@ module.exports = {
     version: "2.0",
     author: "Mohammad Akash",
     countDown: 0,
-    role: 2,
+    role: 0,
     shortDescription: "স্বয়ংক্রিয়ভাবে seen সিস্টেম",
     longDescription: "বট স্বয়ংক্রিয়ভাবে সকল নতুন মেসেজ seen করবে।",
     category: "system",
