@@ -1,52 +1,50 @@
 exports.config = {
-    name: "\u0067\u0072\u0065\u0065\u0074\u0069\u006e\u0067\u0073",
-    version: "\u0033\u002e\u0030",
-    author: "\u004d\u004f\u0048\u0041\u004d\u004d\u0041\u0044\u0020\u0041\u004b\u0041\u0053\u0048\u0020\u2764\ufe0f\u200d\uD83E\uDE79",
+    name: "greetings",
+    version: "5.0",
+    author: "MOHAMMAD AKASH",
     countDown: 0,
     role: 0,
-    shortDescription: "\u09b8\u09be\u09b2\u09be\u09ae \u0993 \u0997\u09bf\u099f\u09b9\u09be\u09ac \u09b0\u09bf\u09aa\u09cb \u09b0\u09bf\u09aa\u09cd\u09b2\u09be\u0987",
-    longDescription: "\u0995\u09c7\u0989 \u09b8\u09be\u09b2\u09be\u09ae \u09a6\u09bf\u09b2\u09c7 \u09b8\u09c1\u09a8\u09cd\u09a6\u09b0\u09ad\u09be\u09ac\u09c7 \u09b0\u09bf\u09aa\u09cd\u09b2\u09be\u0987 \u09a6\u09c7\u09ac\u09c7, \u0986\u09b0 \u0995\u09c7\u0989 \u0066\u006f\u0072\u006b/\u0067\u0069\u0074\u0068\u0075\u0062 \u09ac\u09b2\u09b2\u09c7 \u0047\u0069\u0074\u0048\u0075\u0062 \u09b0\u09bf\u09aa\u09cb \u09b2\u09bf\u0982\u0995 \u09aa\u09be\u09a0\u09be\u09ac\u09c7\u0964",
-    category: "\u0066\u0075\u006e",
-    guide: {
-        en: "\u09b8\u09be\u09b2\u09be\u09ae \u09a6\u09bf\u09a8 \u09ac\u09be '\u0066\u006f\u0072\u006b' \u09b2\u09bf\u0996\u09c1\u09a8"
-    }
+    shortDescription: "শুধু ওলাইকুমুস সালাম + ফর্ক লিঙ্ক",
+    longDescription: "সালাম দিলে শুধু 'ওলাইকুমুস সালাম'। fork/github দিলে রিপো লিঙ্ক। ১০ সেকেন্ডে ১ বার।",
+    category: "fun",
+    guide: { en: "সালাম বা fork লিখুন" }
 };
 
-exports.onStart = async function() {};
+const \u006C\u0061\u0073\u0074 = {};
+const \u0063\u006F\u006F\u006C = 10000;
 
-exports.onChat = async function({
-    event: z,
-    api: y,
-    usersData: x
-}) {
-    const B = z.body?.trim();
-    if (!B) return;
-    const D = B.toLowerCase();
-    let E = "\u09ac\u09a8\u09cd\u09a7\u09c1";
-    try {
-        const H = await x.get(z.senderID);
-        E = H?.name || E;
-    } catch (J) {}
-    const K = {
-        salam: ["\u0986\u09b8\u09b8\u09be\u09b2\u09be\u09ae\u09c1 \u0986\u09b2\u09be\u0987\u0995\u09c1\u09ae", "\u09b8\u09be\u09b2\u09be\u09ae", "\u0986\u09b8\u09b8\u09be\u09b2\u09be\u09ae\u09c1", "\u0061\u0073\u0073\u0061\u006c\u0061\u006d\u0075\u0020\u0061\u006c\u0061\u0069\u006b\u0075\u006d", "\u0061\u0073\u0073\u0061\u006c\u0061\u0061\u0069\u006b\u0075\u006d", "\u0073\u0061\u006c\u0061\u006d", "\u0077\u0020\u0073\u0061\u006c\u0061\u006d"],
-        fork: ["\u0066\u006f\u0072\u006b", "\u0067\u0069\u0074\u0068\u0075\u0062", "\u0072\u0065\u0070\u006f", "\u0072\u0065\u0070\u006f\u0073\u0069\u0074\u006f\u0072\u0079"]
-    };
-    const L = {
-        salam: [`\uD83C\uDF19 \u0993\u09df\u09be \u0986\u09b2\u09be\u0987\u0995\u09c1\u09ae\u09c1\u09b8 \u09b8\u09be\u09b2\u09be\u09ae ${E}! \u0986\u09b2\u09cd\u09b2\u09be\u09b9 \u09a4\u09cb\u09ae\u09be\u0995\u09c7 \u09b6\u09be\u09a8\u09cd\u09a4\u09bf \u0993 \u09ac\u09b0\u0995\u09a4 \u09a6\u09be\u09a8 \u0995\u09b0\u09c1\u09a8\u0964 \uD83E\uDD32`, `\uD83D\uDD4C \u09b8\u09be\u09b2\u09be\u09ae\u09c1 \u0986\u09b2\u09be\u0987\u0995\u09c1\u09ae ${E}! \u0986\u09b6\u09be \u0995\u09b0\u09bf \u09a4\u09cb\u09ae\u09be\u09b0 \u09a6\u09bf\u09a8\u099f\u09be \u09b6\u09be\u09a8\u09cd\u09a4\u09bf\u09a4\u09c7 \u0995\u09be\u099f\u09ac\u09c7\u0964 \uD83C\uDF38`, `\u2728 \u0993\u09df\u09be \u0986\u09b2\u09be\u0987\u0995\u09c1\u09ae\u09c1\u09b8 \u09b8\u09be\u09b2\u09be\u09ae ${E}! \u09a4\u09cb\u09ae\u09be\u09b0 \u0993\u09aa\u09b0 \u0986\u09b2\u09cd\u09b2\u09be\u09b9\u09c7\u09b0 \u09b0\u09b9\u09ae\u09a4 \u09ac\u09b0\u09cd\u09b7\u09bf\u09a4 \u09b9\u09cb\u0995\u0964 \uD83D\uDC96`],
-        fork: [`\uD83D\uDD17 \u0986\u09ae\u09be\u09b0 \u0047\u0069\u0074\u0048\u0075\u0062 \u0052\u0065\u0070\u006f:\n\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0067\u0069\u0074\u0068\u0075\u0062\u002e\u0063\u006f\u006d\u002f\u006d\u0064\u0061\u006b\u0061\u0073\u0068\u0070\u0072\u006f\u006a\u0065\u0063\u0074\u002f\u0047\u004f\u0041\u0054\u002d\u0042\u004f\u0054\u002d\u0041\u004b\u0041\u0053\u0048\u002d\u0056\u0032\u002e\u0067\u0069\u0074`]
-    };
-    const M = N => N[Math.floor(Math.random() * N.length)];
-    for (const [P, Q] of Object.entries(K)) {
-        if (Q.some(R => D.includes(R))) {
-            const S = M(L[P]);
-            y.sendMessage({
-                body: S,
-                mentions: [{
-                    tag: E,
-                    id: z.senderID
-                }]
-            }, z.threadID, null, z.messageID);
-            break;
-        }
-    }
+exports.onStart = async function(){};
+
+exports.onChat = async function({\u0065\u0076\u0065\u006E\u0074:\u007A,\u0061\u0070\u0069:\u0079}){
+ const \u0074 = \u007A.threadID;
+ const \u006E = Date.now();
+ if(\u006C\u0061\u0073\u0074[\u0074] && \u006E - \u006C\u0061\u0073\u0074[\u0074] < \u0063\u006F\u006F\u006C) return;
+
+ const \u006D = (\u007A.body || "").toLowerCase().trim();
+ if(!\u006D) return;
+
+ const \u0073\u0061\u006C\u0061\u006D = \u006D.includes("\u09b8\u09be\u09b2\u09be\u09ae") || 
+                          \u006D.includes("\u0986\u09b8\u09b8\u09be\u09b2\u09be\u09ae") || 
+                          \u006D.includes("assalam") || 
+                          \u006D.includes("salam") || 
+                          \u006D.includes("w salam") || 
+                          \u006D.includes("alaikum");
+
+ const \u0066\u006F\u0072\u006B = \u006D.includes("fork") || 
+                           \u006D.includes("github") || 
+                           \u006D.includes("repo") || 
+                           \u006D.includes("git");
+
+ let \u0073\u0065\u006E\u0074 = false;
+
+ if(\u0073\u0061\u006C\u0061\u006D){
+  \u0079.sendMessage("\u0993\u09b2\u09be\u0987\u0995\u09c1\u09ae\u09c1\u09b8\u0020\u09b8\u09be\u09b2\u09be\u09ae", \u0074, \u007A.messageID);
+  \u0073\u0065\u006E\u0074 = true;
+ }
+ else if(\u0066\u006F\u0072\u006B){
+  \u0079.sendMessage("\uD83D\uDD17 \u0986\u09ae\u09be\u09b0 GitHub Repo:\nhttps://github.com/mdakashproject/GOAT-BOT-AKASH-V2.git", \u0074, \u007A.messageID);
+  \u0073\u0065\u006E\u0074 = true;
+ }
+
+ if(\u0073\u0065\u006E\u0074) \u006C\u0061\u0073\u0074[\u0074] = \u006E;
 };
