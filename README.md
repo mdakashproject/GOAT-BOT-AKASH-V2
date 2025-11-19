@@ -75,14 +75,28 @@
   <hr style="width:80%;opacity:0.12"/>
 
   <h3>
-    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=20&duration=2800&pause=300&color=FF8C6B&center=true&vCenter=true&width:760&lines=💖+Owner+Details;%23+The+Man+Behind+the+Bot" alt="owner-details-title"/>
+    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=20&duration=3000&pause=200&color=FFD700&center=true&vCenter=true&width:760&lines=💬+Join+The+Official+Support+Group" alt="group-title"/>
+  </h3>
+
+  <p align="center" style="margin-top:10px;">
+    <a href="https://m.me/j/AbaLu1kVZB8R-vLR/" target="_blank">
+      <img src="https://img.shields.io/badge/Join_Messenger_Group-0078FF?style=for-the-badge&logo=facebook-messenger&logoColor=white" alt="Messenger Group Link"/>
+    </a>
+  </p>
+  <p align="center">
+    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=16&duration:2500&pause=500&color=00FFD1&center=true&vCenter=true&width:760&lines=Get+Instant+Support,+Updates+%26+Chat+Directly+with+the+Developer!" alt="group-cta-text"/>
+  </p>
+  
+  <hr style="width:80%;opacity:0.12"/>
+  <h3>
+    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=20&duration:2800&pause=300&color=FF8C6B&center=true&vCenter=true&width:760&lines=💖+Owner+Details;%23+The+Man+Behind+the+Bot" alt="owner-details-title"/>
   </h3>
 
   <p align="center">
-    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=16&duration=3000&pause=200&color=FFFFFF&center=true&vCenter=true&width:760&lines=👤+Name:+Mohammad+Akash;🚹+Gender:+Male;❤️+Relation:+Single;🎂+Age:+18+Plus;🕌+Religion:+Islam;🎓+Education:+Inter+2nd+Year;🏡+Address:+Dhaka-Gazipur" alt="owner-details-lines"/>
+    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=16&duration:3000&pause=200&color=FFFFFF&center=true&vCenter=true&width:760&lines=👤+Name:+Mohammad+Akash;🚹+Gender:+Male;❤️+Relation:+Single;🎂+Age:+18+Plus;🕌+Religion:+Islam;🎓+Education:+Inter+2nd+Year;🏡+Address:+Dhaka-Gazipur" alt="owner-details-lines"/>
   </p>
   <p align="center" style="margin-top:10px;">
-    <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=14&duration=2200&pause=200&color=FFFFFF&center=true&vCenter=true&width:760&lines=⚡+Ready+to+use+%7C+Premium+style+available+%7C+Contact:+@arakashiam" alt="footer-typing"/>
+    <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=14&duration:2200&pause=200&color=FFFFFF&center=true&vCenter=true&width:760&lines=⚡+Ready+to+use+%7C+Premium+style+available+%7C+Contact:+@arakashiam" alt="footer-typing"/>
   </p>
 
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=80&section=footer" style="margin-top:14px;"/>
