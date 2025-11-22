@@ -1,133 +1,156 @@
-const axios = require("axios");
-const fs = require("fs-extra");
+/cmd install fakechat.js const fs = require("fs-extra");
 const path = require("path");
-const https = require("https");
+const fetch = require("node-fetch");
+const { createCanvas, loadImage } = require("canvas");
 
 const balancePath = __dirname + "/coinxbalance.json";
-
-// 🪙 coinxbalance.json না থাকলে বানানো
-if (!fs.existsSync(balancePath)) {
+if (!fs.existsSync(balancePath))
   fs.writeFileSync(balancePath, JSON.stringify({}, null, 2));
-}
 
-// 🔹 ব্যালেন্স পড়া
 function getBalance(userID) {
   const data = JSON.parse(fs.readFileSync(balancePath));
   if (data[userID]?.balance != null) return data[userID].balance;
-  if (userID === "100078049308655") return 10000; // Owner ID
+  if (userID === "100078049308655") return 10000;
   return 100;
 }
 
-// 🔹 ব্যালেন্স আপডেট করা
 function setBalance(userID, balance) {
   const data = JSON.parse(fs.readFileSync(balancePath));
   data[userID] = { balance };
   fs.writeFileSync(balancePath, JSON.stringify(data, null, 2));
 }
 
-// 🔹 ব্যালেন্স ফরম্যাট করা
-function formatBalance(num) {
-  if (num >= 1e12) return (num / 1e12).toFixed(2).replace(/\.00$/, '') + "T$";
-  if (num >= 1e9) return (num / 1e9).toFixed(2).replace(/\.00$/, '') + "B$";
-  if (num >= 1e6) return (num / 1e6).toFixed(2).replace(/\.00$/, '') + "M$";
-  if (num >= 1e3) return (num / 1e3).toFixed(2).replace(/\.00$/, '') + "k$";
-  return num + "$";
+// DP loader
+async function loadUserDP(uid) {
+  try {
+    const url = `https://graph.facebook.com/${uid}/picture?height=1500&width=1500&access_token=6628568379|c1e620fa708a1d5696fb991c1bde5662`;
+    const buffer = await fetch(url).then(res => res.arrayBuffer());
+    return await loadImage(Buffer.from(buffer));
+  } catch (e) {
+    return await loadImage("https://i.postimg.cc/kgjgP6QX/messenger-dp.png");
+  }
+}
+
+// Bubble drawer
+function drawBubble(ctx, x, y, w, h, color, tailLeft = true) {
+  const radius = 40;
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + w - radius, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+  ctx.lineTo(x + w, y + h - radius);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+  ctx.lineTo(x + radius, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+  ctx.lineTo(x, y + radius);
+  ctx.quadraticCurveTo(x, y, x + radius, y);
+  ctx.fill();
+
+  if (tailLeft) {
+    ctx.beginPath();
+    ctx.moveTo(x, y + 60);
+    ctx.lineTo(x - 38, y + 90);
+    ctx.lineTo(x, y + 120);
+    ctx.closePath();
+    ctx.fill();
+  } else {
+    ctx.beginPath();
+    ctx.moveTo(x + w, y + 60);
+    ctx.lineTo(x + w + 38, y + 90);
+    ctx.lineTo(x + w, y + 120);
+    ctx.closePath();
+    ctx.fill();
+  }
 }
 
 module.exports = {
   config: {
     name: "fakechat",
-    version: "2.1",
-    author: "Chitron × Akash",
-    countDown: 5,
+    aliases: ["fchat"],
+    version: "9.0",
+    author: "MOHAMMAD AKASH",
     role: 0,
-    aliases: ["chatedit", "fchat"],
-    shortDescription: {
-      en: "Generate fake Messenger screenshot"
-    },
-    description: {
-      en: "Create a fake Messenger screenshot with UID/mention and custom messages"
-    },
+    countDown: 5,
+    shortDescription: { en: "Messenger FakeChat Dark Mode (Big Light Font)" },
     category: "fun",
-    guide: {
-      en: "+fakechat <@mention or UID> - <text1> - [text2] - [mode=dark]\n\nEach use costs 50 coins.\nDefault mode is light."
-    }
+    guide: { en: "+fakechat @mention - msg1 - [msg2]" }
   },
 
   onStart: async function ({ args, message, event, api }) {
     if (args.length < 2)
-      return message.reply("⚠️ Usage:\n+fakechat <@mention or UID> - <text1> - [text2] - [mode]");
+      return message.reply("Usage:\n+fakechat @mention - msg1 - msg2");
 
-    const input = args.join(" ").split("-").map(i => i.trim());
-    let [target, text1, text2 = "", modeRaw = "light"] = input;
+    const input = args.join(" ").split("-").map(a => a.trim());
+    let [target, text1, text2 = ""] = input;
 
-    // 🎯 UID বের করা
     let uid;
-    if (Object.keys(event.mentions).length > 0) {
+    if (event.mentions && Object.keys(event.mentions).length > 0)
       uid = Object.keys(event.mentions)[0];
-    } else if (/^\d{6,}$/.test(target)) {
-      uid = target;
-    } else {
-      return message.reply("❌ Invalid UID or mention.");
-    }
+    else if (/^\d{6,}$/.test(target)) uid = target;
+    else return message.reply("❌ Invalid UID!");
 
-    // 🔹 নাম আনা
     let name = "User";
     try {
-      const userInfo = await api.getUserInfo(uid);
-      name = userInfo[uid]?.name || name;
-    } catch (e) {
-      name = "User";
-    }
+      const info = await api.getUserInfo(uid);
+      name = info[uid]?.name || "User";
+    } catch {}
 
-    const mode = modeRaw.toLowerCase() === "dark" ? "dark" : "light";
-
-    // 💰 ব্যালেন্স চেক ও কাটানো
+    // Balance
     const senderID = event.senderID;
-    let balance = getBalance(senderID);
+    let bal = getBalance(senderID);
     const cost = 50;
+    if (bal < cost) return message.reply("❌ Not enough balance");
+    setBalance(senderID, bal - cost);
 
-    if (balance < cost) {
-      return message.reply(`❌ You need at least ${formatBalance(cost)} to use this command.\n💰 Your Balance: ${formatBalance(balance)}`);
+    // Load DP
+    const dp = await loadUserDP(uid);
+
+    // Canvas
+    const width = 1080, height = 1500;
+    const canvas = createCanvas(width, height);
+    const ctx = canvas.getContext("2d");
+
+    // Dark background
+    ctx.fillStyle = "#18191A";
+    ctx.fillRect(0, 0, width, height);
+
+    // Draw DP
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(120, 180, 90, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.drawImage(dp, 30, 90, 180, 180);
+    ctx.restore();
+
+    // Name & time
+    ctx.fillStyle = "#fff";
+    ctx.font = "300 55px Sans-serif"; // light & bigger font
+    ctx.fillText(name, 250, 160);
+    ctx.fillStyle = "#aaa";
+    ctx.font = "300 40px Sans-serif"; // light & smaller for status
+    ctx.fillText("Active now", 250, 210);
+
+    // Left bubble = Receiver (dark grey)
+    drawBubble(ctx, 50, 280, 700, 150, "#242526", true);
+    ctx.fillStyle = "#fff";
+    ctx.font = "300 55px Sans-serif";
+    ctx.fillText(text1, 90, 370);
+
+    // Right bubble = Sender (blue)
+    if (text2) {
+      const bubbleX = width - 50 - 700;
+      drawBubble(ctx, bubbleX, 480, 700, 150, "#0560FF", false);
+      ctx.fillStyle = "#fff";
+      ctx.font = "300 55px Sans-serif";
+      ctx.fillText(text2, bubbleX + 40, 570);
     }
 
-    balance -= cost;
-    setBalance(senderID, balance);
+    const imgPath = path.join(__dirname, "tmp", `fakechat_${senderID}.png`);
+    fs.ensureDirSync(path.dirname(imgPath));
+    fs.writeFileSync(imgPath, canvas.toBuffer());
 
-    // 📸 API দিয়ে ফেক চ্যাট তৈরি
-    const apiURL = `https://fchat-5pni.onrender.com/fakechat?uid=${encodeURIComponent(uid)}&name=${encodeURIComponent(name)}&text1=${encodeURIComponent(text1)}&text2=${encodeURIComponent(text2)}&mode=${mode}`;
-
-    const cachePath = path.join(__dirname, "tmp", `fchat_${senderID}.png`);
-    fs.ensureDirSync(path.dirname(cachePath));
-
-    const file = fs.createWriteStream(cachePath);
-    https.get(apiURL, res => {
-      res.pipe(file);
-      file.on("finish", () => {
-        file.close(() => {
-          const msg = 
-`━━━━━━━━━━━━━━━━━━━━━━━
-🎭 𝗙𝗔𝗞𝗘 𝗖𝗛𝗔𝗧 𝗚𝗘𝗡𝗘𝗥𝗔𝗧𝗢𝗥
-━━━━━━━━━━━━━━━━━━━━━━━
-👤 Name: ${name}
-💬 Message 1: ${text1}
-${text2 ? `💬 Message 2: ${text2}\n` : ""}
-🎨 Mode: ${mode.toUpperCase()}
-💸 Used: ${formatBalance(cost)}
-💰 Balance Left: ${formatBalance(balance)}
-━━━━━━━━━━━━━━━━━━━━━━━
-🧠 Powered by Akash × GPT
-━━━━━━━━━━━━━━━━━━━━━━━`;
-
-          message.reply({
-            body: msg,
-            attachment: fs.createReadStream(cachePath)
-          }, () => fs.unlinkSync(cachePath));
-        });
-      });
-    }).on("error", err => {
-      fs.unlink(cachePath, () => {});
-      message.reply("❌ Failed to generate fake chat.");
-    });
+    // Only send image
+    message.reply({ attachment: fs.createReadStream(imgPath) }, () => fs.unlinkSync(imgPath));
   }
 };
