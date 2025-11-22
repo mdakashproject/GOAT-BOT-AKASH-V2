@@ -1,4 +1,4 @@
-/cmd install fakechat.js const fs = require("fs-extra");
+const fs = require("fs-extra");
 const path = require("path");
 const fetch = require("node-fetch");
 const { createCanvas, loadImage } = require("canvas");
