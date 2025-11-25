@@ -1,48 +1,36 @@
 const fs = require("fs");
 const axios = require("axios");
+const path = require("path");
 
 let lastPlayed = -1;
 
 module.exports = {
   config: {
     name: "gan",
-    version: "1.0.0",
+    version: "1.0.1",
     role: 0,
-    author: "𝐀𝐊𝐀𝐒𝐇",
-    shortDescription: "Play random song with prefix command 🎶",
-    longDescription: "Sends a random mp3 song from a preset list (Google Drive direct links).",
+    author: "MOHAMMAD AKASH",
+    shortDescription: "Play random song with command 🎶",
+    longDescription: "Sends a random mp3 song from preset Catbox links.",
     category: "music",
-    guide: {
-      en: "{p}gan"
-    }
+    guide: "{p}gan"
   },
 
-  onStart: async function ({ api, event }) {
+  onStart: async function({ api, event }) {
     const { threadID, messageID } = event;
 
     const songLinks = [
-      "https://drive.google.com/uc?export=download&id=1O6QyM8DWiI7nUuxFqGTPLmPb0InfBIaV",
-      "https://drive.google.com/uc?export=download&id=1x72FcjgSbSYnxkmm-hxNEPsoBPv9oS5a",
-      "https://drive.google.com/uc?export=download&id=1ojdAjHPIFO83FrddFcTEL0UbfMKbUSCX",
-      "https://drive.google.com/uc?export=download&id=1mTJk7eaSJhOvR7M3EoE6gS9kCpIxqUC7",
-      "https://drive.google.com/uc?export=download&id=1RxI3YUo9IhXr4YzVRcAZCpfzOTWN3EUj",
-      "https://drive.google.com/uc?export=download&id=11cuSHsHooeXg-amKcsdxLBBrbFLS-VTN",
-      "https://drive.google.com/uc?export=download&id=1hZR8uXhqWE6QqVtwAAXtjI4u4vbm3TVh",
-      "https://drive.google.com/uc?export=download&id=1Yud0fl8FQc1je-eqB9cyMH2bn1iVQgv-",
-      "https://drive.google.com/uc?export=download&id=1mtfIAxj5mXjh0Q9yDl0f_1PoRRN9TKdl",
-      "https://drive.google.com/uc?export=download&id=1LVApSdA4Rzde-1pRbaPpkXhiSGeoOHdO",
-      "https://drive.google.com/uc?export=download&id=1HMO1Fjz0aAMUh_AFaVF3psXIUfO1Uadr",
-      "https://drive.google.com/uc?export=download&id=1I7Xr0PHs8sm41M525ZdPBC6CQ3bWjN2u"
+      "https://files.catbox.moe/etsdn9.mp3"
     ];
 
     if (songLinks.length === 0) {
-      return api.sendMessage("❌ কোনো গান পাওয়া যায়নি!", threadID, messageID);
+      return api.sendMessage("❌ Nᴏ sᴏɴɢs ᴄᴏᴜʟᴅ ʙᴇ ғᴏᴜɴᴅ!", threadID, messageID);
     }
 
     // ⏳ React for loading
-    api.setMessageReaction("🎵", event.messageID, () => {}, true);
+    api.setMessageReaction("🎵", messageID, () => {}, true);
 
-    // 🎲 Random song index (not same as last)
+    // 🎲 Random song index (avoid repeat)
     let index;
     do {
       index = Math.floor(Math.random() * songLinks.length);
@@ -50,7 +38,7 @@ module.exports = {
     lastPlayed = index;
 
     const url = songLinks[index];
-    const filePath = `${__dirname}/cache/song_${index}.mp3`;
+    const filePath = path.join(__dirname, `/cache/song_${index}.mp3`);
 
     try {
       const response = await axios({
@@ -65,7 +53,7 @@ module.exports = {
       writer.on("finish", async () => {
         api.sendMessage(
           {
-            body: "🎶 Here's your random song 🎧",
+            body: "🎶 Hᴇʀᴇ's ʏᴏᴜʀ sᴏɴɢ 🎧",
             attachment: fs.createReadStream(filePath)
           },
           threadID,
@@ -78,11 +66,12 @@ module.exports = {
 
       writer.on("error", (err) => {
         console.error("Error writing file:", err);
-        api.sendMessage("❌ গান পাঠাতে সমস্যা হয়েছে!", threadID, messageID);
+        api.sendMessage("❌ Fᴀɪʟᴇᴅ ᴛᴏ sᴇɴᴅ sᴏɴɢ!", threadID, messageID);
       });
+
     } catch (err) {
       console.error("Download error:", err);
-      api.sendMessage("⚠️ গান ডাউনলোড করতে ব্যর্থ!", threadID, messageID);
+      api.sendMessage("⚠️ Fᴀɪʟᴇᴅ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ sᴏɴɢ!", threadID, messageID);
     }
   }
 };
