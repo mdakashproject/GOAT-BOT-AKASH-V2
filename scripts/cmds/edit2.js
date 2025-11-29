@@ -9,7 +9,7 @@ module.exports = {
     name: "editpro",
     aliases: ["edit2", "nanopro"],
     version: "1.0",
-    author: "MOHAMMAD AKASH x Rx",
+    author: "MOHAMMAD AKASH",
     role: 0,
     cooldown: 5,
     description: "AI image editing with prompt + image",
@@ -24,11 +24,8 @@ module.exports = {
     let imageUrl;
 
     // Reply image handler
-    if (
-      event.type === "message_reply" &&
-      event.messageReply?.attachments?.length > 0
-    ) {
-      let att = event.messageReply.attachments[0];
+    if (event.messageReply && event.messageReply.attachments?.length > 0) {
+      const att = event.messageReply.attachments[0];
       if (att.type === "photo") imageUrl = att.url;
     }
 
@@ -47,7 +44,8 @@ module.exports = {
     if (!prompt)
       return message.reply("❌ Please write a prompt.\nExample: !edit cartoon");
 
-    message.react("⏳");
+    // Notify user
+    await message.reply("⏳ Editing your image...");
 
     let filePath;
 
@@ -67,7 +65,7 @@ module.exports = {
       const imgStream = await axios.get(editedURL, { responseType: "stream" });
 
       const cacheDir = path.join(__dirname, "cache");
-      if (!fs.existsSync(cacheDir)) fs.mkdirpSync(cacheDir);
+      if (!fs.existsSync(cacheDir)) fs.ensureDirSync(cacheDir);
 
       filePath = path.join(cacheDir, `edit_${Date.now()}.png`);
 
@@ -79,8 +77,6 @@ module.exports = {
         writer.on("error", reject);
       });
 
-      message.react("✅");
-
       return message.reply(
         {
           body: `✨ Edited image generated!\nPrompt: ${prompt}`,
@@ -90,7 +86,6 @@ module.exports = {
       );
 
     } catch (err) {
-      message.react("❌");
       return message.reply("❌ Failed to edit the image.\nError: " + err.message);
     }
   }
