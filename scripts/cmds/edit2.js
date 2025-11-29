@@ -6,10 +6,10 @@ const API_ENDPOINT = "https://tawsif.is-a.dev/gemini/nano-banana";
 
 module.exports = {
   config: {
-    name: "edit2",
-    aliases: ["imgedit", "aiedit"],
+    name: "editpro",
+    aliases: ["edit2", "nanopro"],
     version: "1.0",
-    author: "MOHAMMAD AKASH",
+    author: "MOHAMMAD AKASH x Rx",
     role: 0,
     cooldown: 5,
     description: "AI image editing with prompt + image",
