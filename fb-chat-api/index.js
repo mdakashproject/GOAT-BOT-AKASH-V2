@@ -114,10 +114,10 @@ function buildAPI(globalOptions, html, jar) {
                 }
             } catch { }
             if (fb_dtsg) {
-                console.log("Đã tìm thấy fb_dtsg");
+                console.log("Found fb_dtsg!");
             }
         } catch (e) {
-            console.log("Lỗi khi tìm fb_dtsg:", e);
+            console.log("Error finding fb_dtsg:", e);
         }
     }
     extractFromHTML();
@@ -126,33 +126,33 @@ function buildAPI(globalOptions, html, jar) {
     var userCookie = cookies.find(cookie => cookie.cookieString().startsWith("c_user="));
     var tiktikCookie = cookies.find(cookie => cookie.cookieString().startsWith("i_user="));
     if (!userCookie && !tiktikCookie) {
-        return log.error('login', "Không tìm thấy cookie cho người dùng, vui lòng kiểm tra lại thông tin đăng nhập");
+        return log.error("Error! Your cookiestate is not valid!");
     }
     if (html.includes("/checkpoint/block/?next")) {
-        return log.error('login', "Appstate die, vui lòng thay cái mới!", 'error');
+        return log.error('error', "Appstate is dead rechange it!", 'error');
     }
     userID = (tiktikCookie || userCookie).cookieString().split("=")[1];
     //logger.log(`${cra(`[ CONNECT ]`)} Logged in as ${userID}`, "DATABASE");
     try { clearInterval(checkVerified); } catch (_) { }
     const clientID = (Math.random() * 2147483648 | 0).toString(16);
-    let mqttEndpoint = `wss://edge-chat.facebook.com/chat?region=prn&sid=${userID}`;
-    let region = "PRN";
+    let mqttEndpoint = `wss://edge-chat.facebook.com/chat?region=pnb&sid=${userID}`;
+    let region = "PNB";
 
     try {
         const endpointMatch = html.match(/"endpoint":"([^"]+)"/);
         if (endpointMatch.input.includes("601051028565049")) {
-          console.log(`lỗi login vì dính tài khoản tự động`);
+          console.log(`login error.`);
           ditconmemay = true;
         }
         if (endpointMatch) {
             mqttEndpoint = endpointMatch[1].replace(/\\\//g, '/');
             const url = new URL(mqttEndpoint);
-            region = url.searchParams.get('region')?.toUpperCase() || "PRN";
+            region = url.searchParams.get('region')?.toUpperCase() || "PNB";
         }
     } catch (e) {
         console.log('Using default MQTT endpoint');
     }
-    log.info('login', 'Fix fca by DongDev x Satoru, published By Team Calyx');
+    log.info('Logging in...');
     var ctx = {
         userID: userID,
         jar: jar,
@@ -251,7 +251,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
                 const cookieData = JSON.parse("[\"" + utils.getFrom(val, "", "]") + "]");
                 jar.setCookie(utils.formatCookie(cookieData, "facebook"), "https://www.facebook.com");
             });
-            log.info("login", "Logging in...");
+            log.info("RX ABDULLAH FCA Logging in...");
             const loginRes = await utils.post(
                 "https://www.facebook.com/login/device-based/regular/login/?login_attempt=1&lwv=110",
                 jar,
@@ -397,7 +397,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
 
     mainPromise
         .then(async () => {
-            log.info('Đăng nhập thành công');
+            log.info('RX-ABDULLAH FCA Login successful');
             callback(null, api);
         })
         .catch(e => {
