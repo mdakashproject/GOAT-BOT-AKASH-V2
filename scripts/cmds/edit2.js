@@ -9,7 +9,7 @@ module.exports = {
     name: "editpro",
     aliases: ["edit2", "nanopro"],
     version: "1.0",
-    author: "MOHAMMAD AKASH",
+    author: "MOHAMMAD AKASH x rX",
     role: 0,
     cooldown: 5,
     description: "AI image editing with prompt + image",
