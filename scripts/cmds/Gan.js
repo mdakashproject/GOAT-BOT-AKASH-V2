@@ -7,7 +7,7 @@ let lastPlayed = -1;
 module.exports = {
   config: {
     name: "gan",
-    version: "1.0.1",
+    version: "1.0.2",
     role: 0,
     author: "MOHAMMAD AKASH",
     shortDescription: "Play random song with command 🎶",
@@ -20,7 +20,15 @@ module.exports = {
     const { threadID, messageID } = event;
 
     const songLinks = [
-      "https://files.catbox.moe/etsdn9.mp3"
+      "https://files.catbox.moe/etsdn9.mp3",
+      "https://files.catbox.moe/ayepdz.mp3",
+      "https://files.catbox.moe/oaecnx.mp3",
+      "https://files.catbox.moe/xtpf61.mp3",
+      "https://files.catbox.moe/12grz0.mp3",
+      "https://files.catbox.moe/aaqddo.mp3",
+      "https://files.catbox.moe/k3acvx.mp3",
+      "https://files.catbox.moe/nry1qv.mp3",
+      "https://files.catbox.moe/23e8u1.mp3"
     ];
 
     if (songLinks.length === 0) {
