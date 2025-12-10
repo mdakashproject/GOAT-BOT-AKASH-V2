@@ -1,4 +1,4 @@
-/cmd install autoreact.js module.exports = {
+module.exports = {
   config: {
     name: "autoreact",
     version: "4.0.0",
