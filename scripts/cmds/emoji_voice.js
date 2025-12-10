@@ -64,7 +64,9 @@ module.exports = {
       "🙂": ["https://files.catbox.moe/mt5il0.mp3"],
       "😒": ["https://files.catbox.moe/mt5il0.mp3"],
       "😓": ["https://files.catbox.moe/zh3mdg.mp3"],
-      "🤧": ["https://files.catbox.moe/zh3mdg.mp3"]
+      "🤧": ["https://files.catbox.moe/zh3mdg.mp3"],
+      "🙄": ["https://files.catbox.moe/vgzkeu.mp3"]
+
     };
 
     const emoji = body.trim();
