@@ -45,7 +45,12 @@ module.exports = {
 
                 await api.sendMessage(
                     {
-                        body: `🎬 *${title || "ভিডিও"}*`,
+                        body:
+`📥 ᴠɪᴅᴇᴏ ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ  
+━━━━━━━━━━━━━━━  
+🎬 ᴛɪᴛʟᴇ: ${title || "Video File"}  
+📦 sɪᴢᴇ: ${fileSizeInMB.toFixed(2)} MB  
+━━━━━━━━━━━━━━━`,
                         attachment: fs.createReadStream(filePath)
                     },
                     threadID,
@@ -56,7 +61,6 @@ module.exports = {
 
             } catch {
                 failCount++;
-                // কোনো এরর মেসেজ পাঠাবে না
             }
         }
 
@@ -65,15 +69,5 @@ module.exports = {
             successCount > 0 ? "⚠️" : "❌";
 
         api.setMessageReaction(finalReaction, messageID, () => {}, true);
-
-        // সারাংশ মেসেজ চাইলে নিচেরটা অন রাখো, না চাইলে কমেন্ট করে দিও ↓
-        if (uniqueLinks.length > 1) {
-            setTimeout(() => {
-                api.sendMessage(
-                    `📊 সারাংশ: ✅ ${successCount} সফল | ❌ ${failCount} ব্যর্থ`,
-                    threadID
-                );
-            }, 2000);
-        }
     }
 };
