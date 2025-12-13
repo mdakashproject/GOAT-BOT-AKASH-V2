@@ -1,15 +1,15 @@
-module.exports = {
+/cmd install autoreact.js module.exports = {
   config: {
     name: "autoreact",
-    version: "4.0.0",
+    version: "4.1.0",
     author: "MOHAMMAD AKASH",
     role: 0,
     category: "system",
-    shortDescription: "Full mega auto react with all emoji + text",
-    longDescription: "Bot reacts automatically based on emojis & common words"
+    shortDescription: "Smart auto react (emoji + text)",
+    longDescription: "Auto react only when emoji or text trigger is matched"
   },
 
-  onStart: async function () { },
+  onStart: async function () {},
 
   onChat: async function ({ api, event }) {
     try {
@@ -19,41 +19,41 @@ module.exports = {
       const text = body.toLowerCase();
 
       // ==========================
-      // Category-based emoji reaction
+      // Emoji Categories
       // ==========================
       const categories = [
-        { emojis: ["😀","😃","😄","😁","😆","😅","🤣","😂","🙂","🙃","🥰","😍","😋","😙","😚","☺️","😗","😛","😜","🤪","😝","🤑","🤗","🤭","😹","😸"], react: "😆" }, // happy/funny
-        { emojis: ["😢","😭","🥺","😞","😔","💔","☹️","🙁","😟","😖","😣","😩","😓","😫","🥲","🥹","😩"], react: "😢" }, // sad
-        { emojis: ["❤️","💖","💘","💝","💗","💕","💞","💓","💟","❣️","😍","😘","🥰","😇","😛","🫶","❤️‍🩹"], react: "❤️" }, // love
-        { emojis: ["😡","😠","🤬","👿","😈"], react: "😡" }, // angry
-        { emojis: ["😮","😱","😲","😧","😦","😯","😳","🥵","🥶"], react: "😮" }, // shocked
-        { emojis: ["😎","🕶️","🔥","💯","🥵"], react: "😎" }, // cool/fire
-        { emojis: ["💀","☠️"], react: "💀" }, // dark
-        { emojis: ["🎉","🥳","🎊"], react: "🎉" }, // party
-        { emojis: ["😴","💤","😪","🤤"], react: "😴" }, // sleep
-        { emojis: ["🤯"], react: "🤯" }, // mind blown
-        { emojis: ["🤔"], react: "🤔" }, // thinking
-        { emojis: ["🤡","👹","👺"], react: "🤡" }, // funny/troll
-        { emojis: ["👍","👌","🙏","🤝","✌️","👊"], react: "👍" } // like
+        { emojis: ["😀","😃","😄","😁","😆","😅","🤣","😂","🙂","🙃","🥰","😍","😋","😙","😚","☺️","😗","😛","😜","🤪","😝","🤑","🤗","🤭","😹","😸"], react: "😆" },
+        { emojis: ["😢","😭","🥺","😞","😔","💔","☹️","🙁","😟","😖","😣","😩","😓","😫","🥲","🥹"], react: "😢" },
+        { emojis: ["❤️","💖","💘","💝","💗","💕","💞","💓","💟","❣️","😍","😘","🥰","😇","🫶","❤️‍🩹"], react: "❤️" },
+        { emojis: ["😡","😠","🤬","👿","😈"], react: "😡" },
+        { emojis: ["😮","😱","😲","😧","😦","😯","😳","🥵","🥶"], react: "😮" },
+        { emojis: ["😎","🕶️","🔥","💯"], react: "😎" },
+        { emojis: ["💀","☠️"], react: "💀" },
+        { emojis: ["🎉","🥳","🎊"], react: "🎉" },
+        { emojis: ["😴","💤","😪","🤤"], react: "😴" },
+        { emojis: ["🤯"], react: "🤯" },
+        { emojis: ["🤔"], react: "🤔" },
+        { emojis: ["🤡","👹","👺"], react: "🤡" },
+        { emojis: ["👍","👌","🙏","🤝","✌️","👊"], react: "👍" }
       ];
 
       // ==========================
-      // Common text-based reaction
+      // Text Triggers
       // ==========================
       const textTriggers = [
-        { keys: ["haha","lol","funny","xd","moja","bal","bukacuda","dhur","abal","magi","hmm"], react: "😆" },
+        { keys: ["haha","lol","funny","xd","moja","dhur","abal"], react: "😆" },
         { keys: ["sad","cry","mon kharap","kharap","depressed"], react: "😢" },
-        { keys: ["love","valobasi","miss you","❤️"], react: "❤️" },
+        { keys: ["love","valobasi","miss you"], react: "❤️" },
         { keys: ["angry","rag","rage"], react: "😡" },
         { keys: ["wow","omg","what"], react: "😮" },
         { keys: ["cool","nice","lit"], react: "😎" },
-        { keys: ["ok","yes","hmm","okay"], react: "👍" }
+        { keys: ["ok","yes","okay","hmm"], react: "👍" }
       ];
 
-      let react = "😘"; // default
+      let react = null;
 
       // ==========================
-      // check emoji first
+      // Emoji check first
       // ==========================
       outer:
       for (const cat of categories) {
@@ -66,9 +66,9 @@ module.exports = {
       }
 
       // ==========================
-      // check text triggers if no emoji matched
+      // Text check if emoji not found
       // ==========================
-      if (react === "😘") {
+      if (!react) {
         outer2:
         for (const t of textTriggers) {
           for (const k of t.keys) {
@@ -80,8 +80,13 @@ module.exports = {
         }
       }
 
+      // ==========================
+      // React only if matched
+      // ==========================
+      if (!react) return;
+
       await api.setMessageReaction(react, messageID, () => {}, true);
 
-    } catch {}
+    } catch (e) {}
   }
 };
