@@ -9,7 +9,7 @@ module.exports = {
     role: 2,
     shortDescription: "Upload media to Google Drive",
     longDescription: "Reply to any video/image/audio or give a direct media URL to upload it to Google Drive and get a sharable link.",
-    category: "utility",
+    category: "media",
   },
 
   onStart: async function ({ api, event, args }) {
