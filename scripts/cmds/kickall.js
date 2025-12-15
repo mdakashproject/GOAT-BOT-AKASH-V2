@@ -7,7 +7,7 @@ module.exports = {
     shortDescription: {
       en: "Kick everyone from the group"
     },
-    category: "admin",
+    category: "owner",
     guide: {
       en: "{prefix}kickall"
     }
