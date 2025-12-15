@@ -40,7 +40,7 @@ module.exports = {
     countDown: 15,
     role: 0,
     longDescription: "Edit or modify an existing image using a text prompt.",
-    category: "ai-image",
+    category: "media",
     guide: {
       en: "{pn} [modification prompt] OR reply to an image with [modification prompt]"
     }
