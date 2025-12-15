@@ -1,91 +1,92 @@
-/cmd install autoreact.js module.exports = {
+module.exports = {
   config: {
     name: "autoreact",
-    version: "4.1.0",
+    version: "4.4.0",
     author: "MOHAMMAD AKASH",
     role: 0,
     category: "system",
-    shortDescription: "Smart auto react (emoji + text)",
-    longDescription: "Auto react only when emoji or text trigger is matched"
+    shortDescription: "Auto react (emoji + text)",
+    longDescription: "Stable auto reaction without silent API fail"
   },
 
   onStart: async function () {},
 
   onChat: async function ({ api, event }) {
     try {
-      const { messageID, body } = event;
+      const { messageID, body, senderID, threadID } = event;
       if (!messageID || !body) return;
 
+      // ❌ নিজের / বটের মেসেজে রিয়েক্ট না
+      if (senderID === api.getCurrentUserID()) return;
+
+      // ❌ হালকা cooldown (2.5s)
+      global.__autoReactCooldown ??= {};
+      if (
+        global.__autoReactCooldown[threadID] &&
+        Date.now() - global.__autoReactCooldown[threadID] < 2500
+      ) return;
+
+      global.__autoReactCooldown[threadID] = Date.now();
+
       const text = body.toLowerCase();
+      let react = null;
 
       // ==========================
       // Emoji Categories
       // ==========================
       const categories = [
-        { emojis: ["😀","😃","😄","😁","😆","😅","🤣","😂","🙂","🙃","🥰","😍","😋","😙","😚","☺️","😗","😛","😜","🤪","😝","🤑","🤗","🤭","😹","😸"], react: "😆" },
-        { emojis: ["😢","😭","🥺","😞","😔","💔","☹️","🙁","😟","😖","😣","😩","😓","😫","🥲","🥹"], react: "😢" },
-        { emojis: ["❤️","💖","💘","💝","💗","💕","💞","💓","💟","❣️","😍","😘","🥰","😇","🫶","❤️‍🩹"], react: "❤️" },
-        { emojis: ["😡","😠","🤬","👿","😈"], react: "😡" },
-        { emojis: ["😮","😱","😲","😧","😦","😯","😳","🥵","🥶"], react: "😮" },
-        { emojis: ["😎","🕶️","🔥","💯"], react: "😎" },
-        { emojis: ["💀","☠️"], react: "💀" },
-        { emojis: ["🎉","🥳","🎊"], react: "🎉" },
-        { emojis: ["😴","💤","😪","🤤"], react: "😴" },
-        { emojis: ["🤯"], react: "🤯" },
-        { emojis: ["🤔"], react: "🤔" },
-        { emojis: ["🤡","👹","👺"], react: "🤡" },
-        { emojis: ["👍","👌","🙏","🤝","✌️","👊"], react: "👍" }
+        { e: ["😂","🤣","😆","😄","😁"], r: "😆" },
+        { e: ["😭","😢","🥺","💔"], r: "😢" },
+        { e: ["❤️","💖","💘","🥰","😍"], r: "❤️" },
+        { e: ["😡","🤬"], r: "😡" },
+        { e: ["😮","😱","😲"], r: "😮" },
+        { e: ["😎","🔥","💯"], r: "😎" },
+        { e: ["👍","👌","🙏"], r: "👍" },
+        { e: ["🎉","🥳"], r: "🎉" }
       ];
 
       // ==========================
       // Text Triggers
       // ==========================
-      const textTriggers = [
-        { keys: ["haha","lol","funny","xd","moja","dhur","abal"], react: "😆" },
-        { keys: ["sad","cry","mon kharap","kharap","depressed"], react: "😢" },
-        { keys: ["love","valobasi","miss you"], react: "❤️" },
-        { keys: ["angry","rag","rage"], react: "😡" },
-        { keys: ["wow","omg","what"], react: "😮" },
-        { keys: ["cool","nice","lit"], react: "😎" },
-        { keys: ["ok","yes","okay","hmm"], react: "👍" }
+      const texts = [
+        { k: ["haha","lol","moja","xd"], r: "😆" },
+        { k: ["sad","kharap","mon kharap","cry"], r: "😢" },
+        { k: ["love","valobasi","miss"], r: "❤️" },
+        { k: ["rag","angry","rage"], r: "😡" },
+        { k: ["wow","omg"], r: "😮" },
+        { k: ["ok","yes","okay","hmm"], r: "👍" }
       ];
-
-      let react = null;
 
       // ==========================
       // Emoji check first
       // ==========================
-      outer:
-      for (const cat of categories) {
-        for (const e of cat.emojis) {
-          if (text.includes(e)) {
-            react = cat.react;
-            break outer;
-          }
+      for (const c of categories) {
+        if (c.e.some(x => text.includes(x))) {
+          react = c.r;
+          break;
         }
       }
 
       // ==========================
-      // Text check if emoji not found
+      // Text check
       // ==========================
       if (!react) {
-        outer2:
-        for (const t of textTriggers) {
-          for (const k of t.keys) {
-            if (text.includes(k)) {
-              react = t.react;
-              break outer2;
-            }
+        for (const t of texts) {
+          if (t.k.some(x => text.includes(x))) {
+            react = t.r;
+            break;
           }
         }
       }
 
-      // ==========================
-      // React only if matched
-      // ==========================
+      // ❌ কিছু না মিললে রিয়েক্ট না
       if (!react) return;
 
-      await api.setMessageReaction(react, messageID, () => {}, true);
+      // ⏱ Human-like delay
+      await new Promise(r => setTimeout(r, 800));
+
+      // ✅ FINAL FIX — NO callback, NO true
+      api.setMessageReaction(react, messageID);
 
     } catch (e) {}
   }
