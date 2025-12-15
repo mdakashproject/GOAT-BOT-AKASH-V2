@@ -19,7 +19,7 @@ module.exports = {
     countDown: 10,
     role: 0,
     shortDescription: "FF Profile - Full Windows Look",
-    category: "ff",
+    category: "game",
     guide: "{pn}ffinfo [UID]"
   },
 
