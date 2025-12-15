@@ -9,7 +9,7 @@ module.exports.config = {
   countDown: 5,
   role: 0,
   shortDescription: "Calendar up time card",
-  category: "utility",
+  category: "fun",
   guide: { en: "{p}time" }
 };
 
