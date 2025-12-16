@@ -95,7 +95,7 @@ module.exports = {
       const totalHours = Math.floor(d.asHours());
 
       const msg = `━━━━━━━━━━━━━━
-🎂 Fᴏɴᴛ Sᴍᴀʀᴛ Aɢᴇ 🎂
+🎂 Sᴍᴀʀᴛ Aɢᴇ Cᴏᴜɴᴛ🎂
 ━━━━━━━━━━━━━━
 
 📅 Bɪʀᴛʜᴅᴀʏ: ${String(day).padStart(2,"0")}/${String(month).padStart(2,"0")}/${year}
