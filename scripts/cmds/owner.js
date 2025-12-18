@@ -18,8 +18,8 @@ module.exports = {
   onStart: async function ({ api, event }) {
     const ownerText = 
 `╭─ 👑 Oᴡɴᴇʀ Iɴғᴏ 👑 ─╮
-│ 👤 Nᴀᴍᴇ       : 𝙈𝙤𝙝𝙖𝙢𝙢𝙖𝙙 𝘼𝙠𝙖𝙨ʜ
-│ 🧸 Nɪᴄᴋ       : 𝘼𝙠𝙖𝙨ʙ
+│ 👤 Nᴀᴍᴇ       : Mᴏʜᴀᴍᴍᴀᴅ Aᴋᴀsʜ
+│ 🧸 Nɪᴄᴋ       : Aᴋᴀsʜ
 │ 🎂 Aɢᴇ        : 18+
 │ 💘 Rᴇʟᴀᴛɪᴏɴ : Sɪɴɢʟᴇ
 │ 🎓 Pʀᴏғᴇssɪᴏɴ : Sᴛᴜᴅᴇɴᴛ
