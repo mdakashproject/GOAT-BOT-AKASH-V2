@@ -2,7 +2,7 @@ module.exports = {
   config: {
     name: "join",
     aliases: ["addme"],
-    version: "1.2",
+    version: "1.3",
     author: "MOHAMMAD AKASH",
     shortDescription: "Add yourself to a group by TID",
     longDescription: "Bot shows all groups and allows bot admin to join them",
@@ -14,30 +14,29 @@ module.exports = {
   onStart: async function ({ message, api, event }) {
     const { threadID, messageID, senderID } = event;
 
-    // 🔒 Extra security (double protection)
     if (!global.GoatBot.config.adminBot.includes(senderID))
-      return message.reply("❌ এই কমান্ড শুধু Bot Admin ব্যবহার করতে পারবে!");
+      return message.reply("❌ Tʜɪs Cᴏᴍᴍᴀɴᴅ Iꜱ Fᴏʀ Bᴏᴛ Aᴅᴍɪɴ Oɴʟʏ!");
 
     try {
       const allThreads = await api.getThreadList(100, null, ["INBOX"]);
       const groups = allThreads.filter(t => t.isGroup);
 
       if (!groups.length)
-        return message.reply("❌ বর্তমানে কোনো গ্রুপ পাওয়া যায়নি!");
+        return message.reply("❌ Tʜᴇʀᴇ Aʀᴇ Cᴜʀʀᴇɴᴛʟʏ Nᴏ Gʀᴏᴜᴘs!");
 
-      let msg = "👑 𝗔ᴅᴍɪɴ 𝗚ʀᴏᴜᴘ 𝗟ɪsᴛ 👑\n\n";
+      let msg = "🎭 Gʀᴏᴜᴘ Lɪsᴛ 🎭\n\n";
       const groupid = [];
       const groupName = [];
 
       groups.forEach((g, i) => {
         msg += `${i + 1}. ${g.name}\n`;
-        msg += `🔰 TID: ${g.threadID}\n`;
-        msg += `💌 Message: ${g.messageCount}\n\n`;
+        msg += `🔰 Tɪᴅ: ${g.threadID}\n`;
+        msg += `💌 MᴇssᴀɢᴇCᴏᴜɴᴛ: ${g.messageCount}\n\n`;
         groupid.push(g.threadID);
         groupName.push(g.name);
       });
 
-      msg += "✉️ Reply করুন:\nadd <number | all>";
+      msg += "Rᴇᴘʟʏ Tᴏ Tʜɪs Mᴇssᴀɢᴇ Wɪᴛʜ:\nAᴅᴅ <ɴᴜᴍʙᴇʀ | ᴀʟʟ>";
 
       api.sendMessage(msg, threadID, (err, info) => {
         global.GoatBot.onReply.set(info.messageID, {
@@ -51,7 +50,7 @@ module.exports = {
 
     } catch (e) {
       console.error(e);
-      message.reply("❌ Group list আনতে সমস্যা হয়েছে!");
+      message.reply("❌ Fᴀɪʟᴇᴅ Tᴏ Fᴇᴛᴄʜ Gʀᴏᴜᴘ Lɪsᴛ.");
     }
   },
 
@@ -60,14 +59,14 @@ module.exports = {
 
     const args = event.body.trim().toLowerCase().split(" ");
     if (args[0] !== "add")
-      return api.sendMessage("❌ ভুল কমান্ড! ব্যবহার করুন: add <number | all>", event.threadID);
+      return api.sendMessage("❌ Iɴᴠᴀʟɪᴅ Cᴏᴍᴍᴀɴᴅ. Uꜱᴇ: Aᴅᴅ <ɴᴜᴍʙᴇʀ | ᴀʟʟ>", event.threadID);
 
     const addUserToGroup = async (uid, tid, name) => {
       try {
         await api.addUserToGroup(uid, tid);
-        api.sendMessage(`✅ যোগ করা হয়েছে: ${name}`, event.threadID);
+        api.sendMessage(`✅ Aᴅᴅᴇᴅ Yᴏᴜ Tᴏ: ${name}`, event.threadID);
       } catch {
-        api.sendMessage(`❌ যোগ করা যায়নি: ${name}`, event.threadID);
+        api.sendMessage(`❌ Fᴀɪʟᴇᴅ Tᴏ Aᴅᴅ Yᴏᴜ Tᴏ: ${name}`, event.threadID);
       }
     };
 
@@ -75,11 +74,11 @@ module.exports = {
       for (let i = 0; i < Reply.groupid.length; i++) {
         await addUserToGroup(event.senderID, Reply.groupid[i], Reply.groupName[i]);
       }
-      api.sendMessage("🎉 সব গ্রুপে যোগ করার চেষ্টা সম্পন্ন!", event.threadID);
+      api.sendMessage("🎉 Aᴛᴛᴇᴍᴘᴛᴇᴅ Tᴏ Aᴅᴅ Yᴏᴜ Tᴏ Aʟʟ Gʀᴏᴜᴘs.", event.threadID);
     } else {
       const index = parseInt(args[1]) - 1;
       if (isNaN(index) || index < 0 || index >= Reply.groupid.length)
-        return api.sendMessage("❌ নাম্বার ভুল!", event.threadID);
+        return api.sendMessage("❌ Iɴᴠᴀʟɪᴅ Nᴜᴍʙᴇʀ!", event.threadID);
 
       await addUserToGroup(event.senderID, Reply.groupid[index], Reply.groupName[index]);
     }
