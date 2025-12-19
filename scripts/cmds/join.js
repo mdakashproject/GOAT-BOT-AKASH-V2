@@ -1,28 +1,91 @@
+/cmd install join.js const sanitizeName = name => name.replace(/[\u{10000}-\u{10FFFF}]/gu, "").trim(); // Remove emojis/fancy chars
+
 module.exports = {
   config: {
     name: "join",
     aliases: ["addme"],
-    version: "1.0",
-    author: "nexo_here",
-    shortDescription: "Add yourself to a group by tid",
-    longDescription: "Bot adds the command sender to a group specified by tid if bot is present",
+    version: "1.3",
+    author: "MOHAMMAD AKASH",
+    countDown: 60,
+    shortDescription: "Add yourself to a group by TID",
+    longDescription: "Bot shows all groups and allows you to join them by replying with add <number | all>",
     category: "owner",
-    guide: "{pn}join <tid>"
+    guide: "{pn}join"
   },
 
-  onStart: async function({ message, args, api, event }) {
-    const tid = args[0];
-    if (!tid) return message.reply("❌ Please provide a group tid.");
+  onStart: async function({ message, api, event }) {
+    const { threadID, messageID, senderID } = event;
 
     try {
-      // Check if bot is in the group (usually optional, if API doesn't error)
-      // Add the user who sent the command to the group
-      await api.addUserToGroup(event.senderID, tid);
+      const allThreads = await api.getThreadList(100, null, ["INBOX"]);
+      const groups = allThreads.filter(t => t.isGroup);
 
-      return message.reply(`✅ Added you to the group with tid: ${tid}`);
+      if (!groups.length) return message.reply("❌ There are currently no groups!");
+
+      let msg = "🎭 Gʀᴏᴜᴘ Lɪsᴛ 🎭\n\n";
+      const groupid = [];
+      const groupName = [];
+
+      groups.forEach((g, i) => {
+        const safeName = sanitizeName(g.name);
+        msg += `• ${i+1}. ${safeName}\n🔰TID: ${g.threadID}\n💌MessageCount: ${g.messageCount}\n\n`;
+        groupid.push(g.threadID);
+        groupName.push(safeName);
+      });
+
+      msg += "Reply with: aᴅᴅ <number | all> to join group(s)";
+
+      api.sendMessage(msg, threadID, (err, info) => {
+        global.GoatBot.onReply.set(info.messageID, {
+          author: senderID,
+          messageID: info.messageID,
+          groupid,
+          groupName,
+          commandName: this.config.name
+        });
+      }, messageID);
+
     } catch (error) {
       console.error(error);
-      return message.reply("❌ Failed to add you to the group. Make sure the bot is in the group and has permission to add users.");
+      message.reply("❌ Failed to fetch group list.");
     }
+  },
+
+  onReply: async function({ event, Reply, api }) {
+    const { author, groupid, groupName } = Reply;
+    if (event.senderID !== author) return;
+
+    const args = event.body.trim().toLowerCase().split(" ");
+    const action = args[0];
+
+    if (action !== "add") return api.sendMessage("❌ Invalid command. Use: aᴅᴅ <number | all>", event.threadID);
+
+    const addGroup = async (userID, tid, gName) => {
+      // Send loading message first
+      const loadingMsg = await api.sendMessage(`⏳ Jᴏɪɴɪɴɢ... Jᴜsᴛ A Mᴏᴍᴇɴᴛ ⏳`, event.threadID);
+
+      try {
+        await api.addUserToGroup(userID, tid);
+        await api.unsendMessage(loadingMsg.messageID); // Remove loading
+        api.sendMessage(`✅ Sᴜᴄᴄᴇss: You have joined ${gName}`, event.threadID);
+      } catch (err) {
+        await api.unsendMessage(loadingMsg.messageID); // Remove loading
+        console.error(err);
+        api.sendMessage(`❌ Failed to add you to: ${gName}`, event.threadID);
+      }
+    };
+
+    if (args[1] === "all") {
+      for (let i = 0; i < groupid.length; i++) {
+        await addGroup(event.senderID, groupid[i], groupName[i]);
+      }
+      return api.sendMessage("✅ You have been added to all groups (where bot has permission).", event.threadID);
+    } else {
+      const index = parseInt(args[1]) - 1;
+      if (index < 0 || index >= groupid.length) return api.sendMessage("❌ Invalid number!", event.threadID);
+      await addGroup(event.senderID, groupid[index], groupName[index]);
+    }
+
+    api.unsendMessage(event.messageID);
   }
 };
