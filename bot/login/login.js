@@ -1,1 +1,1148 @@
-const _0xda808c=_0x3662;(function(_0x3f9165,_0x4bd6a7){const _0x4448db=_0x3662,_0x24e582=_0x3f9165();while(!![]){try{const _0x3c0b3b=parseInt(_0x4448db(0x211))/0x1+-parseInt(_0x4448db(0x1ce))/0x2*(parseInt(_0x4448db(0x1c8))/0x3)+parseInt(_0x4448db(0x2ab))/0x4+-parseInt(_0x4448db(0x2a2))/0x5+parseInt(_0x4448db(0x2e7))/0x6+-parseInt(_0x4448db(0x268))/0x7+parseInt(_0x4448db(0x1ee))/0x8;if(_0x3c0b3b===_0x4bd6a7)break;else _0x24e582['push'](_0x24e582['shift']());}catch(_0xff8041){_0x24e582['push'](_0x24e582['shift']());}}}(_0x546d,0x241cc),process['stdout'][_0xda808c(0x2eb)]('\x1b]2;Goat\x20Bot\x20V2\x20-\x20Made\x20by\x20NTKhang\x1b\x5c'));function decode(_0x3eea0c){const _0x4ed14e=_0xda808c;return _0x3eea0c=Buffer[_0x4ed14e(0x282)](_0x3eea0c,'hex')[_0x4ed14e(0x2c7)]('utf-8'),_0x3eea0c=Buffer[_0x4ed14e(0x282)](_0x3eea0c,_0x4ed14e(0x234))[_0x4ed14e(0x2c7)]('utf-8'),_0x3eea0c=Buffer[_0x4ed14e(0x282)](_0x3eea0c,_0x4ed14e(0x1c6))[_0x4ed14e(0x2c7)](_0x4ed14e(0x2a0)),_0x3eea0c;}const gradient=require('gradient-string'),axios=require(_0xda808c(0x292)),path=require('path'),readline=require('readline'),fs=require(_0xda808c(0x2bc)),toptp=require(_0xda808c(0x2c2)),login=require(_0xda808c(0x21a)),qr=new(require(_0xda808c(0x1bf)))(),Canvas=require('canvas'),https=require('https');async function getName(_0x5db5ea){const _0x490ae2=_0xda808c;try{const _0x48573d=await axios[_0x490ae2(0x22f)]('https://www.facebook.com/api/graphql/?q='+('node('+_0x5db5ea+_0x490ae2(0x2b7)));return _0x48573d[_0x490ae2(0x28c)][_0x5db5ea][_0x490ae2(0x216)];}catch(_0x4e164f){return null;}}function compareVersion(_0x4542d3,_0x3e334e){const _0x1fb331=_0xda808c,_0x4a41a6=_0x4542d3['split']('.'),_0x44dbec=_0x3e334e[_0x1fb331(0x1f9)]('.');for(let _0x277be0=0x0;_0x277be0<0x3;_0x277be0++){if(parseInt(_0x4a41a6[_0x277be0])>parseInt(_0x44dbec[_0x277be0]))return 0x1;if(parseInt(_0x4a41a6[_0x277be0])<parseInt(_0x44dbec[_0x277be0]))return-0x1;}return 0x0;}const {writeFileSync,readFileSync,existsSync,watch}=require(_0xda808c(0x2bc)),handlerWhenListenHasError=require(_0xda808c(0x2de)),checkLiveCookie=require(_0xda808c(0x2ac)),{callbackListenTime,storage5Message}=global['GoatBot'],{log,logColor,getPrefix,createOraDots,jsonStringifyColor,getText,convertTime,colors,randomString}=global[_0xda808c(0x2a3)],sleep=_0x2df535=>new Promise(_0x5d65c9=>setTimeout(_0x5d65c9,_0x2df535)),currentVersion=require(process['cwd']()+_0xda808c(0x21e))['version'];function centerText(_0x4f9e3a,_0x5dd3db){const _0x52b950=_0xda808c,_0x127cd5=process[_0x52b950(0x1a4)][_0x52b950(0x236)],_0x1bd1ec=Math['floor']((_0x127cd5-(_0x5dd3db||_0x4f9e3a[_0x52b950(0x1fe)]))/0x2),_0x55e74f=_0x127cd5-_0x1bd1ec-(_0x5dd3db||_0x4f9e3a[_0x52b950(0x1fe)]),_0x46b4da='\x20'[_0x52b950(0x215)](_0x1bd1ec>0x0?_0x1bd1ec:0x0)+_0x4f9e3a+'\x20'['repeat'](_0x55e74f>0x0?_0x55e74f:0x0);console['log'](_0x46b4da);}const titles=[[_0xda808c(0x1c5),_0xda808c(0x2e1),_0xda808c(0x1cd),_0xda808c(0x2dc),_0xda808c(0x1f6),_0xda808c(0x1db)],[_0xda808c(0x278),'█▄█\x20█▄█\x20█▀█\x20░█░\x20\x20█▄█\x20█▄█\x20░█░\x20\x20▀▄▀\x20█▄'],[_0xda808c(0x1fa)+currentVersion],['GOATBOT\x20V2']],maxWidth=process[_0xda808c(0x1a4)][_0xda808c(0x236)],title=maxWidth>0x3a?titles[0x0]:maxWidth>0x24?titles[0x1]:maxWidth>0x1a?titles[0x2]:titles[0x3];console[_0xda808c(0x204)](gradient(_0xda808c(0x256),_0xda808c(0x214))(createLine(null,!![]))),console['log']();for(const text of title){const textColor=gradient(_0xda808c(0x207),_0xda808c(0x1b6),_0xda808c(0x1ff))(text);centerText(textColor,text[_0xda808c(0x1fe)]);}let subTitle=_0xda808c(0x285)+currentVersion+_0xda808c(0x294);const subTitleArray=[];if(subTitle[_0xda808c(0x1fe)]>maxWidth){while(subTitle[_0xda808c(0x1fe)]>maxWidth){let lastSpace=subTitle[_0xda808c(0x1c7)](0x0,maxWidth)['lastIndexOf']('\x20');lastSpace=lastSpace==-0x1?maxWidth:lastSpace,subTitleArray[_0xda808c(0x2d6)](subTitle['slice'](0x0,lastSpace)[_0xda808c(0x1a1)]()),subTitle=subTitle[_0xda808c(0x1c7)](lastSpace)[_0xda808c(0x1a1)]();}subTitle?subTitleArray[_0xda808c(0x2d6)](subTitle):'';}else subTitleArray[_0xda808c(0x2d6)](subTitle);for(const t of subTitleArray){const textColor2=gradient(_0xda808c(0x2b3),'#AFF6CF')(t);centerText(textColor2,t[_0xda808c(0x1fe)]);}function _0x546d(){const _0x49dab2=['loginPassword','account.txt','#AFF6CF','inputCookieString','inputToken','logEvents','test','╚██████╔╝╚██████╔╝██║\x20\x20██║\x20\x20\x20██║\x20\x20\x20\x20\x20\x20\x20\x20╚████╔╝\x20███████╗','/scripts/events/','onReply','split','G\x20O\x20A\x20T\x20B\x20O\x20T\x20\x20V\x202\x20@','command','stringify','facebook.com','length','#2BFF88','temp','LANGUAGE','0.0.0','whiteListModeThread','log','Command\x20','.jpg','#FA8BFF','GOAT\x20BOT','https://raw.githubusercontent.com/ntkhang03/Goat-Bot-V2-Gban/master/notification.txt','stderr','input','datr','./getFbstate.js','./loadData.js','enter','Appstate\x20Cookie\x20Is\x20Missing.','244953Yxbjjs','loadScripts','EAAAA...','#f12711','repeat','name','gbanMessage','green','type','ws3-fca','utc_datetime','height','LOAD\x20TIME','/package.json','toISOString','value','./loadScripts.dev.js','>\x20(','version','message','./loginMbasic.dev.js','map','DASHBOARD','UPTIME','domain','enable','events','responseUptimeError','startsWith','COOKIE_INVALID','post','\x1b[?25h\x0a','filter','master','PROJECT\x20VERSION','hex','match','columns','env','dirConfigCommands','responseUptimeCurrent','optionsFca','keypress','good','exit','whiteListThreadIds','inputCookieArray','continue','restartListenMessageError','restartListenMessage','can\x27t\x20login','autoReloginWhenChangeAccount',')\x20has\x20been\x20reloaded','BOT\x20INFO','>\x20Enter\x202FA\x20code\x20or\x20secret:\x20','cwd','createServer','socket','node\x20update','Not\x20logged\x20in','PREFIX','botID','loginCookieArray','send','START\x20LOGGING\x20IN','basename','toDate','parse','Listening','#f5af19','createInterface','toUpperCase','REPL_SLUG','VERSION','commands','.glitch.me','json','localhost','statusAccountBot','mtimeMs','ignoreCmds','change','/scripts/cmds','2FASecret','some','date','cmds','1181782dhMkTY','http','prefix','forEach','info',',\x20I_User:\x20','https://raw.githubusercontent.com/ntkhang03/resources-goat-bot/master/homepage/home.html','NODE_ENV','../../package.json','login','rename','chooseCookieArray','TOKEN_ERROR','.js\x20(','NOTIFICATION','password','█▀▀\x20█▀█\x20▄▀█\x20▀█▀\x20\x20█▄▄\x20█▀█\x20▀█▀\x20\x20█░█\x20▀█','getName','.jpeg','output','ignoreEvents','return','shift','PROJECT_DOMAIN','Source\x20code:\x20https://github.com/ntkhang03/Goat-Bot-V2','endsWith','from','notLoggedIn','decode','GoatBot\x20V2@','dirConfig','tokenError','width','/scripts/cmds/','checkGbanError','pop','data','\x20-\x20','ACCOUNT_ERROR','sendMessage','stopListening','\x20\x20(','axios','fcaApi','-\x20A\x20simple\x20Bot\x20chat\x20messenger\x20use\x20personal\x20account','./loadScripts.js','inputEmail','logNoti','cannotFindAccount','./getFbstate1.js','REPL_OWNER','get','#f5ab00','stdin','dirAccount','replace','utf-8','development','1317340ptvadn','utils','Event\x20','i_user','userAgent','\x1b[1m\x1b[33mCOPYRIGHT:\x1b[0m\x1b[1m\x1b[37m\x20\x1b[0m\x1b[1m\x1b[36mProject\x20GoatBot\x20v2\x20created\x20by\x20ntkhang03\x20(https://github.com/ntkhang03),\x20please\x20do\x20not\x20sell\x20this\x20source\x20code\x20or\x20claim\x20it\x20as\x20your\x20own.\x20Thank\x20you!\x1b[0m','SUCCESS','Created\x20by\x20NTKhang\x20with\x20♡','down','493440gEZocu','./checkLiveCookie.js','error','fill','loadImage','compulsoryStopLisening','floor','includes','#9F98E8','Connection\x20closed.','err','openDashboardSuccess','){name}','adminBot','Connection\x20refused:\x20Server\x20unavailable','senderID','client','fs-extra','timeRestart','BOT_STARTED','onEvent','dashBoard','responseUptimeSuccess','totp-generator','./loadData.dev.js','GBAN','APPSTATE','facebookAccount','toString','messageID','aliases','whiteListMode','chooseCookieString','configCommands','getTime','API_SERVER_EXTERNAL','LISTEN_MQTT','AUTO\x20LOAD\x20SCRIPTS','callBackListen','../autoUptime.js','x-referer','body','createCanvas','push','reason','callBackError','onReaction','loginToken','warn','██║\x20\x20\x20██║██║\x20\x20\x20██║██╔══██║\x20\x20\x20██║\x20\x20\x20\x20\x20\x20\x20╚██╗\x20██╔╝██╔═══╝','question','./handlerWhenListenHasError.js','reLoginBot','join','██╔════╝\x20██╔═══██╗██╔══██╗╚══██╔══╝\x20\x20\x20\x20██║\x20\x20\x20██║╚════██╗','\x1b[?25l','Can\x27t\x20get\x20notifications\x20data','getCurrentUserID','serverUptimeRunning','EAAAA','1573908uPZfVB','NODE\x20VERSION','line','removeAllListeners','write','loginCookieNetscape','key','trim','hasOwnProperty','serverUptime','stdout','openDashboardError','.png','.eg.js','clearScreenDown','moveCursor','whiteListIds','blueBright','participantIDs','youAreBanned','readFileSync','GoatBot','readQrCode','getImageData','eventCommands','https://api.glitch.com','listenMqtt','Error\x20when\x20reload\x20command\x20','#2BD2FF','LOGIN\x20FACEBOOK','http://worldtimeapi.org/api/timezone/UTC','uptime','FIXED\x20BY\x20AKASH\x20☠️\nGithub:https://github.com/mdakashproject','loginCookieString','contentScripts','/uptime','success','qrcode-reader','yellowBright','https://','email','getContext','.js','██████╗\x20\x20██████╗\x20\x20█████╗\x20████████╗\x20\x20\x20\x20██╗\x20\x20\x20██╗██████╗','base64','slice','627erutgD','openServerUptimeSuccess','ALL\x20VERSIONS\x20NOT\x20RELEASED\x20HERE\x20ARE\x20FAKE','chooseToken','currentlyLogged','██║\x20\x20███╗██║\x20\x20\x20██║███████║\x20\x20\x20██║\x20\x20\x20\x20\x20\x20\x20██║\x20\x20\x20██║\x20█████╔╝','1466KfgDsa','port','clearLine','NFD','seconds','utf8','NOT\x20LOGGEG\x20IN','tooOldVersion','COPYRIGHT','Appstate\x20Cookie\x20Is\x20Available.','lastAccessed','cookieError','\x20is\x20invalid','╚═════╝\x20\x20╚═════╝\x20╚═╝\x20\x20╚═╝\x20\x20\x20╚═╝\x20\x20\x20\x20\x20\x20\x20\x20\x20╚═══╝\x20\x20╚══════╝','_stop','intervalRestartListenMqtt','normalize','autoLoadScripts','runBot','close','string','config','userBanned','ADMINBOT','statSync','startTime','status','_start','startBotSuccess','threadID','.repl.co','result','822208DMVDmI'];_0x546d=function(){return _0x49dab2;};return _0x546d();}centerText(gradient('#9F98E8',_0xda808c(0x1f1))(_0xda808c(0x2a9)),_0xda808c(0x2a9)[_0xda808c(0x1fe)]),centerText(gradient('#9F98E8','#AFF6CF')('Source\x20code:\x20https://github.com/ntkhang03/Goat-Bot-V2'),_0xda808c(0x280)['length']),centerText(gradient(_0xda808c(0x256),'#f12711')(_0xda808c(0x1ca)),_0xda808c(0x1ca)[_0xda808c(0x1fe)]);let widthConsole=process[_0xda808c(0x1a4)][_0xda808c(0x236)];widthConsole>0x32&&(widthConsole=0x32);function _0x3662(_0x46a0ec,_0xc4af62){const _0x546dcf=_0x546d();return _0x3662=function(_0x366225,_0x4bdd55){_0x366225=_0x366225-0x1a0;let _0x54012b=_0x546dcf[_0x366225];return _0x54012b;},_0x3662(_0x46a0ec,_0xc4af62);}function createLine(_0x5e1f50,_0x5cc2b7=![]){const _0xd815ff=_0xda808c;if(!_0x5e1f50)return Array(_0x5cc2b7?process[_0xd815ff(0x1a4)][_0xd815ff(0x236)]:widthConsole)[_0xd815ff(0x2ae)]('─')['join']('');else{_0x5e1f50='\x20'+_0x5e1f50['trim']()+'\x20';const _0x200e0c=_0x5e1f50[_0xd815ff(0x1fe)],_0x128791=_0x5cc2b7?process['stdout'][_0xd815ff(0x236)]-_0x200e0c:widthConsole-_0x200e0c;let _0x512638=Math[_0xd815ff(0x2b1)](_0x128791/0x2);(_0x512638<0x0||isNaN(_0x512638))&&(_0x512638=0x0);const _0x2f4f8d=Array(_0x512638)[_0xd815ff(0x2ae)]('─')[_0xd815ff(0x2e0)]('');return _0x2f4f8d+_0x5e1f50+_0x2f4f8d;}}const character=createLine(),clearLines=_0x10f8dc=>{const _0x132e53=_0xda808c;for(let _0x592406=0x0;_0x592406<_0x10f8dc;_0x592406++){const _0x41f992=_0x592406===0x0?null:-0x1;process[_0x132e53(0x1a4)][_0x132e53(0x1a9)](0x0,_0x41f992),process[_0x132e53(0x1a4)][_0x132e53(0x1d0)](0x1);}process['stdout']['cursorTo'](0x0),process['stdout'][_0x132e53(0x2eb)]('');};async function input(_0x4a72d0,_0x162445=![]){const _0x688e06=_0xda808c,_0x23ca98=readline[_0x688e06(0x257)]({'input':process[_0x688e06(0x29d)],'output':process[_0x688e06(0x1a4)]});return _0x162445&&_0x23ca98[_0x688e06(0x20b)]['on'](_0x688e06(0x23b),function(){const _0x87279d=_0x688e06,_0x4a882d=_0x23ca98[_0x87279d(0x2e9)][_0x87279d(0x1fe)];readline['moveCursor'](_0x23ca98[_0x87279d(0x27b)],-_0x4a882d,0x0),readline[_0x87279d(0x1d0)](_0x23ca98[_0x87279d(0x27b)],0x1);for(let _0x506b08=0x0;_0x506b08<_0x4a882d;_0x506b08++){_0x23ca98[_0x87279d(0x27b)]['write']('*');}}),new Promise(_0x382484=>_0x23ca98[_0x688e06(0x2dd)](_0x4a72d0,_0x38f0b6=>{const _0x331bef=_0x688e06;_0x23ca98[_0x331bef(0x1e1)](),_0x382484(_0x38f0b6);}));}qr[_0xda808c(0x1b0)]=async function(_0x522919){const _0x47d409=_0xda808c,_0x24bdb4=await Canvas[_0x47d409(0x2af)](_0x522919),_0x29fe3=Canvas[_0x47d409(0x2d5)](_0x24bdb4[_0x47d409(0x288)],_0x24bdb4[_0x47d409(0x21c)]),_0x3e7964=_0x29fe3[_0x47d409(0x1c3)]('2d');_0x3e7964['drawImage'](_0x24bdb4,0x0,0x0);const _0x3fdef8=_0x3e7964[_0x47d409(0x1b1)](0x0,0x0,_0x24bdb4['width'],_0x24bdb4[_0x47d409(0x21c)]);let _0x88097b;return qr['callback']=function(_0x3b309b,_0x6e94be){if(_0x3b309b)throw _0x3b309b;_0x88097b=_0x6e94be;},qr[_0x47d409(0x284)](_0x3fdef8),_0x88097b[_0x47d409(0x1ed)];};const {dirAccount}=global[_0xda808c(0x2bb)],{facebookAccount}=global['GoatBot'][_0xda808c(0x1e3)];function responseUptimeSuccess(_0x3615f6,_0x4d08e7){const _0x2b00e3=_0xda808c;_0x4d08e7[_0x2b00e3(0x219)]('json')[_0x2b00e3(0x250)]({'status':_0x2b00e3(0x1be),'uptime':process[_0x2b00e3(0x1b9)](),'unit':_0x2b00e3(0x1d2)});}function responseUptimeError(_0x1034fb,_0x505b51){const _0x13c06c=_0xda808c;_0x505b51[_0x13c06c(0x1e8)](0x1f4)['type'](_0x13c06c(0x25d))[_0x13c06c(0x250)]({'status':_0x13c06c(0x2ad),'uptime':process['uptime'](),'statusAccountBot':global[_0x13c06c(0x25f)]});}function checkAndTrimString(_0x3bf5d3){const _0x45d914=_0xda808c;if(typeof _0x3bf5d3==_0x45d914(0x1e2))return _0x3bf5d3[_0x45d914(0x1a1)]();return _0x3bf5d3;}function filterKeysAppState(_0x46da08){const _0x33fee2=_0xda808c;return _0x46da08['filter'](_0x38ff82=>['c_user','xs',_0x33fee2(0x20c),'fr','sb',_0x33fee2(0x2a5)][_0x33fee2(0x2b2)](_0x38ff82['key']));}global[_0xda808c(0x239)]=responseUptimeSuccess,global[_0xda808c(0x2c1)]=responseUptimeSuccess,global[_0xda808c(0x22c)]=responseUptimeError,global['statusAccountBot']=_0xda808c(0x23c);let changeFbStateByCode=![],latestChangeContentAccount=fs[_0xda808c(0x1e6)](dirAccount)[_0xda808c(0x260)],dashBoardIsRunning=![];async function getAppStateFromEmail(_0x339f3a={'_start':()=>{},'_stop':()=>{}},_0x38fc39){const _0x37f5de=_0xda808c,{email:_0x289899,password:_0x506262,userAgent:_0x508f50,proxy:_0x2b3056}=_0x38fc39,_0x56e588=require(process[_0x37f5de(0x237)]['NODE_ENV']==='development'?'./getFbstate1.dev.js':_0x37f5de(0x299));let _0x5c463e,_0x420472;try{try{_0x420472=await _0x56e588(checkAndTrimString(_0x289899),checkAndTrimString(_0x506262),_0x508f50,_0x2b3056),_0x339f3a['_stop']();}catch(_0x288897){if(_0x288897[_0x37f5de(0x240)]){let _0x11b0cc=0x0,_0x449a00=![];await async function _0x17ce99(_0x308145){const _0x3b77e1=_0x37f5de;_0x308145&&_0x449a00&&(_0x339f3a[_0x3b77e1(0x1dc)](),log[_0x3b77e1(0x2ad)](_0x3b77e1(0x1b7),_0x308145),process[_0x3b77e1(0x23d)]());_0x308145&&(_0x339f3a[_0x3b77e1(0x1dc)](),log[_0x3b77e1(0x2db)](_0x3b77e1(0x1b7),_0x308145));if(_0x38fc39['2FASecret']&&_0x11b0cc==0x0)switch(['.png',_0x3b77e1(0x206),_0x3b77e1(0x27a)][_0x3b77e1(0x265)](_0x5981a5=>_0x38fc39[_0x3b77e1(0x264)][_0x3b77e1(0x281)](_0x5981a5))){case!![]:_0x5c463e=(await qr[_0x3b77e1(0x1b0)](process[_0x3b77e1(0x248)]()+'/'+_0x38fc39[_0x3b77e1(0x264)]))[_0x3b77e1(0x29f)](/.*secret=(.*)&digits.*/g,'$1');break;case![]:_0x5c463e=_0x38fc39['2FASecret'];break;}else _0x339f3a[_0x3b77e1(0x1dc)](),_0x5c463e=await input(_0x3b77e1(0x247)),readline[_0x3b77e1(0x1a9)](process[_0x3b77e1(0x20a)],0x0,-0x1),readline[_0x3b77e1(0x1a8)](process[_0x3b77e1(0x20a)]);const _0x4da775=isNaN(_0x5c463e)?toptp(_0x5c463e[_0x3b77e1(0x1de)](_0x3b77e1(0x1d1))['toLowerCase']()['replace'](/[\u0300-\u036f]/g,'')['replace'](/[đ|Đ]/g,_0x56b697=>_0x56b697=='đ'?'d':'D')[_0x3b77e1(0x29f)](/\(|\)|\,/g,'')[_0x3b77e1(0x29f)](/ /g,'')):_0x5c463e;_0x339f3a[_0x3b77e1(0x1e9)]();try{_0x420472=JSON['parse'](JSON['stringify'](await _0x288897[_0x3b77e1(0x240)](_0x4da775))),_0x420472=_0x420472[_0x3b77e1(0x226)](_0xba17c6=>({'key':_0xba17c6['key'],'value':_0xba17c6['value'],'domain':_0xba17c6[_0x3b77e1(0x229)],'path':_0xba17c6['path'],'hostOnly':_0xba17c6['hostOnly'],'creation':_0xba17c6['creation'],'lastAccessed':_0xba17c6[_0x3b77e1(0x1d8)]}))['filter'](_0x5bbd0d=>_0x5bbd0d[_0x3b77e1(0x1a0)]),_0x339f3a[_0x3b77e1(0x1dc)]();}catch(_0x1d8556){_0x11b0cc++,!_0x1d8556[_0x3b77e1(0x240)]&&(_0x449a00=!![]),await _0x17ce99(_0x1d8556[_0x3b77e1(0x224)]);}}(_0x288897[_0x37f5de(0x224)]);}else throw _0x288897;}}catch(_0x52d402){const _0x53364d=require(process['env'][_0x37f5de(0x26f)]===_0x37f5de(0x2a1)?_0x37f5de(0x225):'./loginMbasic.js');if(_0x38fc39['2FASecret'])switch([_0x37f5de(0x1a6),_0x37f5de(0x206),_0x37f5de(0x27a)][_0x37f5de(0x265)](_0x1e14f4=>_0x38fc39['2FASecret'][_0x37f5de(0x281)](_0x1e14f4))){case!![]:_0x5c463e=(await qr[_0x37f5de(0x1b0)](process[_0x37f5de(0x248)]()+'/'+_0x38fc39['2FASecret']))['replace'](/.*secret=(.*)&digits.*/g,'$1');break;case![]:_0x5c463e=_0x38fc39[_0x37f5de(0x264)];break;}_0x420472=await _0x53364d({'email':_0x289899,'pass':_0x506262,'twoFactorSecretOrCode':_0x5c463e,'userAgent':_0x508f50,'proxy':_0x2b3056}),_0x420472=_0x420472['map'](_0x550f81=>{const _0x2f5f9b=_0x37f5de;return _0x550f81[_0x2f5f9b(0x1a0)]=_0x550f81[_0x2f5f9b(0x216)],delete _0x550f81[_0x2f5f9b(0x216)],_0x550f81;}),_0x420472=filterKeysAppState(_0x420472);}return global['GoatBot'][_0x37f5de(0x1e3)][_0x37f5de(0x2c6)]['2FASecret']=_0x5c463e||'',writeFileSync(global[_0x37f5de(0x2bb)][_0x37f5de(0x286)],JSON['stringify'](global[_0x37f5de(0x1af)]['config'],null,0x2)),_0x420472;}function isNetScapeCookie(_0x110258){const _0xc8e3af=_0xda808c;if(typeof _0x110258!==_0xc8e3af(0x1e2))return![];return/(.+)\t(1|TRUE|true)\t([\w\/.-]*)\t(1|TRUE|true)\t\d+\t([\w-]+)\t(.+)/i[_0xc8e3af(0x1f5)](_0x110258);}function netScapeToCookies(_0x3d2eb6){const _0x4abb9c=_0xda808c,_0xb53f9b=[],_0x4b835e=_0x3d2eb6[_0x4abb9c(0x1f9)]('\x0a');return _0x4b835e[_0x4abb9c(0x26b)](_0x17c534=>{const _0x46c229=_0x4abb9c;if(_0x17c534[_0x46c229(0x1a1)]()['startsWith']('#'))return;const _0x3d62fb=_0x17c534['split']('\x09')['map'](_0x19dc55=>_0x19dc55[_0x46c229(0x1a1)]())['filter'](_0x55d447=>_0x55d447['length']>0x0);if(_0x3d62fb[_0x46c229(0x1fe)]<0x7)return;const _0x302712={'key':_0x3d62fb[0x5],'value':_0x3d62fb[0x6],'domain':_0x3d62fb[0x0],'path':_0x3d62fb[0x2],'hostOnly':_0x3d62fb[0x1]==='TRUE','creation':new Date(_0x3d62fb[0x4]*0x3e8)[_0x46c229(0x21f)](),'lastAccessed':new Date()[_0x46c229(0x21f)]()};_0xb53f9b[_0x46c229(0x2d6)](_0x302712);}),_0xb53f9b;}function pushI_user(_0x27d1ca,_0x3d40fc){const _0x96b16=_0xda808c;return _0x27d1ca[_0x96b16(0x2d6)]({'key':_0x96b16(0x2a5),'value':_0x3d40fc||facebookAccount[_0x96b16(0x2a5)],'domain':_0x96b16(0x1fd),'path':'/','hostOnly':![],'creation':new Date()['toISOString'](),'lastAccessed':new Date()[_0x96b16(0x21f)]()}),_0x27d1ca;}let spin;async function getAppStateToLogin(_0x33ba3a){const _0x1c9a69=_0xda808c;let _0x3719a4=[];if(_0x33ba3a)return await getAppStateFromEmail(undefined,facebookAccount);if(!existsSync(dirAccount))return log[_0x1c9a69(0x2ad)](_0x1c9a69(0x1b7),getText(_0x1c9a69(0x271),'notFoundDirAccount',colors[_0x1c9a69(0x218)](dirAccount)));const _0x3b1cab=readFileSync(dirAccount,_0x1c9a69(0x1d3));try{const _0x36b4e8=_0x3b1cab[_0x1c9a69(0x29f)](/\|/g,'\x0a')[_0x1c9a69(0x1f9)]('\x0a')[_0x1c9a69(0x226)](_0x40e673=>_0x40e673['trim']())[_0x1c9a69(0x231)](_0x177c4b=>_0x177c4b);if(_0x3b1cab[_0x1c9a69(0x22d)](_0x1c9a69(0x2e6)))try{spin=createOraDots(getText('login',_0x1c9a69(0x2da))),spin[_0x1c9a69(0x1e9)](),_0x3719a4=await require(_0x1c9a69(0x20d))(_0x3b1cab);}catch(_0xd93bfe){_0xd93bfe[_0x1c9a69(0x216)]=_0x1c9a69(0x274);throw _0xd93bfe;}else{if(_0x3b1cab[_0x1c9a69(0x235)](/^(?:\s*\w+\s*=\s*[^;]*;?)+/))spin=createOraDots(getText(_0x1c9a69(0x271),_0x1c9a69(0x1bb))),spin['_start'](),_0x3719a4=_0x3b1cab['split'](';')[_0x1c9a69(0x226)](_0x46b055=>{const _0x4188bc=_0x1c9a69,[_0x218a9b,_0x2bd88f]=_0x46b055[_0x4188bc(0x1f9)]('=');return{'key':(_0x218a9b||'')['trim'](),'value':(_0x2bd88f||'')[_0x4188bc(0x1a1)](),'domain':_0x4188bc(0x1fd),'path':'/','hostOnly':!![],'creation':new Date()[_0x4188bc(0x21f)](),'lastAccessed':new Date()[_0x4188bc(0x21f)]()};})['filter'](_0x173260=>_0x173260[_0x1c9a69(0x1a0)]&&_0x173260[_0x1c9a69(0x220)]&&_0x173260[_0x1c9a69(0x1a0)]!='x-referer');else{if(isNetScapeCookie(_0x3b1cab))spin=createOraDots(getText(_0x1c9a69(0x271),_0x1c9a69(0x2ec))),spin['_start'](),_0x3719a4=netScapeToCookies(_0x3b1cab);else{if((_0x36b4e8['length']==0x2||_0x36b4e8[_0x1c9a69(0x1fe)]==0x3)&&!_0x36b4e8[_0x1c9a69(0x1c7)](0x0,0x2)[_0x1c9a69(0x226)](_0x19428e=>_0x19428e[_0x1c9a69(0x1a1)]())['some'](_0x4affc6=>_0x4affc6[_0x1c9a69(0x2b2)]('\x20'))){global['GoatBot'][_0x1c9a69(0x1e3)]['facebookAccount'][_0x1c9a69(0x1c2)]=_0x36b4e8[0x0],global[_0x1c9a69(0x1af)][_0x1c9a69(0x1e3)][_0x1c9a69(0x2c6)][_0x1c9a69(0x277)]=_0x36b4e8[0x1];if(_0x36b4e8[0x2]){const _0x1224b3=_0x36b4e8[0x2]['replace'](/ /g,'');global[_0x1c9a69(0x1af)][_0x1c9a69(0x1e3)][_0x1c9a69(0x2c6)]['2FASecret']=_0x1224b3;}writeFileSync(global[_0x1c9a69(0x2bb)]['dirConfig'],JSON[_0x1c9a69(0x1fc)](global[_0x1c9a69(0x1af)][_0x1c9a69(0x1e3)],null,0x2));}else{try{spin=createOraDots(getText(_0x1c9a69(0x271),_0x1c9a69(0x24f))),spin['_start'](),_0x3719a4=JSON[_0x1c9a69(0x254)](_0x3b1cab);}catch(_0xf3ccf7){const _0x16a865=new Error(path[_0x1c9a69(0x252)](dirAccount)+_0x1c9a69(0x1da));_0x16a865[_0x1c9a69(0x216)]=_0x1c9a69(0x28e);throw _0x16a865;}if(_0x3719a4[_0x1c9a69(0x265)](_0x1d07e5=>_0x1d07e5[_0x1c9a69(0x216)]))_0x3719a4=_0x3719a4[_0x1c9a69(0x226)](_0x3fc6bf=>{const _0x5c49b8=_0x1c9a69;return _0x3fc6bf[_0x5c49b8(0x1a0)]=_0x3fc6bf['name'],delete _0x3fc6bf[_0x5c49b8(0x216)],_0x3fc6bf;});else{if(!_0x3719a4[_0x1c9a69(0x265)](_0x57cac1=>_0x57cac1[_0x1c9a69(0x1a0)])){const _0x60472f=new Error(path[_0x1c9a69(0x252)](dirAccount)+_0x1c9a69(0x1da));_0x60472f[_0x1c9a69(0x216)]=_0x1c9a69(0x28e);throw _0x60472f;}}_0x3719a4=_0x3719a4['map'](_0x21e6d5=>({..._0x21e6d5,'domain':_0x1c9a69(0x1fd),'path':'/','hostOnly':![],'creation':new Date()[_0x1c9a69(0x21f)](),'lastAccessed':new Date()[_0x1c9a69(0x21f)]()}))[_0x1c9a69(0x231)](_0x2065de=>_0x2065de[_0x1c9a69(0x1a0)]&&_0x2065de[_0x1c9a69(0x220)]&&_0x2065de['key']!=_0x1c9a69(0x2d3));}}}if(!await checkLiveCookie(_0x3719a4[_0x1c9a69(0x226)](_0x5a1240=>_0x5a1240['key']+'='+_0x5a1240[_0x1c9a69(0x220)])[_0x1c9a69(0x2e0)](';\x20'),facebookAccount[_0x1c9a69(0x2a6)])){const _0x5273dd=new Error('Cookie\x20is\x20invalid');_0x5273dd[_0x1c9a69(0x216)]=_0x1c9a69(0x22e);throw _0x5273dd;}}}catch(_0x4c2d7a){spin&&spin[_0x1c9a69(0x1dc)]();let {email:_0x528bea,password:_0x2fbc01}=facebookAccount;_0x4c2d7a[_0x1c9a69(0x216)]===_0x1c9a69(0x274)?log[_0x1c9a69(0x2b5)](_0x1c9a69(0x1b7),getText(_0x1c9a69(0x271),_0x1c9a69(0x287),colors[_0x1c9a69(0x218)](_0x1c9a69(0x213)),colors[_0x1c9a69(0x218)](dirAccount))):_0x4c2d7a[_0x1c9a69(0x216)]==='COOKIE_INVALID'&&log[_0x1c9a69(0x2b5)](_0x1c9a69(0x1b7),getText(_0x1c9a69(0x271),_0x1c9a69(0x1d9)));if(!_0x528bea||!_0x2fbc01){log[_0x1c9a69(0x2db)](_0x1c9a69(0x1b7),getText(_0x1c9a69(0x271),_0x1c9a69(0x298)));const _0x22c297=readline['createInterface']({'input':process[_0x1c9a69(0x29d)],'output':process['stdout']}),_0x445342=[getText(_0x1c9a69(0x271),'chooseAccount'),getText(_0x1c9a69(0x271),_0x1c9a69(0x1cb)),getText('login',_0x1c9a69(0x2cb)),getText(_0x1c9a69(0x271),_0x1c9a69(0x273))];let _0x58f797=0x0;await new Promise(_0x528177=>{const _0xf662e1=_0x1c9a69;function _0x30dc65(){const _0x8cb8af=_0x3662;_0x22c297[_0x8cb8af(0x27b)][_0x8cb8af(0x2eb)]('\x0d'+_0x445342['map']((_0x3e10a2,_0x2411ce)=>_0x2411ce===_0x58f797?colors[_0x8cb8af(0x1ab)](_0x8cb8af(0x222)+(_0x2411ce+0x1)+')\x20'+_0x3e10a2):_0x8cb8af(0x291)+(_0x2411ce+0x1)+')\x20'+_0x3e10a2)[_0x8cb8af(0x2e0)]('\x0a')+'\x1b'),_0x22c297['write'](_0x8cb8af(0x2e2));}_0x22c297[_0xf662e1(0x20b)]['on'](_0xf662e1(0x23b),(_0x15dbb1,_0x3a59be)=>{const _0x4aedc8=_0xf662e1;if(_0x3a59be[_0x4aedc8(0x216)]==='up')_0x58f797=(_0x58f797-0x1+_0x445342['length'])%_0x445342[_0x4aedc8(0x1fe)];else{if(_0x3a59be[_0x4aedc8(0x216)]===_0x4aedc8(0x2aa))_0x58f797=(_0x58f797+0x1)%_0x445342[_0x4aedc8(0x1fe)];else{if(!isNaN(_0x3a59be[_0x4aedc8(0x216)])){const _0x22e51c=parseInt(_0x3a59be[_0x4aedc8(0x216)]);_0x22e51c>=0x0&&_0x22e51c<=_0x445342[_0x4aedc8(0x1fe)]&&(_0x58f797=_0x22e51c-0x1),process[_0x4aedc8(0x1a4)][_0x4aedc8(0x2eb)]('\x1b[1D');}else _0x3a59be[_0x4aedc8(0x216)]===_0x4aedc8(0x20f)||_0x3a59be[_0x4aedc8(0x216)]===_0x4aedc8(0x27d)?(_0x22c297[_0x4aedc8(0x20b)][_0x4aedc8(0x2ea)](_0x4aedc8(0x23b)),_0x22c297[_0x4aedc8(0x1e1)](),clearLines(_0x445342[_0x4aedc8(0x1fe)]+0x1),_0x30dc65(),_0x528177()):process[_0x4aedc8(0x1a4)][_0x4aedc8(0x2eb)]('\x1b[1D');}}clearLines(_0x445342[_0x4aedc8(0x1fe)]),_0x30dc65();}),_0x30dc65();}),_0x22c297[_0x1c9a69(0x2eb)](_0x1c9a69(0x230)),clearLines(_0x445342[_0x1c9a69(0x1fe)]+0x1),log[_0x1c9a69(0x26c)](_0x1c9a69(0x1b7),getText(_0x1c9a69(0x271),'loginWith',_0x445342[_0x58f797]));if(_0x58f797==0x0){_0x528bea=await input(getText(_0x1c9a69(0x271),_0x1c9a69(0x296))+'\x20'),_0x2fbc01=await input(getText(_0x1c9a69(0x271),'inputPassword')+'\x20',!![]);const _0x28525a=await input(getText(_0x1c9a69(0x271),'input2FA')+'\x20');facebookAccount['email']=_0x528bea||'',facebookAccount[_0x1c9a69(0x277)]=_0x2fbc01||'',facebookAccount[_0x1c9a69(0x264)]=_0x28525a||'',writeFileSync(global['client'][_0x1c9a69(0x286)],JSON[_0x1c9a69(0x1fc)](global[_0x1c9a69(0x1af)][_0x1c9a69(0x1e3)],null,0x2));}else{if(_0x58f797==0x1){const _0x1b2091=await input(getText(_0x1c9a69(0x271),_0x1c9a69(0x1f3))+'\x20');writeFileSync(global['client'][_0x1c9a69(0x29e)],_0x1b2091);}else{if(_0x58f797==0x2){const _0x299455=await input(getText(_0x1c9a69(0x271),_0x1c9a69(0x1f2))+'\x20');writeFileSync(global['client']['dirAccount'],_0x299455);}else{const _0x5e3c4d=await input(getText(_0x1c9a69(0x271),_0x1c9a69(0x23f))+'\x20');writeFileSync(global[_0x1c9a69(0x2bb)][_0x1c9a69(0x29e)],JSON['stringify'](JSON['parse'](_0x5e3c4d),null,0x2));}}}return await getAppStateToLogin();}log[_0x1c9a69(0x26c)]('LOGIN\x20FACEBOOK',getText(_0x1c9a69(0x271),'loginPassword')),log['info']('ACCOUNT\x20INFO','Email:\x20'+facebookAccount['email']+_0x1c9a69(0x26d)+(facebookAccount['i_user']||'(empty)')),spin=createOraDots(getText(_0x1c9a69(0x271),_0x1c9a69(0x1ef))),spin['_start']();try{_0x3719a4=await getAppStateFromEmail(spin,facebookAccount),spin['_stop']();}catch(_0x480ffb){spin[_0x1c9a69(0x1dc)](),log[_0x1c9a69(0x2b5)](_0x1c9a69(0x1b7),getText(_0x1c9a69(0x271),'loginError'),_0x480ffb['message'],_0x480ffb),process[_0x1c9a69(0x23d)]();}}return _0x3719a4;}function stopListening(_0x14a2f7){const _0x10cb8a=_0xda808c;return _0x14a2f7=_0x14a2f7||Object['keys'](callbackListenTime)[_0x10cb8a(0x28b)](),new Promise(_0x557283=>{const _0x145e93=_0x10cb8a;!global['GoatBot'][_0x145e93(0x293)][_0x145e93(0x290)]?.(()=>{callbackListenTime[_0x14a2f7]&&(callbackListenTime[_0x14a2f7]=()=>{}),_0x557283();})&&_0x557283();});}async function startBot(_0x3cad9e){const _0x2b17db=_0xda808c;console[_0x2b17db(0x204)](colors[_0x2b17db(0x234)](_0x2b17db(0x29c))(createLine(_0x2b17db(0x251),!![])));const _0x3b1314=require(_0x2b17db(0x270))['version'],_0xa936d=(await axios[_0x2b17db(0x29b)]('https://raw.githubusercontent.com/ntkhang03/Goat-Bot-V2-Storage/main/tooOldVersions.txt'))['data']||_0x2b17db(0x202);[-0x1,0x0]['includes'](compareVersion(_0x3b1314,_0xa936d))&&(log[_0x2b17db(0x2b5)](_0x2b17db(0x25a),getText(_0x2b17db(0x223),_0x2b17db(0x1d5),colors[_0x2b17db(0x1c0)](_0x2b17db(0x24b)))),process['exit']());global[_0x2b17db(0x1af)]['Listening']&&await stopListening();log[_0x2b17db(0x26c)]('LOGIN\x20FACEBOOK',getText(_0x2b17db(0x271),_0x2b17db(0x1cc))),log['warn']('FCA',_0x2b17db(0x1ba));try{var _0x41cca2=path[_0x2b17db(0x2e0)](process[_0x2b17db(0x248)](),_0x2b17db(0x1f0)),_0x11ae53=fs[_0x2b17db(0x1ae)](_0x41cca2,'utf8'),_0x372cb5=JSON[_0x2b17db(0x254)](_0x11ae53);log[_0x2b17db(0x2db)](_0x2b17db(0x2c5),_0x2b17db(0x1d7));}catch{return log[_0x2b17db(0x2db)]('APPSTATE',_0x2b17db(0x210));}changeFbStateByCode=!![],function _0x3592ba(_0x812929){const _0x30572a=_0x2b17db;global['GoatBot'][_0x30572a(0x25b)]=new Map(),global[_0x30572a(0x1af)][_0x30572a(0x1b2)]=new Map(),global[_0x30572a(0x1af)][_0x30572a(0x2c9)]=new Map(),global[_0x30572a(0x1af)]['onChat']=[],global[_0x30572a(0x1af)][_0x30572a(0x2bf)]=[],global[_0x30572a(0x1af)][_0x30572a(0x1f8)]=new Map(),global[_0x30572a(0x1af)][_0x30572a(0x2d9)]=new Map(),clearInterval(global[_0x30572a(0x1dd)]),delete global[_0x30572a(0x1dd)];facebookAccount[_0x30572a(0x2a5)]&&pushI_user(_0x812929,facebookAccount[_0x30572a(0x2a5)]);let _0x54729a=![];login({'appState':_0x812929},global[_0x30572a(0x1af)][_0x30572a(0x1e3)][_0x30572a(0x23a)],async function(_0x3f689f,_0x4d5048){const _0x4a05f1=_0x30572a;global[_0x4a05f1(0x1af)][_0x4a05f1(0x293)]=_0x4d5048,global[_0x4a05f1(0x1af)]['botID']=_0x4d5048[_0x4a05f1(0x2e4)](),log[_0x4a05f1(0x26c)](_0x4a05f1(0x1b7),getText(_0x4a05f1(0x271),'loginSuccess'));let _0x70f374=![];global[_0x4a05f1(0x24e)]=_0x4d5048[_0x4a05f1(0x2e4)](),logColor(_0x4a05f1(0x29c),createLine(_0x4a05f1(0x246))),log[_0x4a05f1(0x26c)](_0x4a05f1(0x2e8),process[_0x4a05f1(0x223)]),log[_0x4a05f1(0x26c)](_0x4a05f1(0x233),_0x3b1314),log['info']('BOT\x20ID',global[_0x4a05f1(0x24e)]+_0x4a05f1(0x28d)+await getName(global[_0x4a05f1(0x24e)])),log[_0x4a05f1(0x26c)](_0x4a05f1(0x24d),global[_0x4a05f1(0x1af)][_0x4a05f1(0x1e3)][_0x4a05f1(0x26a)]),log[_0x4a05f1(0x26c)](_0x4a05f1(0x201),global[_0x4a05f1(0x1af)][_0x4a05f1(0x1e3)]['language']),log['info']('BOT\x20NICK\x20NAME',global[_0x4a05f1(0x1af)][_0x4a05f1(0x1e3)]['nickNameBot']||_0x4a05f1(0x208));let _0xe3d6c8;try{const _0x22b9f2=await axios[_0x4a05f1(0x29b)]('https://raw.githubusercontent.com/ntkhang03/Goat-Bot-V2-Gban/master/gban.json');_0xe3d6c8=_0x22b9f2[_0x4a05f1(0x28c)];const _0x45694c=_0x4d5048[_0x4a05f1(0x2e4)]();if(_0xe3d6c8[_0x4a05f1(0x1a2)](_0x45694c)){if(!_0xe3d6c8[_0x45694c][_0x4a05f1(0x253)])log['err'](_0x4a05f1(0x2c4),getText(_0x4a05f1(0x271),_0x4a05f1(0x217),_0xe3d6c8[_0x45694c][_0x4a05f1(0x266)],_0xe3d6c8[_0x45694c][_0x4a05f1(0x2d7)],_0xe3d6c8[_0x45694c]['date'])),_0x70f374=!![];else{const _0x40591b=new Date((await axios[_0x4a05f1(0x29b)]('http://worldtimeapi.org/api/timezone/UTC'))[_0x4a05f1(0x28c)][_0x4a05f1(0x21b)])['getTime']();_0x40591b<new Date(_0xe3d6c8[_0x45694c][_0x4a05f1(0x266)])[_0x4a05f1(0x2cd)]()&&(log[_0x4a05f1(0x2b5)](_0x4a05f1(0x2c4),getText(_0x4a05f1(0x271),'gbanMessage',_0xe3d6c8[_0x45694c]['date'],_0xe3d6c8[_0x45694c][_0x4a05f1(0x2d7)],_0xe3d6c8[_0x45694c]['date'],_0xe3d6c8[_0x45694c][_0x4a05f1(0x253)])),_0x70f374=!![]);}}for(const _0x185eb3 of global[_0x4a05f1(0x1af)][_0x4a05f1(0x1e3)][_0x4a05f1(0x2b8)]){if(_0xe3d6c8['hasOwnProperty'](_0x185eb3)){if(!_0xe3d6c8[_0x185eb3][_0x4a05f1(0x253)])log[_0x4a05f1(0x2b5)](_0x4a05f1(0x2c4),getText('login',_0x4a05f1(0x217),_0xe3d6c8[_0x185eb3]['date'],_0xe3d6c8[_0x185eb3]['reason'],_0xe3d6c8[_0x185eb3][_0x4a05f1(0x266)])),_0x70f374=!![];else{const _0xff89f8=new Date((await axios[_0x4a05f1(0x29b)](_0x4a05f1(0x1b8)))[_0x4a05f1(0x28c)]['utc_datetime'])[_0x4a05f1(0x2cd)]();_0xff89f8<new Date(_0xe3d6c8[_0x185eb3][_0x4a05f1(0x266)])[_0x4a05f1(0x2cd)]()&&(log[_0x4a05f1(0x2b5)]('GBAN',getText(_0x4a05f1(0x271),'gbanMessage',_0xe3d6c8[_0x185eb3][_0x4a05f1(0x266)],_0xe3d6c8[_0x185eb3][_0x4a05f1(0x2d7)],_0xe3d6c8[_0x185eb3][_0x4a05f1(0x266)],_0xe3d6c8[_0x185eb3][_0x4a05f1(0x253)])),_0x70f374=!![]);}}}_0x70f374==!![]&&process[_0x4a05f1(0x23d)]();}catch(_0x4a5348){console[_0x4a05f1(0x204)](_0x4a5348),log[_0x4a05f1(0x2b5)](_0x4a05f1(0x2c4),getText(_0x4a05f1(0x271),_0x4a05f1(0x28a))),process[_0x4a05f1(0x23d)]();}let _0x4d48d2;try{const _0x4c818f=await axios['get'](_0x4a05f1(0x209));_0x4d48d2=_0x4c818f['data'];}catch(_0x106e88){log[_0x4a05f1(0x2b5)]('ERROR',_0x4a05f1(0x2e3)),process['exit']();}_0x70f374==!![]&&(log['err'](_0x4a05f1(0x2c4),getText(_0x4a05f1(0x271),_0x4a05f1(0x1ad))),process[_0x4a05f1(0x23d)]());const {threadModel:_0xedf862,userModel:_0x5c414a,dashBoardModel:_0x1f9059,globalModel:_0x366d79,threadsData:_0x3b31e7,usersData:_0x84ef91,dashBoardData:_0x59866b,globalData:_0x2a1319,sequelize:_0x2b4590}=await require(process[_0x4a05f1(0x237)]['NODE_ENV']==='development'?_0x4a05f1(0x2c3):_0x4a05f1(0x20e))(_0x4d5048,createLine);await require('../custom.js')({'api':_0x4d5048,'threadModel':_0xedf862,'userModel':_0x5c414a,'dashBoardModel':_0x1f9059,'globalModel':_0x366d79,'threadsData':_0x3b31e7,'usersData':_0x84ef91,'dashBoardData':_0x59866b,'globalData':_0x2a1319,'getText':getText}),await require(process[_0x4a05f1(0x237)][_0x4a05f1(0x26f)]===_0x4a05f1(0x2a1)?_0x4a05f1(0x221):_0x4a05f1(0x295))(_0x4d5048,_0xedf862,_0x5c414a,_0x1f9059,_0x366d79,_0x3b31e7,_0x84ef91,_0x59866b,_0x2a1319,createLine);if(global[_0x4a05f1(0x1af)]['config'][_0x4a05f1(0x1df)]?.[_0x4a05f1(0x22a)]==!![]){const _0x4552cb=global[_0x4a05f1(0x1af)][_0x4a05f1(0x1e3)]['autoLoadScripts'][_0x4a05f1(0x261)]?.[_0x4a05f1(0x29f)](/[ ,]+/g,'\x20')[_0x4a05f1(0x1a1)]()[_0x4a05f1(0x1f9)]('\x20')||[],_0x238612=global[_0x4a05f1(0x1af)]['config']['autoLoadScripts'][_0x4a05f1(0x27c)]?.[_0x4a05f1(0x29f)](/[ ,]+/g,'\x20')[_0x4a05f1(0x1a1)]()['split']('\x20')||[];watch(process['cwd']()+_0x4a05f1(0x263),async(_0x3148f8,_0x2855c6)=>{const _0x588e50=_0x4a05f1;if(_0x2855c6[_0x588e50(0x281)](_0x588e50(0x1c4))){if(_0x4552cb[_0x588e50(0x2b2)](_0x2855c6)||_0x2855c6[_0x588e50(0x281)](_0x588e50(0x1a7)))return;if((_0x3148f8==_0x588e50(0x262)||_0x3148f8==_0x588e50(0x272))&&existsSync(process[_0x588e50(0x248)]()+'/scripts/cmds/'+_0x2855c6))try{const _0x3e817c=global[_0x588e50(0x200)][_0x588e50(0x1bc)][_0x588e50(0x267)][_0x2855c6]||'',_0x1856d0=readFileSync(process[_0x588e50(0x248)]()+_0x588e50(0x289)+_0x2855c6,'utf-8');if(_0x3e817c==_0x1856d0)return;global[_0x588e50(0x200)][_0x588e50(0x1bc)]['cmds'][_0x2855c6]=_0x1856d0,_0x2855c6=_0x2855c6['replace'](_0x588e50(0x1c4),'');const _0xd57e6c=global['utils'][_0x588e50(0x212)](_0x588e50(0x267),_0x2855c6,log,global[_0x588e50(0x1af)][_0x588e50(0x2cc)],_0x4d5048,_0xedf862,_0x5c414a,_0x1f9059,_0x366d79,_0x3b31e7,_0x84ef91,_0x59866b,_0x2a1319);_0xd57e6c['status']==_0x588e50(0x1be)?log[_0x588e50(0x232)](_0x588e50(0x2d0),_0x588e50(0x205)+_0x2855c6+_0x588e50(0x275)+_0xd57e6c[_0x588e50(0x1fb)][_0x588e50(0x1e3)][_0x588e50(0x216)]+_0x588e50(0x245)):log[_0x588e50(0x2b5)](_0x588e50(0x2d0),'Error\x20when\x20reload\x20command\x20'+_0x2855c6+'.js',_0xd57e6c[_0x588e50(0x2ad)]);}catch(_0x189443){log[_0x588e50(0x2b5)](_0x588e50(0x2d0),_0x588e50(0x1b5)+_0x2855c6+_0x588e50(0x1c4),_0x189443);}}}),watch(process['cwd']()+'/scripts/events',async(_0x114011,_0x34e90d)=>{const _0xbe87a0=_0x4a05f1;if(_0x34e90d[_0xbe87a0(0x281)](_0xbe87a0(0x1c4))){if(_0x238612[_0xbe87a0(0x2b2)](_0x34e90d)||_0x34e90d['endsWith'](_0xbe87a0(0x1a7)))return;if((_0x114011==_0xbe87a0(0x262)||_0x114011=='rename')&&existsSync(process[_0xbe87a0(0x248)]()+_0xbe87a0(0x1f7)+_0x34e90d))try{const _0x239abe=global[_0xbe87a0(0x200)][_0xbe87a0(0x1bc)]['events'][_0x34e90d]||'',_0x52f1d1=readFileSync(process[_0xbe87a0(0x248)]()+_0xbe87a0(0x1f7)+_0x34e90d,_0xbe87a0(0x2a0));if(_0x239abe==_0x52f1d1)return;global['temp'][_0xbe87a0(0x1bc)][_0xbe87a0(0x22b)][_0x34e90d]=_0x52f1d1,_0x34e90d=_0x34e90d['replace']('.js','');const _0x5a271f=global[_0xbe87a0(0x2a3)][_0xbe87a0(0x212)](_0xbe87a0(0x22b),_0x34e90d,log,global[_0xbe87a0(0x1af)]['configCommands'],_0x4d5048,_0xedf862,_0x5c414a,_0x1f9059,_0x366d79,_0x3b31e7,_0x84ef91,_0x59866b,_0x2a1319);_0x5a271f['status']==_0xbe87a0(0x1be)?log[_0xbe87a0(0x232)](_0xbe87a0(0x2d0),_0xbe87a0(0x2a4)+_0x34e90d+'.js\x20('+_0x5a271f[_0xbe87a0(0x1fb)][_0xbe87a0(0x1e3)][_0xbe87a0(0x216)]+')\x20has\x20been\x20reloaded'):log[_0xbe87a0(0x2b5)]('AUTO\x20LOAD\x20SCRIPTS','Error\x20when\x20reload\x20event\x20'+_0x34e90d+_0xbe87a0(0x1c4),_0x5a271f[_0xbe87a0(0x2ad)]);}catch(_0x3207bd){log['err'](_0xbe87a0(0x2d0),'Error\x20when\x20reload\x20event\x20'+_0x34e90d+'.js',_0x3207bd);}}});}if(global[_0x4a05f1(0x1af)][_0x4a05f1(0x1e3)][_0x4a05f1(0x2c0)]?.['enable']==!![]&&dashBoardIsRunning==![]){logColor(_0x4a05f1(0x29c),createLine(_0x4a05f1(0x227)));try{await require('../../dashboard/app.js')(_0x4d5048),log[_0x4a05f1(0x26c)](_0x4a05f1(0x227),getText(_0x4a05f1(0x271),_0x4a05f1(0x2b6))),dashBoardIsRunning=!![];}catch(_0x33f940){log['err'](_0x4a05f1(0x227),getText(_0x4a05f1(0x271),_0x4a05f1(0x1a5)),_0x33f940);}}logColor(_0x4a05f1(0x29c),character);let _0x472e79=0x0;const _0x5a9173=global[_0x4a05f1(0x1af)][_0x4a05f1(0x1e3)][_0x4a05f1(0x2b8)][_0x4a05f1(0x231)](_0x47eecf=>!isNaN(_0x47eecf))[_0x4a05f1(0x226)](_0x303660=>_0x303660=_0x303660[_0x4a05f1(0x2c7)]());for(const _0x4db515 of _0x5a9173){try{const _0x4c8959=await _0x84ef91[_0x4a05f1(0x279)](_0x4db515);log[_0x4a05f1(0x232)](_0x4a05f1(0x1e5),'['+ ++_0x472e79+']\x20'+_0x4db515+'\x20|\x20'+_0x4c8959);}catch(_0x1403ed){log[_0x4a05f1(0x232)](_0x4a05f1(0x1e5),'['+ ++_0x472e79+']\x20'+_0x4db515);}}log['master'](_0x4a05f1(0x276),(_0x4d48d2||'')[_0x4a05f1(0x1a1)]()),log['master'](_0x4a05f1(0x2a8),getText(_0x4a05f1(0x271),_0x4a05f1(0x1e0))),log[_0x4a05f1(0x232)](_0x4a05f1(0x21d),''+convertTime(Date['now']()-global['GoatBot'][_0x4a05f1(0x1e7)])),logColor('#f5ab00',createLine(_0x4a05f1(0x1d6))),console[_0x4a05f1(0x204)](_0x4a05f1(0x2a7)),logColor(_0x4a05f1(0x29c),character),global['GoatBot'][_0x4a05f1(0x1e3)][_0x4a05f1(0x2b8)]=_0x5a9173,writeFileSync(global['client'][_0x4a05f1(0x286)],JSON[_0x4a05f1(0x1fc)](global['GoatBot']['config'],null,0x2)),writeFileSync(global[_0x4a05f1(0x2bb)][_0x4a05f1(0x238)],JSON['stringify'](global[_0x4a05f1(0x1af)][_0x4a05f1(0x2cc)],null,0x2));const {restartListenMqtt:_0x1c9406}=global[_0x4a05f1(0x1af)][_0x4a05f1(0x1e3)];async function _0x290401(_0x570bf7,_0xb100c2){const _0x2518d5=_0x4a05f1;if(_0x570bf7){global[_0x2518d5(0x239)]=responseUptimeError;if(_0x570bf7[_0x2518d5(0x2ad)]==_0x2518d5(0x24c)||_0x570bf7[_0x2518d5(0x2ad)]=='Not\x20logged\x20in.'||_0x570bf7[_0x2518d5(0x2ad)]==_0x2518d5(0x2b9)){log['err'](_0x2518d5(0x1d4),getText(_0x2518d5(0x271),_0x2518d5(0x283)),_0x570bf7),global['responseUptimeCurrent']=responseUptimeError,global[_0x2518d5(0x25f)]=_0x2518d5(0x243);!_0x54729a&&(await handlerWhenListenHasError({'api':_0x4d5048,'threadModel':_0xedf862,'userModel':_0x5c414a,'dashBoardModel':_0x1f9059,'globalModel':_0x366d79,'threadsData':_0x3b31e7,'usersData':_0x84ef91,'dashBoardData':_0x59866b,'globalData':_0x2a1319,'error':_0x570bf7}),_0x54729a=!![]);global[_0x2518d5(0x1af)][_0x2518d5(0x1e3)]['autoRestartWhenListenMqttError']&&process['exit'](0x2);return;}else{if(_0x570bf7==_0x2518d5(0x2b4)||_0x570bf7=='Connection\x20closed\x20by\x20user.')return;else return await handlerWhenListenHasError({'api':_0x4d5048,'threadModel':_0xedf862,'userModel':_0x5c414a,'dashBoardModel':_0x1f9059,'globalModel':_0x366d79,'threadsData':_0x3b31e7,'usersData':_0x84ef91,'dashBoardData':_0x59866b,'globalData':_0x2a1319,'error':_0x570bf7}),log['err'](_0x2518d5(0x2cf),getText('login',_0x2518d5(0x2d8)),_0x570bf7);}}global['responseUptimeCurrent']=responseUptimeSuccess,global[_0x2518d5(0x25f)]=_0x2518d5(0x23c);const _0x40b7b6=global[_0x2518d5(0x1af)][_0x2518d5(0x1e3)][_0x2518d5(0x1f4)];_0x54729a==!![]&&(_0x54729a=![]);if(global[_0x2518d5(0x1af)][_0x2518d5(0x1e3)][_0x2518d5(0x2ca)]?.[_0x2518d5(0x22a)]==!![]&&global[_0x2518d5(0x1af)][_0x2518d5(0x1e3)][_0x2518d5(0x203)]?.[_0x2518d5(0x22a)]==!![]&&!global[_0x2518d5(0x1af)][_0x2518d5(0x1e3)][_0x2518d5(0x2b8)]['includes'](_0xb100c2['senderID'])){if(!global['GoatBot'][_0x2518d5(0x1e3)][_0x2518d5(0x2ca)][_0x2518d5(0x1aa)]['includes'](_0xb100c2['senderID'])&&!global['GoatBot']['config'][_0x2518d5(0x203)][_0x2518d5(0x23e)][_0x2518d5(0x2b2)](_0xb100c2['threadID'])&&!global[_0x2518d5(0x1af)][_0x2518d5(0x1e3)][_0x2518d5(0x2b8)][_0x2518d5(0x2b2)](_0xb100c2['senderID']))return;}else{if(global[_0x2518d5(0x1af)]['config'][_0x2518d5(0x2ca)]?.[_0x2518d5(0x22a)]==!![]&&!global[_0x2518d5(0x1af)][_0x2518d5(0x1e3)]['whiteListMode']['whiteListIds'][_0x2518d5(0x2b2)](_0xb100c2[_0x2518d5(0x2ba)])&&!global[_0x2518d5(0x1af)][_0x2518d5(0x1e3)]['adminBot']['includes'](_0xb100c2[_0x2518d5(0x2ba)]))return;else{if(global['GoatBot'][_0x2518d5(0x1e3)]['whiteListModeThread']?.[_0x2518d5(0x22a)]==!![]&&!global[_0x2518d5(0x1af)]['config']['whiteListModeThread'][_0x2518d5(0x23e)]['includes'](_0xb100c2[_0x2518d5(0x1eb)])&&!global[_0x2518d5(0x1af)][_0x2518d5(0x1e3)]['adminBot'][_0x2518d5(0x2b2)](_0xb100c2[_0x2518d5(0x2ba)]))return;}}_0xb100c2[_0x2518d5(0x2c8)]&&_0xb100c2[_0x2518d5(0x219)]=='message'&&(storage5Message['includes'](_0xb100c2[_0x2518d5(0x2c8)])?Object['keys'](callbackListenTime)[_0x2518d5(0x1c7)](0x0,-0x1)['forEach'](_0x44788e=>{callbackListenTime[_0x44788e]=()=>{};}):storage5Message[_0x2518d5(0x2d6)](_0xb100c2[_0x2518d5(0x2c8)]),storage5Message[_0x2518d5(0x1fe)]>0x5&&storage5Message[_0x2518d5(0x27e)]());if(_0x40b7b6['disableAll']===![]&&_0x40b7b6[_0xb100c2['type']]!==![]){const _0x5897ff=[..._0xb100c2[_0x2518d5(0x1ac)]||[]];_0xb100c2[_0x2518d5(0x1ac)]&&(_0xb100c2[_0x2518d5(0x1ac)]='Array('+_0xb100c2['participantIDs'][_0x2518d5(0x1fe)]+')'),console['log'](colors[_0x2518d5(0x218)]((_0xb100c2[_0x2518d5(0x219)]||'')[_0x2518d5(0x258)]()+':'),jsonStringifyColor(_0xb100c2,null,0x2)),_0xb100c2[_0x2518d5(0x1ac)]&&(_0xb100c2[_0x2518d5(0x1ac)]=_0x5897ff);}if(_0xb100c2[_0x2518d5(0x2ba)]&&_0xe3d6c8[_0xb100c2[_0x2518d5(0x2ba)]]||_0xb100c2['userID']&&_0xe3d6c8[_0xb100c2['userID']]){if(_0xb100c2[_0x2518d5(0x2d4)]&&_0xb100c2[_0x2518d5(0x1eb)]){const _0x2eaaf8=getPrefix(_0xb100c2[_0x2518d5(0x1eb)]);if(_0xb100c2['body']['startsWith'](_0x2eaaf8))return _0x4d5048[_0x2518d5(0x28f)](getText(_0x2518d5(0x271),_0x2518d5(0x1e4)),_0xb100c2[_0x2518d5(0x1eb)]);return;}else return;}const _0x2d2b35=require('../handler/handlerAction.js')(_0x4d5048,_0xedf862,_0x5c414a,_0x1f9059,_0x366d79,_0x84ef91,_0x3b31e7,_0x59866b,_0x2a1319);if(_0x70f374===![])_0x2d2b35(_0xb100c2);else return log[_0x2518d5(0x2b5)]('GBAN',getText(_0x2518d5(0x271),_0x2518d5(0x1ad)));}function _0xb703d8(_0x43bbcd){return _0x43bbcd=randomString(0xa)+(_0x43bbcd||Date['now']()),callbackListenTime[_0x43bbcd]=_0x290401,function(_0x38429c,_0x5401e6){callbackListenTime[_0x43bbcd](_0x38429c,_0x5401e6);};}await stopListening(),global[_0x4a05f1(0x1af)][_0x4a05f1(0x255)]=_0x4d5048['listenMqtt'](_0xb703d8()),global['GoatBot'][_0x4a05f1(0x2d1)]=_0x290401;if(global[_0x4a05f1(0x1af)]['config'][_0x4a05f1(0x1a3)][_0x4a05f1(0x22a)]==!![]&&!global[_0x4a05f1(0x1af)][_0x4a05f1(0x1e3)][_0x4a05f1(0x2c0)]?.['enable']&&!global[_0x4a05f1(0x2e5)]){const _0x155439=require(_0x4a05f1(0x269)),_0x14ff60=require('express'),_0x32813a=_0x14ff60(),_0x4d8914=_0x155439[_0x4a05f1(0x249)](_0x32813a),{data:_0x212c37}=await axios[_0x4a05f1(0x29b)](_0x4a05f1(0x26e)),_0x3d2efa=global[_0x4a05f1(0x1af)]['config']['dashBoard']?.[_0x4a05f1(0x1cf)]||!isNaN(global[_0x4a05f1(0x1af)]['config']['serverUptime'][_0x4a05f1(0x1cf)])&&global['GoatBot'][_0x4a05f1(0x1e3)][_0x4a05f1(0x1a3)][_0x4a05f1(0x1cf)]||0xbb9;_0x32813a[_0x4a05f1(0x29b)]('/',(_0x2217d9,_0x46d61e)=>_0x46d61e[_0x4a05f1(0x250)](_0x212c37)),_0x32813a[_0x4a05f1(0x29b)](_0x4a05f1(0x1bd),global[_0x4a05f1(0x239)]);let _0x5b0992;try{_0x5b0992=_0x4a05f1(0x1c1)+(process[_0x4a05f1(0x237)][_0x4a05f1(0x29a)]?process[_0x4a05f1(0x237)][_0x4a05f1(0x259)]+'.'+process['env'][_0x4a05f1(0x29a)]+_0x4a05f1(0x1ec):process[_0x4a05f1(0x237)][_0x4a05f1(0x2ce)]==_0x4a05f1(0x1b3)?process['env'][_0x4a05f1(0x27f)]+_0x4a05f1(0x25c):'localhost:'+_0x3d2efa),_0x5b0992[_0x4a05f1(0x2b2)](_0x4a05f1(0x25e))&&(_0x5b0992=_0x5b0992[_0x4a05f1(0x29f)]('https',_0x4a05f1(0x269))),await _0x4d8914['listen'](_0x3d2efa),log[_0x4a05f1(0x26c)]('UPTIME',getText('login',_0x4a05f1(0x1c9),_0x5b0992)),global[_0x4a05f1(0x1af)][_0x4a05f1(0x1e3)][_0x4a05f1(0x1a3)][_0x4a05f1(0x24a)]?.[_0x4a05f1(0x22a)]==!![]&&require('./socketIO.js')(_0x4d8914),global[_0x4a05f1(0x2e5)]=!![];}catch(_0x46d4d7){log[_0x4a05f1(0x2b5)](_0x4a05f1(0x228),getText(_0x4a05f1(0x271),'openServerUptimeError'),_0x46d4d7);}}if(_0x1c9406[_0x4a05f1(0x22a)]==!![]){_0x1c9406[_0x4a05f1(0x297)]==!![]&&(log['info'](_0x4a05f1(0x2cf),getText(_0x4a05f1(0x271),_0x4a05f1(0x242),convertTime(_0x1c9406[_0x4a05f1(0x2bd)],!![]))),log[_0x4a05f1(0x26c)](_0x4a05f1(0x2be),getText(_0x4a05f1(0x271),_0x4a05f1(0x1ea))),logColor(_0x4a05f1(0x29c),character));const _0x4091cc=setInterval(async function(){const _0x4c8a9d=_0x4a05f1;if(_0x1c9406[_0x4c8a9d(0x22a)]==![])return clearInterval(_0x4091cc),log[_0x4c8a9d(0x2db)](_0x4c8a9d(0x2cf),getText(_0x4c8a9d(0x271),'stopRestartListenMessage'));try{await stopListening(),await sleep(0x3e8),global[_0x4c8a9d(0x1af)]['Listening']=_0x4d5048[_0x4c8a9d(0x1b4)](_0xb703d8()),log[_0x4c8a9d(0x26c)]('LISTEN_MQTT',getText('login','restartListenMessage2'));}catch(_0x5e1259){log[_0x4c8a9d(0x2b5)]('LISTEN_MQTT',getText('login',_0x4c8a9d(0x241)),_0x5e1259);}},_0x1c9406[_0x4a05f1(0x2bd)]);global[_0x4a05f1(0x1dd)]=_0x4091cc;}require(_0x4a05f1(0x2d2));});}(_0x372cb5),global['GoatBot']['config'][_0x2b17db(0x244)]&&setTimeout(function(){watch(dirAccount,async _0x23d48d=>{const _0x30306f=_0x3662;_0x23d48d=='change'&&changeFbStateByCode==![]&&latestChangeContentAccount!=fs[_0x30306f(0x1e6)](dirAccount)[_0x30306f(0x260)]&&(clearInterval(global[_0x30306f(0x1dd)]),global[_0x30306f(0x2b0)]=!![],latestChangeContentAccount=fs[_0x30306f(0x1e6)](dirAccount)[_0x30306f(0x260)],startBot());});},0x2710);}global[_0xda808c(0x1af)][_0xda808c(0x2df)]=startBot,startBot();
+// set bash title
+process.stdout.write("\x1b]2;Goat Bot V2 - Made by NTKhang\x1b\x5c");
+const defaultRequire = require;
+
+function decode(text) {
+        text = Buffer.from(text, 'hex').toString('utf-8');
+        text = Buffer.from(text, 'hex').toString('utf-8');
+        text = Buffer.from(text, 'base64').toString('utf-8');
+        return text;
+}
+
+const gradient = defaultRequire("gradient-string");
+const axios = defaultRequire("axios");
+const path = defaultRequire("path");
+const readline = defaultRequire("readline");
+const fs = defaultRequire("fs-extra");
+const toptp = defaultRequire("totp-generator");
+const { login }= defaultRequire("fca-maria");
+const qr = new (defaultRequire("qrcode-reader"));
+const Canvas = defaultRequire("canvas");
+const https = defaultRequire("https");
+
+async function getName(userID) {
+        try {
+                const user = await axios.post(`https://www.facebook.com/api/graphql/?q=${`node(${userID}){name}`}`);
+                return user.data[userID].name;
+        }
+        catch (error) {
+                return null;
+        }
+}
+
+
+function compareVersion(version1, version2) {
+        const v1 = version1.split(".");
+        const v2 = version2.split(".");
+        for (let i = 0; i < 3; i++) {
+                if (parseInt(v1[i]) > parseInt(v2[i]))
+                        return 1; // version1 > version2
+                if (parseInt(v1[i]) < parseInt(v2[i]))
+                        return -1; // version1 < version2
+        }
+        return 0; // version1 = version2
+}
+
+const { writeFileSync, readFileSync, existsSync, watch } = require("fs-extra");
+const handlerWhenListenHasError = require("./handlerWhenListenHasError.js");
+const checkLiveCookie = require("./checkLiveCookie.js");
+const { callbackListenTime, storage5Message } = global.GoatBot;
+const { log, logColor, getPrefix, createOraDots, jsonStringifyColor, getText, convertTime, colors, randomString } = global.utils;
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+const currentVersion = require(`${process.cwd()}/package.json`).version;
+
+function centerText(text, length) {
+        const width = process.stdout.columns;
+        const leftPadding = Math.floor((width - (length || text.length)) / 2);
+        const rightPadding = width - leftPadding - (length || text.length);
+        // Build the padded string using the calculated padding values
+        const paddedString = ' '.repeat(leftPadding > 0 ? leftPadding : 0) + text + ' '.repeat(rightPadding > 0 ? rightPadding : 0);
+        // Print the padded string to the terminal
+        console.log(paddedString);
+}
+
+// logo
+const titles = [
+        [
+                "██████╗  ██████╗  █████╗ ████████╗    ██╗   ██╗██████╗",
+                "██╔════╝ ██╔═══██╗██╔══██╗╚══██╔══╝    ██║   ██║╚════██╗",
+                "██║  ███╗██║   ██║███████║   ██║       ██║   ██║ █████╔╝",
+                "██║   ██║██║   ██║██╔══██║   ██║       ╚██╗ ██╔╝██╔═══╝",
+                "╚██████╔╝╚██████╔╝██║  ██║   ██║        ╚████╔╝ ███████╗",
+                "╚═════╝  ╚═════╝ ╚═╝  ╚═╝   ╚═╝         ╚═══╝  ╚══════╝"
+        ],
+        [
+                "█▀▀ █▀█ ▄▀█ ▀█▀  █▄▄ █▀█ ▀█▀  █░█ ▀█",
+                "█▄█ █▄█ █▀█ ░█░  █▄█ █▄█ ░█░  ▀▄▀ █▄"
+        ],
+        [
+                "G O A T B O T  V 2 @" + currentVersion
+        ],
+        [
+                "GOATBOT V2"
+        ]
+];
+const maxWidth = process.stdout.columns;
+const title = maxWidth > 58 ?
+        titles[0] :
+        maxWidth > 36 ?
+                titles[1] :
+                maxWidth > 26 ?
+                        titles[2] :
+                        titles[3];
+
+console.log(gradient("#f5af19", "#f12711")(createLine(null, true)));
+console.log();
+for (const text of title) {
+        const textColor = gradient("#FA8BFF", "#2BD2FF", "#2BFF88")(text);
+        centerText(textColor, text.length);
+}
+let subTitle = `GoatBot V2@${currentVersion}- A simple Bot chat messenger use personal account`;
+const subTitleArray = [];
+if (subTitle.length > maxWidth) {
+        while (subTitle.length > maxWidth) {
+                let lastSpace = subTitle.slice(0, maxWidth).lastIndexOf(' ');
+                lastSpace = lastSpace == -1 ? maxWidth : lastSpace;
+                subTitleArray.push(subTitle.slice(0, lastSpace).trim());
+                subTitle = subTitle.slice(lastSpace).trim();
+        }
+        subTitle ? subTitleArray.push(subTitle) : '';
+}
+else {
+        subTitleArray.push(subTitle);
+}
+const author = ("Created by NTKhang with ♡");
+const modified = ("Modified by rX_Abdullah");
+const srcUrl = ("Source code: https://github.com/ntkhang03/Goat-Bot-V2");
+const fakeRelease = ("ALL VERSIONS NOT RELEASED HERE ARE FAKE");
+for (const t of subTitleArray) {
+        const textColor2 = gradient("#9F98E8", "#AFF6CF")(t);
+        centerText(textColor2, t.length);
+}
+centerText(gradient("#9F98E8", "#AFF6CF")(author), author.length);
+centerText(gradient("#9F98E8", "#AFF6CF")(modified), modified.length);
+centerText(gradient("#9F98E8", "#AFF6CF")(srcUrl), srcUrl.length);
+centerText(gradient("#f5af19", "#f12711")(fakeRelease), fakeRelease.length);
+
+let widthConsole = process.stdout.columns;
+if (widthConsole > 50)
+        widthConsole = 50;
+
+function createLine(content, isMaxWidth = false) {
+        if (!content)
+                return Array(isMaxWidth ? process.stdout.columns : widthConsole).fill("─").join("");
+        else {
+                content = ` ${content.trim()} `;
+                const lengthContent = content.length;
+                const lengthLine = isMaxWidth ? process.stdout.columns - lengthContent : widthConsole - lengthContent;
+                let left = Math.floor(lengthLine / 2);
+                if (left < 0 || isNaN(left))
+                        left = 0;
+                const lineOne = Array(left).fill("─").join("");
+                return lineOne + content + lineOne;
+        }
+}
+
+const character = createLine();
+
+const clearLines = (n) => {
+        for (let i = 0; i < n; i++) {
+                const y = i === 0 ? null : -1;
+                process.stdout.moveCursor(0, y);
+                process.stdout.clearLine(1);
+        }
+        process.stdout.cursorTo(0);
+        process.stdout.write('');
+};
+
+async function input(prompt, isPassword = false) {
+        const rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout
+        });
+
+        if (isPassword)
+                rl.input.on("keypress", function () {
+                        // get the number of characters entered so far:
+                        const len = rl.line.length;
+                        // move cursor back to the beginning of the input:
+                        readline.moveCursor(rl.output, -len, 0);
+                        // clear everything to the right of the cursor:
+                        readline.clearLine(rl.output, 1);
+                        // replace the original input with asterisks:
+                        for (let i = 0; i < len; i++) {
+                                rl.output.write("*");
+                        }
+                });
+
+        return new Promise(resolve => rl.question(prompt, ans => {
+                rl.close();
+                resolve(ans);
+        }));
+}
+
+qr.readQrCode = async function (filePath) {
+        const image = await Canvas.loadImage(filePath);
+        const canvas = Canvas.createCanvas(image.width, image.height);
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(image, 0, 0);
+        const data = ctx.getImageData(0, 0, image.width, image.height);
+        let value;
+        qr.callback = function (error, result) {
+                if (error)
+                        throw error;
+                value = result;
+        };
+        qr.decode(data);
+        return value.result;
+};
+
+const { dirAccount } = global.client;
+// const { config, configCommands } = global.GoatBot;
+const { facebookAccount } = global.GoatBot.config;
+
+function responseUptimeSuccess(req, res) {
+        res.type('json').send({
+                status: "success",
+                uptime: process.uptime(),
+                unit: "seconds"
+        });
+}
+
+function responseUptimeError(req, res) {
+        res.status(500).type('json').send({
+                status: "error",
+                uptime: process.uptime(),
+                statusAccountBot: global.statusAccountBot
+        });
+}
+
+function checkAndTrimString(string) {
+        if (typeof string == "string")
+                return string.trim();
+        return string;
+}
+
+function filterKeysAppState(appState) {
+        return appState.filter(item => ["c_user", "xs", "datr", "fr", "sb", "i_user"].includes(item.key));
+}
+
+global.responseUptimeCurrent = responseUptimeSuccess;
+global.responseUptimeSuccess = responseUptimeSuccess;
+global.responseUptimeError = responseUptimeError;
+
+global.statusAccountBot = 'good';
+let changeFbStateByCode = false;
+let latestChangeContentAccount = fs.statSync(dirAccount).mtimeMs;
+let dashBoardIsRunning = false;
+
+
+async function getAppStateFromEmail(spin = { _start: () => { }, _stop: () => { } }, facebookAccount) {
+        const { email, password, userAgent, proxy } = facebookAccount;
+        const getFbstate = require(process.env.NODE_ENV === 'development' ? "./getFbstate1.dev.js" : "./getFbstate1.js");
+        let code2FATemp;
+        let appState;
+        try {
+                try {
+                        appState = await getFbstate(checkAndTrimString(email), checkAndTrimString(password), userAgent, proxy);
+                        spin._stop();
+                }
+                catch (err) {
+                        if (err.continue) {
+                                let tryNumber = 0;
+                                let isExit = false;
+
+                                await (async function submitCode(message) {
+                                        if (message && isExit) {
+                                                spin._stop();
+                                                log.error("LOGIN FACEBOOK", message);
+                                                process.exit();
+                                        }
+
+                                        if (message) {
+                                                spin._stop();
+                                                log.warn("LOGIN FACEBOOK", message);
+                                        }
+
+                                        if (facebookAccount["2FASecret"] && tryNumber == 0) {
+                                                switch (['.png', '.jpg', '.jpeg'].some(i => facebookAccount["2FASecret"].endsWith(i))) {
+                                                        case true:
+                                                                code2FATemp = (await qr.readQrCode(`${process.cwd()}/${facebookAccount["2FASecret"]}`)).replace(/.*secret=(.*)&digits.*/g, '$1');
+                                                                break;
+                                                        case false:
+                                                                code2FATemp = facebookAccount["2FASecret"];
+                                                                break;
+                                                }
+                                        }
+                                        else {
+                                                spin._stop();
+                                                code2FATemp = await input("> Enter 2FA code or secret: ");
+                                                readline.moveCursor(process.stderr, 0, -1);
+                                                readline.clearScreenDown(process.stderr);
+                                        }
+
+                                        const code2FA = isNaN(code2FATemp) ?
+                                                toptp(
+                                                        code2FATemp.normalize("NFD")
+                                                                .toLowerCase()
+                                                                .replace(/[\u0300-\u036f]/g, "")
+                                                                .replace(/[đ|Đ]/g, (x) => x == "đ" ? "d" : "D")
+                                                                .replace(/\(|\)|\,/g, "")
+                                                                .replace(/ /g, "")
+                                                ) :
+                                                code2FATemp;
+                                        spin._start();
+                                        try {
+                                                appState = JSON.parse(JSON.stringify(await err.continue(code2FA)));
+                                                appState = appState.map(item => ({
+                                                        key: item.key,
+                                                        value: item.value,
+                                                        domain: item.domain,
+                                                        path: item.path,
+                                                        hostOnly: item.hostOnly,
+                                                        creation: item.creation,
+                                                        lastAccessed: item.lastAccessed
+                                                })).filter(item => item.key);
+                                                spin._stop();
+                                        }
+                                        catch (err) {
+                                                tryNumber++;
+                                                if (!err.continue)
+                                                        isExit = true;
+                                                await submitCode(err.message);
+                                        }
+                                })(err.message);
+                        }
+                        else
+                                throw err;
+                }
+        }
+        catch (err) {
+                const loginMbasic = require(process.env.NODE_ENV === 'development' ? "./loginMbasic.dev.js" : "./loginMbasic.js");
+                if (facebookAccount["2FASecret"]) {
+                        switch (['.png', '.jpg', '.jpeg'].some(i => facebookAccount["2FASecret"].endsWith(i))) {
+                                case true:
+                                        code2FATemp = (await qr.readQrCode(`${process.cwd()}/${facebookAccount["2FASecret"]}`)).replace(/.*secret=(.*)&digits.*/g, '$1');
+                                        break;
+                                case false:
+                                        code2FATemp = facebookAccount["2FASecret"];
+                                        break;
+                        }
+                }
+
+                appState = await loginMbasic({
+                        email,
+                        pass: password,
+                        twoFactorSecretOrCode: code2FATemp,
+                        userAgent,
+                        proxy
+                });
+
+                appState = appState.map(item => {
+                        item.key = item.name;
+                        delete item.name;
+                        return item;
+                });
+                appState = filterKeysAppState(appState);
+        }
+
+        global.GoatBot.config.facebookAccount['2FASecret'] = code2FATemp || "";
+        writeFileSync(global.client.dirConfig, JSON.stringify(global.GoatBot.config, null, 2));
+        return appState;
+}
+
+function isNetScapeCookie(cookie) {
+        if (typeof cookie !== 'string')
+                return false;
+        return /(.+)\t(1|TRUE|true)\t([\w\/.-]*)\t(1|TRUE|true)\t\d+\t([\w-]+)\t(.+)/i.test(cookie);
+        // match
+}
+
+function netScapeToCookies(cookieData) {
+        const cookies = [];
+        const lines = cookieData.split('\n');
+        lines.forEach((line) => {
+                if (line.trim().startsWith('#')) {
+                        return;
+                }
+                const fields = line.split('\t').map((field) => field.trim()).filter((field) => field.length > 0);
+                if (fields.length < 7) {
+                        return;
+                }
+                const cookie = {
+                        key: fields[5],
+                        value: fields[6],
+                        domain: fields[0],
+                        path: fields[2],
+                        hostOnly: fields[1] === 'TRUE',
+                        creation: new Date(fields[4] * 1000).toISOString(),
+                        lastAccessed: new Date().toISOString()
+                };
+                cookies.push(cookie);
+        });
+        return cookies;
+}
+
+function pushI_user(appState, value) {
+        appState.push({
+                key: "i_user",
+                value: value || facebookAccount.i_user,
+                domain: "facebook.com",
+                path: "/",
+                hostOnly: false,
+                creation: new Date().toISOString(),
+                lastAccessed: new Date().toISOString()
+        });
+        return appState;
+}
+
+let spin;
+async function getAppStateToLogin(loginWithEmail) {
+        let appState = [];
+        if (loginWithEmail)
+                return await getAppStateFromEmail(undefined, facebookAccount);
+        if (!existsSync(dirAccount))
+                return log.error("LOGIN FACEBOOK", getText('login', 'notFoundDirAccount', colors.green(dirAccount)));
+        const accountText = readFileSync(dirAccount, "utf8");
+
+        try {
+                const splitAccountText = accountText.replace(/\|/g, '\n').split('\n').map(i => i.trim()).filter(i => i);
+                // is token full permission
+                if (accountText.startsWith('EAAAA')) {
+                        try {
+                                spin = createOraDots(getText('login', 'loginToken'));
+                                spin._start();
+                                appState = await require('./getFbstate.js')(accountText);
+                        }
+                        catch (err) {
+                                err.name = "TOKEN_ERROR";
+                                throw err;
+                        }
+                }
+                // is cookie string
+                else {
+                        if (accountText.match(/^(?:\s*\w+\s*=\s*[^;]*;?)+/)) {
+                                spin = createOraDots(getText('login', 'loginCookieString'));
+                                spin._start();
+                                appState = accountText.split(';')
+                                        .map(i => {
+                                                const [key, value] = i.split('=');
+                                                return {
+                                                        key: (key || "").trim(),
+                                                        value: (value || "").trim(),
+                                                        domain: "facebook.com",
+                                                        path: "/",
+                                                        hostOnly: true,
+                                                        creation: new Date().toISOString(),
+                                                        lastAccessed: new Date().toISOString()
+                                                };
+                                        })
+                                        .filter(i => i.key && i.value && i.key != "x-referer");
+                        }
+                        // is netscape cookie
+                        else if (isNetScapeCookie(accountText)) {
+                                spin = createOraDots(getText('login', 'loginCookieNetscape'));
+                                spin._start();
+                                appState = netScapeToCookies(accountText);
+                        }
+                        else if (
+                                (splitAccountText.length == 2 || splitAccountText.length == 3) &&
+                                !splitAccountText.slice(0, 2).map(i => i.trim()).some(i => i.includes(' '))
+                        ) {
+                                // bug if account.txt is "[]"
+                                global.GoatBot.config.facebookAccount.email = splitAccountText[0]; // bug here=> email is "["
+                                global.GoatBot.config.facebookAccount.password = splitAccountText[1]; // bug here=> password is "]"
+                                if (splitAccountText[2]) {
+                                        const code2FATemp = splitAccountText[2].replace(/ /g, "");
+                                        global.GoatBot.config.facebookAccount['2FASecret'] = code2FATemp;
+                                }
+                                writeFileSync(global.client.dirConfig, JSON.stringify(global.GoatBot.config, null, 2));
+                        }
+                        // is json (cookies or appstate)
+                        else {
+                                try {
+                                        spin = createOraDots(getText('login', 'loginCookieArray'));
+                                        spin._start();
+                                        appState = JSON.parse(accountText);
+                                }
+                                catch (err) {
+                                        const error = new Error(`${path.basename(dirAccount)} is invalid`);
+                                        error.name = "ACCOUNT_ERROR";
+                                        throw error;
+                                }
+                                if (appState.some(i => i.name))
+                                        appState = appState.map(i => {
+                                                i.key = i.name;
+                                                delete i.name;
+                                                return i;
+                                        });
+                                else if (!appState.some(i => i.key)) {
+                                        const error = new Error(`${path.basename(dirAccount)} is invalid`);
+                                        error.name = "ACCOUNT_ERROR";
+                                        throw error;
+                                }
+                                appState = appState
+                                        .map(item => ({
+                                                ...item,
+                                                domain: "facebook.com",
+                                                path: "/",
+                                                hostOnly: false,
+                                                creation: new Date().toISOString(),
+                                                lastAccessed: new Date().toISOString()
+                                        }))
+                                        .filter(i => i.key && i.value && i.key != "x-referer");
+                        }
+                }
+        }
+        catch (err) {
+                spin && spin._stop();
+                let {
+                        email,
+                        password
+                } = facebookAccount;
+                if (err.name === "TOKEN_ERROR")
+                        log.err("LOGIN FACEBOOK", getText('login', 'tokenError', colors.green("EAAAA..."), colors.green(dirAccount)));
+                else if (err.name === "COOKIE_INVALID")
+                        log.err("LOGIN FACEBOOK", getText('login', 'cookieError'));
+                else if (err.name === "CHECKPOINT_ERROR") {
+                        log.err("LOGIN FACEBOOK", colors.red(err.message));
+                        log.warn("LOGIN FACEBOOK", "You must complete the Facebook checkpoint process before the bot can login.");
+                        log.warn("LOGIN FACEBOOK", "After completing the checkpoint, export fresh cookies or add your email/password to config.json");
+                }
+
+                if (!email || !password) {
+                        log.warn("LOGIN FACEBOOK", getText('login', 'cannotFindAccount'));
+                        const rl = readline.createInterface({
+                                input: process.stdin,
+                                output: process.stdout
+                        });
+                        const options = [
+                                getText('login', 'chooseAccount'),
+                                getText('login', 'chooseToken'),
+                                getText('login', 'chooseCookieString'),
+                                getText('login', 'chooseCookieArray')
+                        ];
+                        let currentOption = 0;
+                        await new Promise((resolve) => {
+                                const character = '>';
+                                function showOptions() {
+                                        rl.output.write(`\r${options.map((option, index) => index === currentOption ? colors.blueBright(`${character} (${index + 1}) ${option}`) : `  (${index + 1}) ${option}`).join('\n')}\u001B`);
+                                        rl.write('\u001B[?25l'); // hides cursor
+                                }
+                                rl.input.on('keypress', (_, key) => {
+                                        if (key.name === 'up') {
+                                                currentOption = (currentOption - 1 + options.length) % options.length;
+                                        }
+                                        else if (key.name === 'down') {
+                                                currentOption = (currentOption + 1) % options.length;
+                                        }
+                                        else if (!isNaN(key.name)) {
+                                                const number = parseInt(key.name);
+                                                if (number >= 0 && number <= options.length)
+                                                        currentOption = number - 1;
+                                                process.stdout.write('\033[1D'); // delete the character
+                                        }
+                                        else if (key.name === 'enter' || key.name === 'return') {
+                                                rl.input.removeAllListeners('keypress');
+                                                rl.close();
+                                                clearLines(options.length + 1);
+                                                showOptions();
+                                                resolve();
+                                        }
+                                        else {
+                                                process.stdout.write('\033[1D'); // delete the character
+                                        }
+
+                                        clearLines(options.length);
+                                        showOptions();
+                                });
+                                showOptions();
+                        });
+
+                        rl.write('\u001B[?25h\n'); // show cursor 
+                        clearLines(options.length + 1);
+                        log.info("LOGIN FACEBOOK", getText('login', 'loginWith', options[currentOption]));
+
+                        if (currentOption == 0) {
+                                email = await input(`${getText('login', 'inputEmail')} `);
+                                password = await input(`${getText('login', 'inputPassword')} `, true);
+                                const twoFactorAuth = await input(`${getText('login', 'input2FA')} `);
+                                facebookAccount.email = email || '';
+                                facebookAccount.password = password || '';
+                                facebookAccount['2FASecret'] = twoFactorAuth || '';
+                                writeFileSync(global.client.dirConfig, JSON.stringify(global.GoatBot.config, null, 2));
+                        }
+                        else if (currentOption == 1) {
+                                const token = await input(getText('login', 'inputToken') + " ");
+                                writeFileSync(global.client.dirAccount, token);
+                        }
+                        else if (currentOption == 2) {
+                                const cookie = await input(getText('login', 'inputCookieString') + " ");
+                                writeFileSync(global.client.dirAccount, cookie);
+                        }
+                        else {
+                                const cookie = await input(getText('login', 'inputCookieArray') + " ");
+                                writeFileSync(global.client.dirAccount, JSON.stringify(JSON.parse(cookie), null, 2));
+                        }
+                        return await getAppStateToLogin();
+                }
+
+                log.info("LOGIN FACEBOOK", getText('login', 'loginPassword'));
+                log.info("ACCOUNT INFO", `Email: ${facebookAccount.email}, I_User: ${facebookAccount.i_user || "(empty)"}`);
+                spin = createOraDots(getText('login', 'loginPassword'));
+                spin._start();
+
+                try {
+                        appState = await getAppStateFromEmail(spin, facebookAccount);
+                        spin._stop();
+                }
+                catch (err) {
+                        spin._stop();
+                        log.err("LOGIN FACEBOOK", getText('login', 'loginError'), err.message, err);
+                        process.exit();
+                }
+        }
+        return appState;
+}
+
+function stopListening(keyListen) {
+        keyListen = keyListen || Object.keys(callbackListenTime).pop();
+        return new Promise((resolve) => {
+                global.GoatBot.fcaApi.stopListening?.(() => {
+                        if (callbackListenTime[keyListen]) {
+                                // callbackListenTime[keyListen || Object.keys(callbackListenTime).pop()]("Connection closed by user.");
+                                callbackListenTime[keyListen] = () => { };
+                        }
+                        resolve();
+                }) || resolve();
+        });
+}
+
+// function removeListener(keyListen) {
+//      keyListen = keyListen || Object.keys(callbackListenTime).pop();
+//      if (callbackListenTime[keyListen])
+//              callbackListenTime[keyListen] = () => { };
+// }
+
+async function startBot(loginWithEmail) {
+        console.log(colors.hex("#f5ab00")(createLine("START LOGGING IN", true)));
+        const currentVersion = require("../../package.json").version;
+        const tooOldVersion = (await axios.get("https://raw.githubusercontent.com/ntkhang03/Goat-Bot-V2-Storage/main/tooOldVersions.txt")).data || "0.0.0";
+        // nếu version cũ hơn
+        if ([-1, 0].includes(compareVersion(currentVersion, tooOldVersion))) {
+                log.err("VERSION", getText('version', 'tooOldVersion', colors.yellowBright('node update')));
+                process.exit();
+        }
+        /* { CHECK ORIGIN CODE } */
+
+        if (global.GoatBot.Listening)
+                await stopListening();
+
+        log.info("LOGIN FACEBOOK", getText('login', 'currentlyLogged'));
+
+        let appState = await getAppStateToLogin(loginWithEmail);
+        changeFbStateByCode = true;
+        appState = filterKeysAppState(appState);
+        writeFileSync(dirAccount, JSON.stringify(appState, null, 2));
+        setTimeout(() => changeFbStateByCode = false, 1000);
+        // ——————————————————— LOGIN ———————————————————— //
+        (function loginBot(appState) {
+                global.GoatBot.commands = new Map();
+                global.GoatBot.eventCommands = new Map();
+                global.GoatBot.aliases = new Map();
+                global.GoatBot.onChat = [];
+                global.GoatBot.onEvent = [];
+                global.GoatBot.onReply = new Map();
+                global.GoatBot.onReaction = new Map();
+                clearInterval(global.intervalRestartListenMqtt);
+                delete global.intervalRestartListenMqtt;
+
+                if (facebookAccount.i_user)
+                        pushI_user(appState, facebookAccount.i_user);
+
+                let isSendNotiErrorMessage = false;
+
+                login({ appState }, global.GoatBot.config.optionsFca, async function (error, api) {
+                        if (!isNaN(facebookAccount.intervalGetNewCookie) && facebookAccount.intervalGetNewCookie > 0)
+                                if (facebookAccount.email && facebookAccount.password) {
+                                        spin?._stop();
+                                        log.info("REFRESH COOKIE", getText('login', 'refreshCookieAfter', convertTime(facebookAccount.intervalGetNewCookie * 60 * 1000, true)));
+                                        setTimeout(async function refreshCookie() {
+                                                try {
+                                                        log.info("REFRESH COOKIE", getText('login', 'refreshCookie'));
+                                                        const appState = await getAppStateFromEmail(undefined, facebookAccount);
+                                                        if (facebookAccount.i_user)
+                                                                pushI_user(appState, facebookAccount.i_user);
+                                                        changeFbStateByCode = true;
+                                                        writeFileSync(dirAccount, JSON.stringify(filterKeysAppState(appState), null, 2));
+                                                        setTimeout(() => changeFbStateByCode = false, 1000);
+                                                        log.info("REFRESH COOKIE", getText('login', 'refreshCookieSuccess'));
+                                                        return startBot(appState);
+                                                }
+                                                catch (err) {
+                                                        log.err("REFRESH COOKIE", getText('login', 'refreshCookieError'), err.message, err);
+                                                        setTimeout(refreshCookie, facebookAccount.intervalGetNewCookie * 60 * 1000);
+                                                }
+                                        }, facebookAccount.intervalGetNewCookie * 60 * 1000);
+                                }
+                                else {
+                                        spin?._stop();
+                                        log.warn("REFRESH COOKIE", getText('login', 'refreshCookieWarning'));
+                                }
+                        spin ? spin._stop() : null;
+
+                        // Handle error
+                        if (error) {
+                                log.err("LOGIN FACEBOOK", getText('login', 'loginError'), error);
+                                global.statusAccountBot = 'can\'t login';
+                                if (facebookAccount.email && facebookAccount.password) {
+                                        return startBot(true);
+                                }
+                                // —————————— CHECK DASHBOARD —————————— //
+                                if (global.GoatBot.config.dashBoard?.enable == true) {
+                                        try {
+                                                await require("../../dashboard/app.js")(null);
+                                                log.info("DASHBOARD", getText('login', 'openDashboardSuccess'));
+                                        }
+                                        catch (err) {
+                                                log.err("DASHBOARD", getText('login', 'openDashboardError'), err);
+                                        }
+                                        return;
+                                }
+                                else {
+                                        process.exit();
+                                }
+                        }
+
+                        global.GoatBot.fcaApi = api;
+                        global.GoatBot.botID = api.getCurrentUserID();
+                        log.info("LOGIN FACEBOOK", getText('login', 'loginSuccess'));
+                        let hasBanned = false;
+                        global.botID = api.getCurrentUserID();
+                        logColor("#f5ab00", createLine("BOT INFO"));
+                        log.info("NODE VERSION", process.version);
+                        log.info("PROJECT VERSION", currentVersion);
+                        log.info("BOT ID", `${global.botID} - ${await getName(global.botID)}`);
+                        log.info("PREFIX", global.GoatBot.config.prefix);
+                        log.info("LANGUAGE", global.GoatBot.config.language);
+                        log.info("BOT NICK NAME", global.GoatBot.config.nickNameBot || "GOAT BOT");
+                        // ———————————————————— GBAN ————————————————————— //
+                        let dataGban;
+
+                        try {
+                                // convert to promise
+                                const item = await axios.get("https://raw.githubusercontent.com/ntkhang03/Goat-Bot-V2-Gban/master/gban.json");
+                                dataGban = item.data;
+
+                                // ————————————————— CHECK BOT ————————————————— //
+                                const botID = api.getCurrentUserID();
+                                if (dataGban.hasOwnProperty(botID)) {
+                                        if (!dataGban[botID].toDate) {
+                                                log.err('GBAN', getText('login', 'gbanMessage', dataGban[botID].date, dataGban[botID].reason, dataGban[botID].date));
+                                                hasBanned = true;
+                                        }
+                                        else {
+                                                const currentDate = (new Date((await axios.get("http://worldtimeapi.org/api/timezone/UTC")).data.utc_datetime)).getTime();
+                                                if (currentDate < (new Date(dataGban[botID].date)).getTime()) {
+                                                        log.err('GBAN', getText('login', 'gbanMessage', dataGban[botID].date, dataGban[botID].reason, dataGban[botID].date, dataGban[botID].toDate));
+                                                        hasBanned = true;
+                                                }
+                                        }
+                                }
+                                // ———————————————— CHECK ADMIN ———————————————— //
+                                for (const idad of global.GoatBot.config.adminBot) {
+                                        if (dataGban.hasOwnProperty(idad)) {
+                                                if (!dataGban[idad].toDate) {
+                                                        log.err('GBAN', getText('login', 'gbanMessage', dataGban[idad].date, dataGban[idad].reason, dataGban[idad].date));
+                                                        hasBanned = true;
+                                                }
+                                                else {
+                                                        const currentDate = (new Date((await axios.get("http://worldtimeapi.org/api/timezone/UTC")).data.utc_datetime)).getTime();
+                                                        if (currentDate < (new Date(dataGban[idad].date)).getTime()) {
+                                                                log.err('GBAN', getText('login', 'gbanMessage', dataGban[idad].date, dataGban[idad].reason, dataGban[idad].date, dataGban[idad].toDate));
+                                                                hasBanned = true;
+                                                        }
+                                                }
+                                        }
+                                }
+                                if (hasBanned == true)
+                                        process.exit();
+                        }
+                        catch (e) {
+                                console.log(e);
+                                log.err('GBAN', getText('login', 'checkGbanError'));
+                                process.exit();
+                        }
+                        // ———————————————— NOTIFICATIONS ———————————————— //
+                        let notification;
+                        try {
+                                const getNoti = await axios.get("https://raw.githubusercontent.com/ntkhang03/Goat-Bot-V2-Gban/master/notification.txt");
+                                notification = getNoti.data;
+                        }
+                        catch (err) {
+                                log.err("ERROR", "Can't get notifications data");
+                                process.exit();
+                        }
+                        if (global.GoatBot.config.autoRefreshFbstate == true) {
+                                changeFbStateByCode = true;
+                                try {
+                                        writeFileSync(dirAccount, JSON.stringify(filterKeysAppState(api.getAppState()), null, 2));
+                                        log.info("REFRESH FBSTATE", getText('login', 'refreshFbstateSuccess', path.basename(dirAccount)));
+                                }
+                                catch (err) {
+                                        log.warn("REFRESH FBSTATE", getText('login', 'refreshFbstateError', path.basename(dirAccount)), err);
+                                }
+                                setTimeout(() => changeFbStateByCode = false, 1000);
+                        }
+                        if (hasBanned == true) {
+                                log.err('GBAN', getText('login', 'youAreBanned'));
+                                process.exit();
+                        }
+                        // ——————————————————— LOAD DATA ——————————————————— //
+                        const { threadModel, userModel, dashBoardModel, globalModel, threadsData, usersData, dashBoardData, globalData, sequelize } = await require(process.env.NODE_ENV === 'development' ? "./loadData.dev.js" : "./loadData.js")(api, createLine);
+                        // ————————————————— CUSTOM SCRIPTS ————————————————— //
+                        await require("../custom.js")({ api, threadModel, userModel, dashBoardModel, globalModel, threadsData, usersData, dashBoardData, globalData, getText });
+                        // —————————————————— LOAD SCRIPTS —————————————————— //
+                        await require(process.env.NODE_ENV === 'development' ? "./loadScripts.dev.js" : "./loadScripts.js")(api, threadModel, userModel, dashBoardModel, globalModel, threadsData, usersData, dashBoardData, globalData, createLine);
+                        // ———————————— CHECK AUTO LOAD SCRIPTS ———————————— //
+                        if (global.GoatBot.config.autoLoadScripts?.enable == true) {
+                                const ignoreCmds = global.GoatBot.config.autoLoadScripts.ignoreCmds?.replace(/[ ,]+/g, ' ').trim().split(' ') || [];
+                                const ignoreEvents = global.GoatBot.config.autoLoadScripts.ignoreEvents?.replace(/[ ,]+/g, ' ').trim().split(' ') || [];
+
+                                watch(`${process.cwd()}/scripts/cmds`, async (event, filename) => {
+                                        if (filename.endsWith('.js')) {
+                                                if (ignoreCmds.includes(filename) || filename.endsWith('.eg.js'))
+                                                        return;
+                                                if ((event == 'change' || event == 'rename') && existsSync(`${process.cwd()}/scripts/cmds/${filename}`)) {
+                                                        try {
+                                                                const contentCommand = global.temp.contentScripts.cmds[filename] || "";
+                                                                const currentContent = readFileSync(`${process.cwd()}/scripts/cmds/${filename}`, 'utf-8');
+                                                                if (contentCommand == currentContent)
+                                                                        return;
+                                                                global.temp.contentScripts.cmds[filename] = currentContent;
+                                                                filename = filename.replace('.js', '');
+
+                                                                const infoLoad = global.utils.loadScripts("cmds", filename, log, global.GoatBot.configCommands, api, threadModel, userModel, dashBoardModel, globalModel, threadsData, usersData, dashBoardData, globalData);
+                                                                if (infoLoad.status == "success")
+                                                                        log.master("AUTO LOAD SCRIPTS", `Command ${filename}.js (${infoLoad.command.config.name}) has been reloaded`);
+                                                                else
+                                                                        log.err("AUTO LOAD SCRIPTS", `Error when reload command ${filename}.js`, infoLoad.error);
+                                                        }
+                                                        catch (err) {
+                                                                log.err("AUTO LOAD SCRIPTS", `Error when reload command ${filename}.js`, err);
+                                                        }
+                                                }
+                                        }
+                                });
+
+                                watch(`${process.cwd()}/scripts/events`, async (event, filename) => {
+                                        if (filename.endsWith('.js')) {
+                                                if (ignoreEvents.includes(filename) || filename.endsWith('.eg.js'))
+                                                        return;
+                                                if ((event == 'change' || event == 'rename') && existsSync(`${process.cwd()}/scripts/events/${filename}`)) {
+                                                        try {
+                                                                const contentEvent = global.temp.contentScripts.events[filename] || "";
+                                                                const currentContent = readFileSync(`${process.cwd()}/scripts/events/${filename}`, 'utf-8');
+                                                                if (contentEvent == currentContent)
+                                                                        return;
+                                                                global.temp.contentScripts.events[filename] = currentContent;
+                                                                filename = filename.replace('.js', '');
+
+                                                                const infoLoad = global.utils.loadScripts("events", filename, log, global.GoatBot.configCommands, api, threadModel, userModel, dashBoardModel, globalModel, threadsData, usersData, dashBoardData, globalData);
+                                                                if (infoLoad.status == "success")
+                                                                        log.master("AUTO LOAD SCRIPTS", `Event ${filename}.js (${infoLoad.command.config.name}) has been reloaded`);
+                                                                else
+                                                                        log.err("AUTO LOAD SCRIPTS", `Error when reload event ${filename}.js`, infoLoad.error);
+                                                        }
+                                                        catch (err) {
+                                                                log.err("AUTO LOAD SCRIPTS", `Error when reload event ${filename}.js`, err);
+                                                        }
+                                                }
+                                        }
+                                });
+                        }
+                        // ——————————————————— DASHBOARD ——————————————————— //
+                        if (global.GoatBot.config.dashBoard?.enable == true && dashBoardIsRunning == false) {
+                                logColor('#f5ab00', createLine('DASHBOARD'));
+                                try {
+                                        await require("../../dashboard/app.js")(api);
+                                        log.info("DASHBOARD", getText('login', 'openDashboardSuccess'));
+                                        dashBoardIsRunning = true;
+                                }
+                                catch (err) {
+                                        log.err("DASHBOARD", getText('login', 'openDashboardError'), err);
+                                }
+                        }
+                        // ———————————————————— ADMIN BOT ———————————————————— //
+                        logColor('#f5ab00', character);
+                        let i = 0;
+                        const adminBot = global.GoatBot.config.adminBot
+                                .filter(item => !isNaN(item))
+                                .map(item => item = item.toString());
+                        for (const uid of adminBot) {
+                                try {
+                                        const userName = await usersData.getName(uid);
+                                        log.master("ADMINBOT", `[${++i}] ${uid} | ${userName}`);
+                                }
+                                catch (e) {
+                                        log.master("ADMINBOT", `[${++i}] ${uid}`);
+                                }
+                        }
+                        log.master("NOTIFICATION", (notification || "").trim());
+                        log.master("SUCCESS", getText('login', 'runBot'));
+                        log.master("LOAD TIME", `${convertTime(Date.now() - global.GoatBot.startTime)}`);
+                        logColor("#f5ab00", createLine("COPYRIGHT"));
+                        // —————————————————— COPYRIGHT INFO —————————————————— //
+                        // console.log(`\x1b[1m\x1b[33mCOPYRIGHT:\x1b[0m\x1b[1m\x1b[37m \x1b[0m\x1b[1m\x1b[36mProject GoatBot v2 created by ntkhang03 (https://github.com/ntkhang03), please do not sell this source code or claim it as your own. Thank you!\x1b[0m`);
+                        console.log(`\x1b[1m\x1b[33m${("COPYRIGHT:")}\x1b[0m\x1b[1m\x1b[37m \x1b[0m\x1b[1m\x1b[36m${("Project GoatBot v2 created by ntkhang03 (https://github.com/ntkhang03), please do not sell this source code or claim it as your own. Thank you!")}\x1b[0m`);
+                        logColor("#f5ab00", character);
+                        global.GoatBot.config.adminBot = adminBot;
+                        writeFileSync(global.client.dirConfig, JSON.stringify(global.GoatBot.config, null, 2));
+                        writeFileSync(global.client.dirConfigCommands, JSON.stringify(global.GoatBot.configCommands, null, 2));
+
+                        // ——————————————————————————————————————————————————— //
+                        const { restartListenMqtt } = global.GoatBot.config;
+                        let intervalCheckLiveCookieAndRelogin = false;
+                        // —————————————————— CALLBACK LISTEN —————————————————— //
+                        async function callBackListen(error, event) {
+                                if (error) {
+                                        global.responseUptimeCurrent = responseUptimeError;
+                                        if (
+                                                error.error == "Not logged in" ||
+                                                error.error == "Not logged in." ||
+                                                error.error == "Connection refused: Server unavailable"
+                                        ) {
+                                                log.err("NOT LOGGEG IN", getText('login', 'notLoggedIn'), error);
+                                                global.responseUptimeCurrent = responseUptimeError;
+                                                global.statusAccountBot = 'can\'t login';
+                                                if (!isSendNotiErrorMessage) {
+                                                        await handlerWhenListenHasError({ api, threadModel, userModel, dashBoardModel, globalModel, threadsData, usersData, dashBoardData, globalData, error });
+                                                        isSendNotiErrorMessage = true;
+                                                }
+
+                                                if (global.GoatBot.config.autoRestartWhenListenMqttError)
+                                                        process.exit(2);
+                                                else {
+                                                        // log.dev("ACCOUNT LOCKED, start relogin...");
+                                                        // await stopListening();
+                                                        // log.dev("STOP LISTENING SUCCESS");
+                                                        const keyListen = Object.keys(callbackListenTime).pop();
+                                                        if (callbackListenTime[keyListen])
+                                                                callbackListenTime[keyListen] = () => { };
+                                                        const cookieString = appState.map(i => i.key + "=" + i.value).join("; ");
+                                                        // log.dev("GET COOKIE SUCCESS");
+                                                        // log.dev(cookieString);
+
+                                                        let times = 5;
+
+                                                        const spin = createOraDots(getText('login', 'retryCheckLiveCookie', times));
+                                                        const countTimes = setInterval(() => {
+                                                                times--;
+                                                                if (times == 0)
+                                                                        times = 5;
+                                                                spin.text = getText('login', 'retryCheckLiveCookie', times);
+                                                        }, 1000);
+
+                                                        if (intervalCheckLiveCookieAndRelogin == false) {
+                                                                intervalCheckLiveCookieAndRelogin = true;
+                                                                const interval = setInterval(async () => {
+                                                                        const cookieIsLive = await checkLiveCookie(cookieString, facebookAccount.userAgent);
+                                                                        if (cookieIsLive) {
+                                                                                clearInterval(interval);
+                                                                                clearInterval(countTimes);
+                                                                                intervalCheckLiveCookieAndRelogin = false;
+                                                                                const keyListen = Date.now();
+                                                                                isSendNotiErrorMessage = false;
+                                                                                global.GoatBot.Listening = api.listenMqtt(createCallBackListen(keyListen));
+                                                                        }
+                                                                }, 5000);
+                                                        }
+                                                }
+                                                return;
+                                        }
+                                        else if (error == "Connection closed." || error == "Connection closed by user.") /* by stopListening; */ {
+                                                return;
+                                        }
+                                        else {
+                                                await handlerWhenListenHasError({ api, threadModel, userModel, dashBoardModel, globalModel, threadsData, usersData, dashBoardData, globalData, error });
+                                                return log.err("LISTEN_MQTT", getText('login', 'callBackError'), error);
+                                        }
+                                }
+                                global.responseUptimeCurrent = responseUptimeSuccess;
+                                global.statusAccountBot = 'good';
+                                const configLog = global.GoatBot.config.logEvents;
+                                if (isSendNotiErrorMessage == true)
+                                        isSendNotiErrorMessage = false;
+
+                                // "whiteListMode": {
+                                //      "enable": false,
+                                //      "whiteListIds": [],
+                                //      "notes": "if you enable this feature, only the ids in the whiteListIds list can use the bot"
+                                // },
+                                // "whiteListModeThread": {
+                                //      "enable": false,
+                                //      "whiteListThreadIds": [],
+                                //      "notes": "if you enable this feature, only the thread in the whiteListThreadIds list can use the bot",
+                                //      "how_it_work": "if you enable both whiteListMode and whiteListModeThread, the system will check if the user is in whiteListIds, then check if the thread is in whiteListThreadIds, if one of the conditions is true, the user can use the bot"
+                                // },
+
+                                // Whitelist mode check - allows admins and devs to bypass
+                                const senderID = String(event.senderID);
+                                const threadID = String(event.threadID);
+                                const adminBot = (global.GoatBot.config.adminBot || []).map(id => String(id));
+                                const devUsers = (global.GoatBot.config.devUsers || []).map(id => String(id));
+                                const whiteListIds = (global.GoatBot.config.whiteListMode?.whiteListIds || []).map(id => String(id));
+                                const whiteListThreadIds = (global.GoatBot.config.whiteListModeThread?.whiteListThreadIds || []).map(id => String(id));
+                                
+                                const isAdminOrDev = adminBot.includes(senderID) || devUsers.includes(senderID);
+                                const isWhitelistedUser = whiteListIds.includes(senderID);
+                                const isWhitelistedThread = whiteListThreadIds.includes(threadID);
+                                
+                                const whiteListModeEnabled = global.GoatBot.config.whiteListMode?.enable == true;
+                                const whiteListModeThreadEnabled = global.GoatBot.config.whiteListModeThread?.enable == true;
+
+                                if (whiteListModeEnabled && whiteListModeThreadEnabled) {
+                                        if (!isAdminOrDev && !isWhitelistedUser && !isWhitelistedThread)
+                                                return;
+                                }
+                                else if (whiteListModeEnabled) {
+                                        if (!isAdminOrDev && !isWhitelistedUser)
+                                                return;
+                                }
+                                else if (whiteListModeThreadEnabled) {
+                                        if (!isAdminOrDev && !isWhitelistedThread)
+                                                return;
+                                }
+
+                                // check if listenMqtt loop
+                                if (event.messageID && event.type == "message") {
+                                        if (storage5Message.includes(event.messageID))
+                                                Object.keys(callbackListenTime).slice(0, -1).forEach(key => {
+                                                        callbackListenTime[key] = () => { };
+                                                });
+                                        else
+                                                storage5Message.push(event.messageID);
+                                        if (storage5Message.length > 5)
+                                                storage5Message.shift();
+                                }
+
+                                if (configLog.disableAll === false && configLog[event.type] !== false) {
+                                        // hide participantIDs (it is array too long)
+                                        const participantIDs_ = [...event.participantIDs || []];
+                                        if (event.participantIDs)
+                                                event.participantIDs = 'Array(' + event.participantIDs.length + ')';
+
+                                        console.log(colors.green((event.type || "").toUpperCase() + ":"), jsonStringifyColor(event, null, 2));
+
+                                        if (event.participantIDs)
+                                                event.participantIDs = participantIDs_;
+                                }
+
+                                if ((event.senderID && dataGban[event.senderID] || event.userID && dataGban[event.userID])) {
+                                        if (event.body && event.threadID) {
+                                                const prefix = getPrefix(event.threadID);
+                                                if (event.body.startsWith(prefix))
+                                                        return api.sendMessage(getText('login', 'userBanned'), event.threadID);
+                                                return;
+                                        }
+                                        else
+                                                return;
+                                }
+
+                                const handlerAction = require("../handler/handlerAction.js")(api, threadModel, userModel, dashBoardModel, globalModel, usersData, threadsData, dashBoardData, globalData);
+
+                                if (hasBanned === false)
+                                        handlerAction(event);
+                                else
+                                        return log.err('GBAN', getText('login', 'youAreBanned'));
+                        }
+                        // ————————————————— CREATE CALLBACK ————————————————— //
+                        function createCallBackListen(key) {
+                                key = randomString(10) + (key || Date.now());
+                                callbackListenTime[key] = callBackListen;
+                                return function (error, event) {
+                                        callbackListenTime[key](error, event);
+                                };
+                        }
+                        // ———————————————————— START BOT ———————————————————— //
+                        await stopListening();
+                        global.GoatBot.Listening = api.listenMqtt(createCallBackListen());
+                        global.GoatBot.callBackListen = callBackListen;
+                        // ——————————————————— UPTIME ——————————————————— //
+                        if (global.GoatBot.config.serverUptime.enable == true && !global.GoatBot.config.dashBoard?.enable && !global.serverUptimeRunning) {
+                                const http = require('http');
+                                const express = require('express');
+                                const app = express();
+                                const server = http.createServer(app);
+                                const { data: html } = await axios.get("https://raw.githubusercontent.com/ntkhang03/resources-goat-bot/master/homepage/home.html");
+                                const PORT = global.GoatBot.config.dashBoard?.port || (!isNaN(global.GoatBot.config.serverUptime.port) && global.GoatBot.config.serverUptime.port) || 3001;
+                                app.get('/', (req, res) => res.send(html));
+                                app.get('/uptime', global.responseUptimeCurrent);
+                                let nameUpTime;
+                                try {
+                                        nameUpTime = `https://${process.env.REPL_OWNER ?
+                                                `${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co` :
+                                                process.env.API_SERVER_EXTERNAL == "https://api.glitch.com" ?
+                                                        `${process.env.PROJECT_DOMAIN}.glitch.me` :
+                                                        `localhost:${PORT}`}`;
+                                        nameUpTime.includes('localhost') && (nameUpTime = nameUpTime.replace('https', 'http'));
+                                        await server.listen(PORT);
+                                        log.info("UPTIME", getText('login', 'openServerUptimeSuccess', nameUpTime));
+                                        if (global.GoatBot.config.serverUptime.socket?.enable == true)
+                                                require('./socketIO.js')(server);
+                                        global.serverUptimeRunning = true;
+                                }
+                                catch (err) {
+                                        log.err("UPTIME", getText('login', 'openServerUptimeError'), err);
+                                }
+                        }
+
+
+                        // ———————————————————— RESTART LISTEN ———————————————————— //
+                        if (restartListenMqtt.enable == true) {
+                                if (restartListenMqtt.logNoti == true) {
+                                        log.info("LISTEN_MQTT", getText('login', 'restartListenMessage', convertTime(restartListenMqtt.timeRestart, true)));
+                                        log.info("BOT_STARTED", getText('login', 'startBotSuccess'));
+
+                                        logColor("#f5ab00", character);
+                                }
+                                const restart = setInterval(async function () {
+                                        if (restartListenMqtt.enable == false) {
+                                                clearInterval(restart);
+                                                return log.warn("LISTEN_MQTT", getText('login', 'stopRestartListenMessage'));
+                                        }
+                                        try {
+                                                await stopListening();
+                                                await sleep(1000);
+                                                global.GoatBot.Listening = api.listenMqtt(createCallBackListen());
+                                                log.info("LISTEN_MQTT", getText('login', 'restartListenMessage2'));
+                                        }
+                                        catch (e) {
+                                                log.err("LISTEN_MQTT", getText('login', 'restartListenMessageError'), e);
+                                        }
+                                }, restartListenMqtt.timeRestart);
+                                global.intervalRestartListenMqtt = restart;
+                        }
+                        require('../autoUptime.js');
+                });
+        })(appState);
+
+        if (global.GoatBot.config.autoReloginWhenChangeAccount) {
+                setTimeout(function () {
+                        watch(dirAccount, async (type) => {
+                                if (type == 'change' && changeFbStateByCode == false && latestChangeContentAccount != fs.statSync(dirAccount).mtimeMs) {
+                                        clearInterval(global.intervalRestartListenMqtt);
+                                        global.compulsoryStopLisening = true;
+                                        // await stopListening();
+                                        latestChangeContentAccount = fs.statSync(dirAccount).mtimeMs;
+                                        // process.exit(2);
+                                        startBot();
+                                }
+                        });
+                }, 10000);
+        }
+}
+
+global.GoatBot.reLoginBot = startBot;
+startBot();
