@@ -214,5 +214,5 @@ function compareVersion(version1, version2) {
                 if (parseInt(v1[i]) < parseInt(v2[i]))
                         return -1; // version1 < version2
         }
-        return 0; // version1 = version2
-			}
+        return 0; // fixed by rX
+}
