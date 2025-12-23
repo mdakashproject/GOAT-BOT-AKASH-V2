@@ -1,0 +1,64 @@
+const delay = (ms) => new Promise(res => setTimeout(res, ms));
+
+// active loop storage
+const activeMurgi = new Map();
+
+module.exports = {
+  config: {
+    name: "murgi",
+    version: "1.1.0",
+    role: 2,
+    author: "Akash Edit",
+    description: "Loop bad word messages until stopped",
+    category: "fun",
+    usages: "@mention | off",
+    cooldowns: 5,
+  },
+
+  onStart: async function({ message, event, args }) {
+    // OFF command
+    if (args[0] && args[0].toLowerCase() === "off") {
+      if (activeMurgi.has(event.threadID)) {
+        activeMurgi.set(event.threadID, false);
+        return message.reply("🛑 Murgi mode stopped.");
+      } else {
+        return message.reply("⚠️ Murgi mode is not running.");
+      }
+    }
+
+    const mention = Object.keys(event.mentions)[0];
+    if (!mention) {
+      return message.reply("Please @mention a target first!");
+    }
+
+    const name = event.mentions[mention];
+    const arraytag = [{ id: mention, tag: name }];
+
+    const messages = [
+      "তুই একটা আসল মুরগির বাচ্চা 🐔",
+      "তুই একটা পাকা গাধা 🤬",
+      "তুই পুরা বালের মাল 😈"
+    ];
+
+    activeMurgi.set(event.threadID, true);
+    message.reply("🔥 Murgi mode started.");
+
+    try {
+      while (activeMurgi.get(event.threadID)) {
+        for (const msg of messages) {
+          if (!activeMurgi.get(event.threadID)) break;
+
+          await delay(2500);
+          message.reply({
+            body: `${name}\n${msg}`,
+            mentions: arraytag
+          });
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      activeMurgi.delete(event.threadID);
+      message.reply("Something went wrong!");
+    }
+  }
+};
