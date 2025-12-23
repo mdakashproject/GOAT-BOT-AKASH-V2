@@ -1,121 +1,79 @@
-const axios = require('axios');
-const fs = require('fs-extra'); 
-const path = require('path');
-
-const API_ENDPOINT = "https://tawsif.is-a.dev/gemini/nano-banana"; 
-
-function extractImageUrl(message, args, event) {
-    let imageUrl = args.find(arg => arg.startsWith('http'));
-
-    if (!imageUrl && event.messageReply && event.messageReply.attachments && event.messageReply.attachments.length > 0) {
-        const imageAttachment = event.messageReply.attachments.find(att => att.type === 'photo' || att.type === 'image');
-        if (imageAttachment && imageAttachment.url) {
-            imageUrl = imageAttachment.url;
-        }
-    }
-    return imageUrl;
-}
-
-function extractEditPrompt(rawArgs, imageUrl) {
-    let prompt = rawArgs.join(" ");
-    
-    if (imageUrl) {
-        prompt = prompt.replace(imageUrl, '').trim();
-    }
-    
-    if (prompt.includes('|')) {
-        prompt = prompt.split('|')[0].trim();
-    }
-
-    return prompt || "enhance quality";
-}
-
+const axios = require("axios");
+const fs = require("fs");
+const path = require("path");
 
 module.exports = {
   config: {
     name: "edit",
-    aliases: ["imgedit", "nanoedit"],
-    version: "2.3",
-    author: "NeoKEX",
-    countDown: 15,
+    aliases: ["nanobanana"],
+    version: "1.0.4",
+    author: "CYBER ULLASH",
+    countDown: 30,
     role: 0,
-    longDescription: "Edit or modify an existing image using a text prompt.",
-    category: "media",
+    shortDescription: "Edit image using NanoBanana API",
+    category: "AI",
     guide: {
-      en: "{pn} [modification prompt] OR reply to an image with [modification prompt]"
-    }
+      en: "{pn} <text> (reply to an image)",
+    },
   },
 
-  onStart: async function({ message, args, event }) {
-    
-    const imageUrl = extractImageUrl(message, args, event);
-    const editPrompt = extractEditPrompt(args, imageUrl);
+  onStart: async function ({ message, event, args, api }) {
+    const prompt = args.join(" ");
+    if (!prompt) return message.reply("⚠️ 𝐏𝐥𝐞𝐚𝐬𝐞 𝐩𝐫𝐨𝐯𝐢𝐝𝐞 𝐬𝐨𝐦𝐞 𝐭𝐞𝐱𝐭 𝐟𝐨𝐫 𝐭𝐡𝐞 𝐢𝐦𝐚𝐠𝐞.");
 
-    if (!imageUrl) {
-      return message.reply("❌ Please provide an image URL or reply to an image to edit.");
-    }
-    if (!editPrompt) {
-        return message.reply("❌ Please provide a prompt describing the modification you want to make.");
-    }
-
-    message.reaction("⏳", event.messageID);
-    let tempFilePath; 
+    api.setMessageReaction("☣️", event.messageID, () => {}, true);
 
     try {
-      const fullApiUrl = `${API_ENDPOINT}?prompt=${encodeURIComponent(editPrompt)}&url=${encodeURIComponent(imageUrl)}`;
-      
-      const apiResponse = await axios.get(fullApiUrl);
-      const data = apiResponse.data;
-
-      if (!data.success || !data.imageUrl) {
-        throw new Error(data.error || "API returned success: false or missing image URL.");
+      if (
+        !event.messageReply ||
+        !event.messageReply.attachments ||
+        !event.messageReply.attachments[0] ||
+        !event.messageReply.attachments[0].url
+      ) {
+        api.setMessageReaction("⚠️", event.messageID, () => {}, true);
+        return message.reply("⚠️ 𝐏𝐥𝐞𝐚𝐬𝐞 𝐫𝐞𝐩𝐥𝐲 𝐭𝐨 𝐚𝐧 𝐢𝐦𝐚𝐠𝐞.");
       }
 
-      const finalImageUrl = data.imageUrl;
+      const imgUrl = event.messageReply.attachments[0].url;
 
-      const imageDownloadResponse = await axios.get(finalImageUrl, {
-          responseType: 'stream',
-      });
-      
-      const cacheDir = path.join(__dirname, 'cache');
+      const requestURL = `https://mahbub-ullash.cyberbot.top/api/nano-banana?prompt=${encodeURIComponent(
+        prompt
+      )}&imageUrl=${encodeURIComponent(imgUrl)}`;
+
+      const res = await axios.get(requestURL);
+
+      if (!res.data || res.data.status !== true || !res.data.image) {
+        api.setMessageReaction("⚠️", event.messageID, () => {}, true);
+        return message.reply("❌ 𝐀𝐏𝐈 𝐄𝐫𝐫𝐨𝐫: 𝐈𝐦𝐚𝐠𝐞 𝐝𝐚𝐭𝐚 𝐧𝐨𝐭 𝐫𝐞𝐜𝐞𝐢𝐯𝐞𝐝.");
+      }
+
+      const finalImageURL = res.data.image;
+
+      const imageData = await axios.get(finalImageURL, { responseType: "arraybuffer" });
+
+      const cacheDir = path.join(__dirname, "cache");
       if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
-      
-      tempFilePath = path.join(cacheDir, `edited_nano_${Date.now()}.png`);
-      
-      const writer = fs.createWriteStream(tempFilePath);
-      imageDownloadResponse.data.pipe(writer);
 
-      await new Promise((resolve, reject) => {
-        writer.on("finish", resolve);
-        writer.on("error", (err) => {
-          writer.close();
-          reject(err);
-        });
-      });
+      const filePath = path.join(cacheDir, `${Date.now()}.png`);
+      fs.writeFileSync(filePath, Buffer.from(imageData.data));
 
-      message.reaction("✅", event.messageID);
-      await message.reply({
-        attachment: fs.createReadStream(tempFilePath)
-      });
+      api.setMessageReaction("☢️", event.messageID, () => {}, true);
 
-    } catch (error) {
-      message.reaction("❌", event.messageID);
-      
-      let errorMessage = "An error occurred during image editing.";
-      if (error.response && error.response.data && error.response.data.error) {
-         errorMessage += ` (API Error: ${error.response.data.error})`;
-      } else if (error.message) {
-         errorMessage = `❌ ${error.message}`;
-      } else if (error.code) {
-         errorMessage = `❌ Network Error: ${error.code}`;
-      }
-
-      console.error("Edit Command Error:", error);
-      message.reply(`❌ ${errorMessage}`);
-    } finally {
-      if (tempFilePath && fs.existsSync(tempFilePath)) {
-          fs.unlinkSync(tempFilePath);
-      }
+      await message.reply(
+        {
+          body: `✅ 𝐈𝐦𝐚𝐠𝐞 𝐠𝐞𝐧𝐞𝐫𝐚𝐭𝐞𝐝 𝐬𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲!\n👤 Operator: ${res.data.operator || "Unknown"}`,
+          attachment: fs.createReadStream(filePath),
+        },
+        () => {
+          try {
+            fs.unlinkSync(filePath);
+          } catch (e) {}
+        }
+      );
+    } catch (err) {
+      console.log("❌ 𝐄𝐑𝐑𝐎𝐑:", err?.response?.data || err.message || err);
+      api.setMessageReaction("❌", event.messageID, () => {}, true);
+      return message.reply("❌ 𝐄𝐫𝐫𝐨𝐫 𝐰𝐡𝐢𝐥𝐞 𝐩𝐫𝐨𝐜𝐞𝐬𝐬𝐢𝐧𝐠 𝐭𝐡𝐞 𝐢𝐦𝐚𝐠𝐞.");
     }
-  }
+  },
 };
