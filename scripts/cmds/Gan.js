@@ -40,7 +40,8 @@ module.exports = {
       "https://files.catbox.moe/x5f56o.mp3",
       "https://files.catbox.moe/avlqok.mp3",
       "https://files.catbox.moe/v0twt3.mp3",
-      "https://files.catbox.moe/qmpvpt.mp3"
+      "https://files.catbox.moe/qmpvpt.mp3",
+      "https://files.catbox.moe/u1jllz.mp3"
     ];
 
     if (songLinks.length === 0) {
