@@ -3,7 +3,7 @@ const axios = require("axios");
 module.exports = {
 	config: {
 		name: "emojimix",
-		aliases: ["groupinfo"],
+		aliases: ["mix"],
 		version: "1.4",
 		author: "NTKhang",
 		countDown: 5,
