@@ -1,78 +1,67 @@
+const fs = require("fs-extra");
 const axios = require("axios");
+const path = require("path");
 
 module.exports = {
-	config: {
-		name: "emojimix",
-		aliases: ["mix"],
-		version: "1.4",
-		author: "NTKhang",
-		countDown: 5,
-		role: 0,
-		description: {
-			vi: "Mix 2 emoji lại với nhau",
-			en: "Mix 2 emoji together"
-		},
-		guide: {
-			vi: "   {pn} <emoji1> <emoji2>"
-				+ "\n   Ví dụ:  {pn} 🤣 🥰",
-			en: "   {pn} <emoji1> <emoji2>"
-				+ "\n   Example:  {pn} 🤣 🥰"
-		},
-		category: "fun"
-	},
+  config: {
+    name: "emojimix",
+    aliases: ["mix"],
+    version: "1.0.1",
+    author: "Shaon Ahmed",
+    role: 0,
+    shortDescription: {
+      en: "Mix two emojis"
+    },
+    longDescription: {
+      en: "Mix two emojis into one image"
+    },
+    category: "image",
+    guide: {
+      en: "{p}mix 😄 😍"
+    }
+  },
 
-	langs: {
-		vi: {
-			error: "Rất tiếc, emoji %1 và %2 không mix được",
-			success: "Emoji %1 và %2 mix được %3 ảnh"
-		},
-		en: {
-			error: "Sorry, emoji %1 and %2 can't mix",
-			success: "Emoji %1 and %2 mix %3 images"
-		}
-	},
+  onStart: async function ({ api, event, args }) {
+    const { threadID, messageID } = event;
 
-	onStart: async function ({ message, args, getLang }) {
-		const readStream = [];
-		const emoji1 = args[0];
-		const emoji2 = args[1];
+    if (args.length < 2) {
+      return api.sendMessage(
+        `❌ Wrong format!\n✅ Use: ${global.GoatBot.config.prefix}mix 😄 😍`,
+        threadID,
+        messageID
+      );
+    }
 
-		if (!emoji1 || !emoji2)
-			return message.SyntaxError();
+    const emoji1 = args[0];
+    const emoji2 = args[1];
 
-		const generate1 = await generateEmojimix(emoji1, emoji2);
-		const generate2 = await generateEmojimix(emoji2, emoji1);
+    const cachePath = path.join(__dirname, "cache", `emojimix_${Date.now()}.png`);
 
-		if (generate1)
-			readStream.push(generate1);
-		if (generate2)
-			readStream.push(generate2);
+    try {
+      const url = encodeURI(
+        `https://web-api-delta.vercel.app/emojimix?emoji1=${emoji1}&emoji2=${emoji2}`
+      );
 
-		if (readStream.length == 0)
-			return message.reply(getLang("error", emoji1, emoji2));
+      const res = await axios.get(url, { responseType: "arraybuffer" });
+      fs.writeFileSync(cachePath, res.data);
 
-		message.reply({
-			body: getLang("success", emoji1, emoji2, readStream.length),
-			attachment: readStream
-		});
-	}
+      await api.sendMessage(
+        {
+          body: `✨ Emoji Mix Result`,
+          attachment: fs.createReadStream(cachePath)
+        },
+        threadID,
+        messageID
+      );
+
+      fs.unlinkSync(cachePath);
+
+    } catch (error) {
+      return api.sendMessage(
+        `❌ Can't mix ${emoji1} and ${emoji2}`,
+        threadID,
+        messageID
+      );
+    }
+  }
 };
-
-
-
-async function generateEmojimix(emoji1, emoji2) {
-	try {
-		const { data: response } = await axios.get("https://goatbotserver.onrender.com/taoanhdep/emojimix", {
-			params: {
-				emoji1,
-				emoji2
-			},
-			responseType: "stream"
-		});
-		response.path = `emojimix${Date.now()}.png`;
-		return response;
-	}
-	catch (e) {
-		return null;
-	}
-}
