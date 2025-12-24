@@ -8,8 +8,8 @@ module.exports = {
     aliases: ["menu", "commands"],
     version: "5.0",
     author: "MOHAMMAD AKASH",
-    shortDescription: "𝙎𝙝𝙤𝙬 𝙖𝙡𝙡 𝙘𝙤𝙢𝙢𝙖𝙣𝙙𝙨",
-    longDescription: "𝘿𝙞𝙨𝙥𝙡𝙖𝙮𝙨 𝙖 𝙗𝙚𝙖𝙪𝙩𝙞𝙛𝙪𝙡 𝙛𝙤𝙣𝙩-𝙨𝙩𝙮𝙡𝙚𝙙 𝙘𝙖𝙩𝙚𝙜𝙤𝙧𝙞𝙯𝙚𝙙 𝙘𝙤𝙢𝙢𝙖𝙣𝙙 𝙢𝙚𝙣𝙪.",
+    shortDescription: "Aʙᴄ 𝙎𝙝𝙤𝙬 𝙖𝙡𝙡 𝙘𝙤𝙢𝙢𝙖𝙣𝙙𝙨",
+    longDescription: "Aʙᴄ 𝘿𝙞𝙨𝙥𝙡𝙖𝙮𝙨 𝙖 𝙛𝙤𝙣𝙩-𝙨𝙩𝙮𝙡𝙚ᴅ 𝙘𝙖𝙩𝙚𝙜𝙤ʀɪᴢᴇᴅ 𝙘𝙤𝙢ᴍᴀɴᴅ 𝙢ᴇɴᴜ.",
     category: "system",
     guide: "{pn}help [command name]"
   },
@@ -18,23 +18,23 @@ module.exports = {
     const allCommands = global.GoatBot.commands;
     const categories = {};
 
-    // ফন্ট কনভার্টার ফাংশন
+    // Aʙᴄ ফন্ট কনভার্টার
     const fontMap = {
-      A: "𝙰", B: "𝙱", C: "𝙲", D: "𝙳", E: "𝙴", F: "𝙵", G: "𝙶", H: "𝙷", I: "𝙸", J: "𝙹",
-      K: "𝙺", L: "𝙻", M: "𝙼", N: "𝙽", O: "𝙾", P: "𝙿", Q: "𝚀", R: "𝚁", S: "𝚂",
-      T: "𝚃", U: "𝚄", V: "𝚅", W: "𝚆", X: "𝚇", Y: "𝚈", Z: "𝚉",
-      a: "𝚊", b: "𝚋", c: "𝚌", d: "𝚍", e: "𝚎", f: "𝚏", g: "𝚐", h: "𝚑", i: "𝚒", j: "𝚓",
-      k: "𝚔", l: "𝚕", m: "𝚖", n: "𝚗", o: "𝚘", p: "𝚙", q: "𝚚", r: "𝚛", s: "𝚜",
-      t: "𝚝", u: "𝚞", v: "𝚟", w: "𝚠", x: "𝚡", y: "𝚢", z: "𝚣"
+      A: "A", B: "B", C: "C", D: "D", E: "E", F: "F", G: "G", H: "H", I: "I", J: "J",
+      K: "K", L: "L", M: "M", N: "N", O: "O", P: "P", Q: "Q", R: "R", S: "S",
+      T: "T", U: "U", V: "V", W: "W", X: "X", Y: "Y", Z: "Z",
+      a: "ᴀ", b: "ʙ", c: "ᴄ", d: "ᴅ", e: "ᴇ", f: "ꜰ", g: "ɢ", h: "ʜ", i: "ɪ", j: "ᴊ",
+      k: "ᴋ", l: "ʟ", m: "ᴍ", n: "ɴ", o: "ᴏ", p: "ᴘ", q: "ǫ", r: "ʀ", s: "s",
+      t: "ᴛ", u: "ᴜ", v: "ᴠ", w: "ᴡ", x: "x", y: "ʏ", z: "ᴢ"
     };
     const fancy = (str) => str.replace(/[A-Za-z]/g, (c) => fontMap[c] || c);
 
     const emojiMap = {
       ai: "🤖", "ai-image": "🎨", group: "👥", system: "⚙️",
-      fun: "🎯", owner: "👑", config: "🧠", economy: "💰",
-      media: "🎬", "18+": "🔞", tools: "🧰", utility: "🔧",
+      fun: "😂", owner: "👑", config: "🧠", economy: "💰",
+      media: "🎬", "18+": "🔞", tools: "🛠", utility: "🧰",
       info: "ℹ️", image: "🖼️", game: "🎮", admin: "🛡️",
-      rank: "🏅", boxchat: "💬", others: "📁"
+      rank: "📈", boxchat: "💬", others: "📁"
     };
 
     const cleanCategoryName = (text) => {
@@ -111,18 +111,22 @@ module.exports = {
 
     // সব কমান্ড লিস্ট
     const formatCommands = (cmds) =>
-      cmds.sort().map((cmd) => `🔹 ${fancy(cmd)}`).join("\n");
+      cmds.sort().map((cmd) => ` • ${fancy(cmd)}`).join("\n");
 
-    let msg = `${fancy("✨ GOATBOT MENU ✨")}\n━━━━━━━━━━━━━━━━━━━\n`;
+    let msg = `╔═━✧ ${fancy("GOATBOT MENU")} ✧━═╗\n`;
     const sortedCategories = Object.keys(categories).sort();
 
     for (const cat of sortedCategories) {
       const emoji = emojiMap[cat] || "📁";
-      msg += `\n${emoji} ${fancy(`CATEGORY: ${cat.toUpperCase()}`)}\n`;
-      msg += `${formatCommands(categories[cat])}\n`;
+      msg += `\n╔─ ${emoji} ${fancy(cat.toUpperCase())}\n`;
+      msg += `${formatCommands(categories[cat])}\n╚─━━━━━\n`;
     }
 
-    msg += `━━━━━━━━━━━━━━━━━━━\n💡 ${fancy(`TIP: USE "${prefix}help [command]" TO GET FULL DETAILS.`)}\n🪄 ${fancy("BOT BY: MOHAMMAD AKASH ✨")}`;
+    msg += `╔═━✧ ɪɴғᴏ ✧━═╗\n`;
+    msg += `Total Commands : ${allCommands.size}\n`;
+    msg += `Prefix         : ${prefix}\n`;
+    msg += `Creator        : MOHAMMAD AKASH\n`;
+    msg += `╚═━✧ END ✧━═╝`;
 
     return message.reply({
       body: msg,
