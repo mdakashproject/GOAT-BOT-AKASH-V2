@@ -9,7 +9,7 @@ module.exports = {
     name: "xnxx",
     version: "1.0.0",
     author: "RX x MOHAMMAD AKASH",
-    role: 1,
+    role: 2,
     category: "18+",
     shortDescription: "Search and download videos from adult API",
     longDescription: "Search videos and download them in MP4 format from xnxx API",
