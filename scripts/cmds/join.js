@@ -1,88 +1,106 @@
 module.exports = {
   config: {
     name: "join",
-    aliases: ["addme"],
-    version: "1.3",
-    author: "MOHAMMAD AKASH",
-    shortDescription: "Add yourself to a group by TID",
-    longDescription: "Bot shows all groups and allows bot admin to join them",
-    category: "owner",
+    aliases: ["boxlist"],
+    version: "1.2.1",
+    author: "MOHAMMAD AKASH Optimize & Fixd",
     role: 2,
-    guide: "{pn}join"
+    shortDescription: "Show all active groups & add yourself",
+    category: "system",
+    countDown: 10
   },
 
-  onStart: async function ({ message, api, event }) {
+  onStart: async function ({ api, event }) {
     const { threadID, messageID, senderID } = event;
 
-    if (!global.GoatBot.config.adminBot.includes(senderID))
-      return message.reply("❌ Tʜɪs Cᴏᴍᴍᴀɴᴅ Iꜱ Fᴏʀ Bᴏᴛ Aᴅᴍɪɴ Oɴʟʏ!");
-
     try {
-      const allThreads = await api.getThreadList(100, null, ["INBOX"]);
-      const groups = allThreads.filter(t => t.isGroup);
+      const allThreads = await api.getThreadList(200, null, ["INBOX"]);
+
+      // ✅ FIX: only ACTIVE groups where bot is still present
+      const groups = allThreads.filter(
+        t => t.isGroup === true && t.isSubscribed === true
+      );
 
       if (!groups.length)
-        return message.reply("❌ Tʜᴇʀᴇ Aʀᴇ Cᴜʀʀᴇɴᴛʟʏ Nᴏ Gʀᴏᴜᴘs!");
+        return api.sendMessage(
+          "⚠️ Bot is not currently in any group.",
+          threadID,
+          messageID
+        );
 
-      let msg = "🎭 Gʀᴏᴜᴘ Lɪsᴛ 🎭\n\n";
+      let msg = "📦 | BOX LIST (ACTIVE GROUPS ONLY)\n\n";
       const groupid = [];
       const groupName = [];
 
       groups.forEach((g, i) => {
-        msg += `${i + 1}. ${g.name}\n`;
-        msg += `🔰 Tɪᴅ: ${g.threadID}\n`;
-        msg += `💌 MᴇssᴀɢᴇCᴏᴜɴᴛ: ${g.messageCount}\n\n`;
+        msg += `${i + 1}. ${g.name || "Unnamed Group"}\n`;
+        msg += `🆔 ${g.threadID}\n\n`;
         groupid.push(g.threadID);
-        groupName.push(g.name);
+        groupName.push(g.name || "Unnamed Group");
       });
 
-      msg += "Rᴇᴘʟʏ Tᴏ Tʜɪs Mᴇssᴀɢᴇ Wɪᴛʜ:\nAᴅᴅ <ɴᴜᴍʙᴇʀ | ᴀʟʟ>";
+      msg += "↩️ Reply with: add 1 | add 2 5";
 
-      api.sendMessage(msg, threadID, (err, info) => {
+      api.sendMessage(msg.trim(), threadID, (err, info) => {
         global.GoatBot.onReply.set(info.messageID, {
+          commandName: this.config.name,
           author: senderID,
-          messageID: info.messageID,
           groupid,
-          groupName,
-          commandName: this.config.name
+          groupName
         });
       }, messageID);
 
     } catch (e) {
       console.error(e);
-      message.reply("❌ Fᴀɪʟᴇᴅ Tᴏ Fᴇᴛᴄʜ Gʀᴏᴜᴘ Lɪsᴛ.");
+      api.sendMessage(
+        "❌ Failed to fetch active group list.",
+        threadID,
+        messageID
+      );
     }
   },
 
-  onReply: async function ({ event, Reply, api }) {
+  onReply: async function ({ api, event, Reply }) {
     if (event.senderID !== Reply.author) return;
 
-    const args = event.body.trim().toLowerCase().split(" ");
+    const args = event.body.trim().toLowerCase().split(/\s+/);
     if (args[0] !== "add")
-      return api.sendMessage("❌ Iɴᴠᴀʟɪᴅ Cᴏᴍᴍᴀɴᴅ. Uꜱᴇ: Aᴅᴅ <ɴᴜᴍʙᴇʀ | ᴀʟʟ>", event.threadID);
+      return api.sendMessage(
+        "❌ Use: add <number>",
+        event.threadID
+      );
 
+    // 🔁 SAME working add logic (from join.js)
     const addUserToGroup = async (uid, tid, name) => {
       try {
         await api.addUserToGroup(uid, tid);
-        api.sendMessage(`✅ Aᴅᴅᴇᴅ Yᴏᴜ Tᴏ: ${name}`, event.threadID);
+        await api.sendMessage(
+          `✅ Added you to: ${name}`,
+          event.threadID
+        );
       } catch {
-        api.sendMessage(`❌ Fᴀɪʟᴇᴅ Tᴏ Aᴅᴅ Yᴏᴜ Tᴏ: ${name}`, event.threadID);
+        await api.sendMessage(
+          `❌ Failed to add you to: ${name}`,
+          event.threadID
+        );
       }
     };
 
-    if (args[1] === "all") {
-      for (let i = 0; i < Reply.groupid.length; i++) {
-        await addUserToGroup(event.senderID, Reply.groupid[i], Reply.groupName[i]);
+    for (let i = 1; i < args.length; i++) {
+      const index = parseInt(args[i]) - 1;
+      if (isNaN(index) || index < 0 || index >= Reply.groupid.length) {
+        await api.sendMessage(
+          `❌ Invalid number: ${args[i]}`,
+          event.threadID
+        );
+        continue;
       }
-      api.sendMessage("🎉 Aᴛᴛᴇᴍᴘᴛᴇᴅ Tᴏ Aᴅᴅ Yᴏᴜ Tᴏ Aʟʟ Gʀᴏᴜᴘs.", event.threadID);
-    } else {
-      const index = parseInt(args[1]) - 1;
-      if (isNaN(index) || index < 0 || index >= Reply.groupid.length)
-        return api.sendMessage("❌ Iɴᴠᴀʟɪᴅ Nᴜᴍʙᴇʀ!", event.threadID);
 
-      await addUserToGroup(event.senderID, Reply.groupid[index], Reply.groupName[index]);
+      await addUserToGroup(
+        event.senderID,
+        Reply.groupid[index],
+        Reply.groupName[index]
+      );
     }
-
-    api.unsendMessage(event.messageID);
   }
 };
