@@ -1,7 +1,7 @@
 module.exports = {
   config: {
     name: "join",
-    aliases: ["boxlist"],
+    aliases: ["boxlist", "allbox"],
     version: "1.5.0",
     author: "MOHAMMAD AKASH",
     role: 2,
@@ -28,13 +28,13 @@ module.exports = {
       const end = start + perPage;
       const currentGroups = groups.slice(start, end);
 
-      let msg = `📦 | BOX LIST (PAGE ${page})\n\n`;
+      let msg = `📦 | 𝙱𝙾𝚇 𝙻𝙸𝚂𝚃 (𝙿𝙰𝙶𝙴 ${page})\n\n`;
       currentGroups.forEach((g, i) => {
         msg += `${start + i + 1}. ${g.name || "Unnamed Group"}\n`;
         msg += `🆔 ${g.threadID}\n\n`;
       });
 
-      msg += "↩️ Reply with: add 1 | add 2 5\n➡️ Or page 2 ... to see more groups";
+      msg += "↩️ Rᴇᴘʟʏ Wɪᴛʜ: ᴀᴅᴅ 1 | ᴀᴅᴅ 2 5\n➡️ Oʀ ᴘᴀɢᴇ 2 ... Tᴏ sᴇᴇ Mᴏʀᴇ Gʀᴏᴜᴘs";
 
       api.sendMessage(msg.trim(), threadID, (err, info) => {
         global.GoatBot.onReply.set(info.messageID, {
@@ -69,12 +69,12 @@ module.exports = {
 
       if (!currentGroups.length) return api.sendMessage("⚠️ No more groups", event.threadID);
 
-      let msg = `📦 | BOX LIST (PAGE ${pageNum})\n\n`;
+      let msg = `📦 | 𝙱𝙾𝚇 𝙻𝙸𝚂𝚃 (𝙿𝙰𝙶𝙴 ${pageNum})\n\n`;
       currentGroups.forEach((g, i) => {
         msg += `${start + i + 1}. ${g.name || "Unnamed Group"}\n`;
         msg += `🆔 ${g.threadID}\n\n`;
       });
-      msg += `↩️ Reply with: add 1 | add 2 5\n➡️ Or page ${pageNum + 1} ... to see more groups`;
+      msg += `↩️ Rᴇᴘʟʏ Wɪᴛʜ: Aᴅᴅ 1 | Aᴅᴅ 2 5\n➡️ Oʀ Pᴀɢᴇ ${pageNum + 1} ... to see more groups`;
 
       api.sendMessage(msg.trim(), event.threadID, (err, info) => {
         global.GoatBot.onReply.set(info.messageID, {
@@ -93,16 +93,16 @@ module.exports = {
       const addUserToGroup = async (uid, tid, name) => {
         try {
           await api.addUserToGroup(uid, tid);
-          await api.sendMessage(`✅ Added you to: ${name}`, event.threadID);
+          await api.sendMessage(`✅ Aᴅᴅᴇᴅ Yᴏᴜ Tᴏ: ${name}`, event.threadID);
         } catch {
-          await api.sendMessage(`❌ Failed to add you to: ${name}`, event.threadID);
+          await api.sendMessage(`❌ Fᴀɪʟᴅ Tᴏ Aᴅᴅ Yᴏᴜ ᴛᴏ: ${name}`, event.threadID);
         }
       };
 
       for (let i = 1; i < args.length; i++) {
         const index = parseInt(args[i]) - 1;
         if (isNaN(index) || index < 0 || index >= Reply.groups.length) {
-          await api.sendMessage(`❌ Invalid number: ${args[i]}`, event.threadID);
+          await api.sendMessage(`❌ Iɴᴠᴀʟɪᴅ Nᴜᴍʙᴇʀ: ${args[i]}`, event.threadID);
           continue;
         }
         const g = Reply.groups[index];
