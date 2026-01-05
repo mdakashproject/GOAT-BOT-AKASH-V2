@@ -2,10 +2,10 @@ const axios = require("axios");
 const fs = require("fs-extra");
 const path = require("path");
 
-const TIKTOK_SEARCH_API = "https://lyric-search-neon.vercel.app/kshitiz?keyword=";
-const CACHE_DIR = path.join(__dirname, "tiktok_cache");
+const API = "https://lyric-search-neon.vercel.app/kshitiz?keyword=";
+const CACHE = path.join(__dirname, "tiktok_cache");
 
-async function getStream(url) {
+async function stream(url) {
   const res = await axios({
     url,
     responseType: "stream",
@@ -18,14 +18,14 @@ module.exports = {
   config: {
     name: "tiktok",
     aliases: ["tt"],
-    version: "1.0.0",
-    author: "Newaz x Mᴏʜᴀᴍᴍᴀᴅ Aᴋᴀsʜ",
-    countDown: 5,
+    version: "1.1.0",
+    author: "Mᴏʜᴀᴍᴍᴀᴅ Aᴋᴀsʜ",
     role: 0,
-    description: {
-      en: "Search & Download TikTok Video"
-    },
+    countDown: 5,
     category: "media",
+    description: {
+      en: "Search & download TikTok video"
+    },
     guide: {
       en: "{pn} <keyword>"
     }
@@ -43,80 +43,76 @@ module.exports = {
 
     api.sendMessage(
       `🔎 𝐒ᴇᴀʀᴄʜɪɴɢ 𝐓ɪᴋᴛᴏᴋ...\n🔍 𝐊ᴇʏᴡᴏʀᴅ: ❝ ${query} ❞`,
-      event.threadID,
-      event.messageID
+      event.threadID
     );
 
     try {
-      const res = await axios.get(
-        TIKTOK_SEARCH_API + encodeURIComponent(query),
-        { timeout: 20000 }
-      );
-
+      const res = await axios.get(API + encodeURIComponent(query));
       const results = res.data.slice(0, 6);
+
       if (!results.length) {
         return api.sendMessage(
-          "❌ 𝐍ᴏ 𝐕ɪᴅᴇᴏ 𝐅ᴏᴜɴᴅ!\n🔁 𝐀ɴᴏᴛʜᴇʀ 𝐊ᴇʏᴡᴏʀᴅ 𝐓ʀʏ 𝐊ᴏʀᴏ",
-          event.threadID,
-          event.messageID
+          "❌ 𝐍ᴏ 𝐕ɪᴅᴇᴏ 𝐅ᴏᴜɴᴅ!",
+          event.threadID
         );
       }
 
-      let body = "✨ 𝐓ɪᴋᴛᴏᴋ 𝐒ᴇᴀʀᴄʜ 𝐑ᴇsᴜʟᴛs ✨\n\n";
-      const thumbs = [];
+      let body = "✨ 𝐓ɪᴋᴛᴏᴋ 𝐑ᴇsᴜʟᴛs ✨\n\n";
+      const imgs = [];
 
       results.forEach((v, i) => {
-        body += `${i + 1}️⃣ 𝐓ɪᴛʟᴇ:\n➤ ${v.title.substring(0, 60)}\n`;
-        body += `👤 𝐂ʀᴇᴀᴛᴏʀ: @${v.author.unique_id}\n`;
-        body += `⏱️ 𝐃ᴜʀᴀᴛɪᴏɴ: ${v.duration}s\n\n━━━━━━━━━━━━━━━\n\n`;
-        if (v.cover) thumbs.push(getStream(v.cover));
+        body += `${i + 1}️⃣ ${v.title.slice(0, 50)}\n`;
+        body += `👤 @${v.author.unique_id}\n`;
+        body += `⏱️ ${v.duration}s\n\n`;
+        if (v.cover) imgs.push(stream(v.cover));
       });
 
-      body += `📥 𝐑ᴇᴘʟʏ 𝐖ɪᴛʜ 𝐍ᴜᴍʙᴇʀ (1-${results.length})\n🎬 𝐓ᴏ 𝐃ᴏᴡɴʟᴏᴀᴅ`;
+      body += `📥 𝐑ᴇᴘʟʏ 1-${results.length} 𝐓ᴏ 𝐃ᴏᴡɴʟᴏᴀᴅ`;
 
-      const attachments = await Promise.all(thumbs);
+      const atts = await Promise.all(imgs);
 
       api.sendMessage(
-        { body, attachment: attachments },
+        { body, attachment: atts },
         event.threadID,
         (err, info) => {
-          if (!err) {
-            global.GoatBot.onReply.set(info.messageID, {
-              commandName,
-              author: event.senderID,
-              results
-            });
-          }
-        },
-        event.messageID
+          if (err) return;
+
+          global.GoatBot.onReply.set(info.messageID, {
+            commandName,
+            author: event.senderID,
+            messageID: info.messageID,
+            results
+          });
+        }
       );
     } catch (e) {
-      api.sendMessage(
-        "❌ 𝐓ɪᴋᴛᴏᴋ 𝐀ᴘɪ 𝐄ʀʀᴏʀ!",
-        event.threadID,
-        event.messageID
-      );
+      api.sendMessage("❌ 𝐓ɪᴋᴛᴏᴋ 𝐀ᴘɪ 𝐄ʀʀᴏʀ!", event.threadID);
     }
   },
 
   onReply: async function ({ api, event, Reply }) {
-    const num = parseInt(event.body);
-    const { results } = Reply;
+    const choose = parseInt(event.body);
+    if (isNaN(choose)) return;
 
-    if (isNaN(num) || num < 1 || num > results.length) {
+    const { results, messageID } = Reply;
+    if (choose < 1 || choose > results.length) {
       return api.sendMessage(
-        `❌ 𝐈ɴᴠᴀʟɪᴅ 𝐍ᴜᴍʙᴇʀ!\n✅ 1 - ${results.length} 𝐄ʀ 𝐌ᴏᴅᴅʜᴇ 𝐃ᴀᴏ`,
+        `❌ 𝐈ɴᴠᴀʟɪᴅ!\n1-${results.length} 𝐃ᴀᴏ`,
         event.threadID,
         event.messageID
       );
     }
 
-    const video = results[num - 1];
-    await api.unsendMessage(Reply.messageID);
+    // ✅ SAFE UNSEND (no error)
+    try {
+      if (messageID) await api.unsendMessage(messageID);
+    } catch (_) {}
 
-    await fs.ensureDir(CACHE_DIR);
-    const name = video.title.substring(0, 25).replace(/[^a-z0-9]/gi, "_");
-    const file = path.join(CACHE_DIR, `${Date.now()}_${name}.mp4`);
+    const video = results[choose - 1];
+    await fs.ensureDir(CACHE);
+
+    const name = video.title.slice(0, 25).replace(/[^a-z0-9]/gi, "_");
+    const file = path.join(CACHE, `${Date.now()}_${name}.mp4`);
 
     api.sendMessage(
       `⏳ 𝐃ᴏᴡɴʟᴏᴀᴅɪɴɢ...\n🎬 ${video.title}`,
@@ -130,33 +126,28 @@ module.exports = {
         timeout: 300000
       });
 
-      const writer = fs.createWriteStream(file);
-      res.data.pipe(writer);
+      const w = fs.createWriteStream(file);
+      res.data.pipe(w);
 
       await new Promise((r, e) => {
-        writer.on("finish", r);
-        writer.on("error", e);
+        w.on("finish", r);
+        w.on("error", e);
       });
 
       api.sendMessage(
         {
           body:
             `✅ 𝐃ᴏᴡɴʟᴏᴀᴅ 𝐂ᴏᴍᴘʟᴇᴛᴇᴅ!\n\n` +
-            `🎥 𝐓ɪᴛʟᴇ: ${video.title}\n` +
-            `👤 𝐂ʀᴇᴀᴛᴏʀ: @${video.author.unique_id}\n` +
-            `⏱️ 𝐃ᴜʀᴀᴛɪᴏɴ: ${video.duration}s\n\n✨ 𝐄ɴᴊᴏʏ ✨`,
+            `🎥 ${video.title}\n` +
+            `👤 @${video.author.unique_id}\n` +
+            `⏱️ ${video.duration}s`,
           attachment: fs.createReadStream(file)
         },
         event.threadID,
-        () => fs.unlinkSync(file),
-        event.messageID
+        () => fs.unlinkSync(file)
       );
-    } catch (err) {
-      api.sendMessage(
-        "❌ 𝐃ᴏᴡɴʟᴏᴀᴅ 𝐅ᴀɪʟᴇᴅ!",
-        event.threadID,
-        event.messageID
-      );
+    } catch (e) {
+      api.sendMessage("❌ 𝐃ᴏᴡɴʟᴏᴀᴅ 𝐅ᴀɪʟᴇᴅ!", event.threadID);
     }
   }
 };
