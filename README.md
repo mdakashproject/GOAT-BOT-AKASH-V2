@@ -105,7 +105,7 @@
   <!-- Tutorial Video Thumbnail -->
   <div align="center" style="max-width:820px; margin:auto; padding:20px; background:#111; border-radius:20px; box-shadow:0 0 15px #0099ff;">
     <h2 style="color:#00c4ff;">📹 𝗦𝗲𝘁𝘂𝗽 𝗧𝘂𝘁𝗼𝗿𝗶𝗮𝗹</h2>
-    <p style="color:#d0d0d0;">Click the thumbnail below to watch the complete setup tutorial on YouTube:</p>
+    <p style="color:#d0d0d0;">Click ➜ the thumbnail below to watch the complete setup tutorial on YouTube:</p>
     <a href="https://youtu.be/gPf_BFhQz_w" target="_blank">
       <img src="https://img.youtube.com/vi/gPf_BFhQz_w/hqdefault.jpg" 
            alt="Goat Bot V2 Setup Tutorial" 
