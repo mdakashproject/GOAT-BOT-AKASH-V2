@@ -1,8 +1,50 @@
-<div align="center">  
+<!-- Box Style Header -->
+<div align="center">
 
-  <!-- Header / Typing SVG -->
-  <p align="center">  
-    <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=28&duration=3000&pause=500&color=00FFD1&center=true&vCenter=true&width=800&lines=🤖+𝗚𝗼𝗮𝘁+𝗕𝗼𝘁+𝗩2+—+𝗯𝘆+𝐌𝐨𝐡𝐚𝐦𝗺𝐚𝗱+𝐀𝐤𝐚𝐬𝐡+🐐" alt="Goat Bot V2"/>  
+  <div style="
+    max-width:880px;
+    margin:auto;
+    padding:30px 20px;
+    border-radius:22px;
+    background:rgba(15, 25, 30, 0.75);
+    border:1px solid rgba(0,255,209,0.35);
+    box-shadow:0 0 30px rgba(0,255,209,0.25);
+    backdrop-filter: blur(6px);
+  ">
+
+    <!-- Title -->
+    <img src="https://readme-typing-svg.herokuapp.com?font=Montserrat&weight=700&size=30&duration=3500&pause=600&color=00FFD1&center=true&vCenter=true&width=760&lines=🤖+𝗚𝗼𝗮𝘁+𝗕𝗼𝘁+𝗩2" />
+
+    <!-- Subtitle -->
+    <p style="
+      margin-top:10px;
+      font-size:15px;
+      color:#cffff5;
+      letter-spacing:1px;
+    ">
+      𝗡𝗲𝘅𝘁-𝗚𝗲𝗻 𝗙𝗮𝗰𝗲𝗯𝗼𝗼𝗸 𝗠𝗲𝘀𝘀𝗲𝗻𝗴𝗲𝗿 𝗕𝗼𝘁
+    </p>
+
+    <!-- Divider -->
+    <div style="
+      width:140px;
+      height:3px;
+      background:#00ffd1;
+      border-radius:10px;
+      margin:16px auto;
+    "></div>
+
+    <!-- Author -->
+    <p style="
+      font-size:14px;
+      color:#b8fff0;
+    ">
+      𝗕𝘂𝗶𝗹𝘁 𝗯𝘆 <strong>𝐌𝐨𝐡𝐚𝐦𝐦𝐚𝐝 𝐀𝐤𝐚𝐬𝐡</strong> 🐐
+    </p>
+
+  </div>
+
+</div>
   </p>  
 
   <!-- Badges -->
