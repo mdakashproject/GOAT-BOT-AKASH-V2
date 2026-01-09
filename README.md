@@ -122,7 +122,7 @@
       <a href="https://facebook.com/arakashiam" target="_blank"><img src="https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white"/></a>
       <a href="https://t.me/arakashiam" target="_blank"><img src="https://img.shields.io/badge/Telegram-0088CC?style=for-the-badge&logo=telegram&logoColor=white"/></a>
       <a href="https://github.com/mdakashproject" target="_blank"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"/></a>
-      <a href="https://youtube.com/@its_akash_me?si=wtY71zp_XF-40bJt" target="_blank"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white"/></a>
+      <a href="https://youtube.com/@akashbotdev?si=2GOkhI1xiI3J8vsi" target="_blank"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white"/></a>
     </div>
   </div>
 
