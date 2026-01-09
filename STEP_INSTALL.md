@@ -1,50 +1,72 @@
-## **STEP INSTALL GOAT BOT V2**
-> This is a guide to install Goat Bot V2 on mobile devices (Android, iOS) and PC (Windows, MacOS, Linux) with replit.com
+┌─────────────────────────────────────────────
+│             GOAT BOT AKASH V2
+│       STEP-BY-STEP INSTALL GUIDE
+└─────────────────────────────────────────────
 
-* Watch the detailed video tutorial to install Goat Bot V2 on mobile devices (Android, iOS) 
-<div align="center">
-	<a href="https://www.youtube.com/watch?v=grVeZ76HlgA"><img src="https://img.youtube.com/vi/grVeZ76HlgA/maxresdefault.jpg" width="400"></a>
-</div>
+This guide will show you how to set up GOAT BOT AKASH V2, deploy it on Render, and monitor it using UptimeRobot.
 
-* If you want to install Goat Bot V2 on vps/computer, please follow the guide below:
-<div align="center">
-	<a href="https://www.youtube.com/watch?v=uCbSYNQNEwY"><img src="https://img.youtube.com/vi/uCbSYNQNEwY/maxresdefault.jpg" width="400"></a>
-</div>
+─────────────────────────────────────────────
+1️⃣ IMPORT REPOSITORY ON GITHUB
 
----
-<h1 align="center"><b>STEP BY STEP GUIDE</b></h1>
+1. Log in to Github.
+2. Click New Repository → Import repository.
+3. Paste the repository link:
+   https://github.com/mdakashproject/GOAT-BOT-AKASH-V2.git
+4. Select Private Repository.
+5. Click Begin import.
 
-* Download kiwi browser from play store. Open kiwi browser and go to https://replit.com
-```
-https://replit.com
-```
-* Create a new team education, then create a new project with `bash` language, then open console and type:
-```bash
-git clone https://github.com/ntkhang03/Goat-Bot-V2 && cp -r Goat-Bot-V2/. . && rm -rf Goat-Bot-V2
-```
-* Then type:
-```bash
-npm install
-```
-* Download extension `Cookie Editor` from chrom web store, then go to https://facebook.com, open that extension and click `Export` -> `Export as JSON`
-* Then back to replit, open file `account.txt` and paste your cookie there
----
-* Go to https://console.cloud.google.com/ to create a new project (don't forget to **`public`** your project) and add Authorized redirect URIs: `https://developers.google.com/oauthplayground` (without backslash at the end), then go to https://developers.google.com/oauthplayground to create a new OAuth 2.0 Client ID with permission: `https://www.googleapis.com/auth/drive` and `https://mail.google.com` then copy your `Refresh token` `Client ID` and `Client Secret` to `config.json` in part `credentials` -> `google`
-```
-https://console.cloud.google.com/
-```
-```
-https://developers.google.com/oauthplayground
-```
-* Go to https://www.google.com/recaptcha/admin/create to create a new reCAPTCHA v2 with `I'm not a robot checkbox`
-* Add domain **`repl.co`** (not repl.com) to your reCAPTCHA v2 
-* Accept the reCAPTCHA v2 terms of service 
-* Then copy your `Site key` and `Secret key` to `config.json`
-```
-https://www.google.com/recaptcha/admin/create
-```
-* Go to https://betterstack.com/better-uptime or https://uptimerobot.com/ to create a new monitor for your project
-```
-https://betterstack.com/better-uptime
-```
+> Now your own private repository has been created.
 
+─────────────────────────────────────────────
+2️⃣ CONFIGURE config.json
+
+1. Clone the repository or edit config.json on Github.
+2. Set the following values:
+
+{
+  "nickNameBot": "♡┋Տʜɪᴢᴜᴋꫝㅤᥫ᭡",
+  "adminBot": [
+    "100078049308655",
+    "61577213967981"
+  ],
+  "uid": "YOUR_FB_UID"
+}
+
+- nickNameBot: Bot's display name.
+- adminBot: Facebook IDs of the admins.
+- uid: Your Facebook user ID.
+
+─────────────────────────────────────────────
+3️⃣ EXPORT FACEBOOK COOKIE
+
+1. Install C3C FBState Utility Extension.
+2. Log in to the Facebook account you will use for the bot.
+3. Use the extension to export JSON cookie.
+4. Paste the copied JSON into account.txt.
+
+> Keep this file safe, do not share it with anyone.
+
+─────────────────────────────────────────────
+4️⃣ DEPLOY ON RENDER
+
+1. Log in to Render.com.
+2. Click New Web Service → Connect Github Repo → select your private repository.
+3. Set environment variables if needed (.env).
+4. Click Deploy.
+5. Once deployed, copy the Render URL.
+
+─────────────────────────────────────────────
+5️⃣ MONITOR WITH UPTIMEROBOT
+
+1. Log in to UptimeRobot.com.
+2. Click Add New Monitor → Monitor Type: HTTP(s).
+3. Paste your Render URL.
+4. Set the check interval (e.g., 5 minutes).
+5. Click Create Monitor.
+
+> Your bot will now run 24/7 and be monitored by UptimeRobot.
+
+─────────────────────────────────────────────
+CONGRATULATIONS
+You have successfully set up GOAT BOT AKASH V2. Your bot is now running and your admin IDs are active.
+─────────────────────────────────────────────
