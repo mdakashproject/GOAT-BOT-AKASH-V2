@@ -1,20 +1,23 @@
+const axios = require("axios");
 const fs = require("fs");
-const { downloadVideo } = require("sagor-video-downloader");
+const path = require("path");
 
 module.exports = {
     config: {
         name: "autolink",
         version: "1.3",
         author: "MOHAMMAD AKASH",
-        countDown: 5,
         role: 0,
-        shortDescription: "Auto-download & send videos silently (no messages)",
+        shortDescription: "Auto-download videos via Akash-video-downloader API",
         category: "media",
+        countDown: 3,
     },
 
-    onStart: async function () {},
+    onStart: async function({ api, event }) {
+        // Required by Goat Bot v2
+    },
 
-    onChat: async function ({ api, event }) {
+    onChat: async function({ api, event }) {
         const threadID = event.threadID;
         const messageID = event.messageID;
         const message = event.body || "";
@@ -31,35 +34,42 @@ module.exports = {
 
         for (const url of uniqueLinks) {
             try {
-                const { title, filePath } = await downloadVideo(url);
-                if (!filePath || !fs.existsSync(filePath)) throw new Error();
+                const response = await axios.post(
+                    "https://akash-video-downloader.onrender.com/download",
+                    { url },
+                    { responseType: "stream" }
+                );
 
-                const stats = fs.statSync(filePath);
+                const tempFile = path.join(__dirname, `temp_${Date.now()}.mp4`);
+                const writer = fs.createWriteStream(tempFile);
+                response.data.pipe(writer);
+
+                await new Promise((resolve, reject) => {
+                    writer.on("finish", resolve);
+                    writer.on("error", reject);
+                });
+
+                const stats = fs.statSync(tempFile);
                 const fileSizeInMB = stats.size / (1024 * 1024);
 
                 if (fileSizeInMB > 25) {
-                    fs.unlinkSync(filePath);
+                    fs.unlinkSync(tempFile);
                     failCount++;
                     continue;
                 }
 
                 await api.sendMessage(
                     {
-                        body:
-`📥 ᴠɪᴅᴇᴏ ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ  
-━━━━━━━━━━━━━━━  
-🎬 ᴛɪᴛʟᴇ: ${title || "Video File"}  
-📦 sɪᴢᴇ: ${fileSizeInMB.toFixed(2)} MB  
-━━━━━━━━━━━━━━━`,
-                        attachment: fs.createReadStream(filePath)
+                        body: `📥 Video downloaded successfully\n━━━━━━━━━━━━━━━`,
+                        attachment: fs.createReadStream(tempFile)
                     },
                     threadID,
-                    () => fs.unlinkSync(filePath)
+                    () => fs.unlinkSync(tempFile)
                 );
 
                 successCount++;
 
-            } catch {
+            } catch (err) {
                 failCount++;
             }
         }
