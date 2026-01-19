@@ -46,7 +46,27 @@ class SlotMachine {
 
   spin() {
     const reels = [];
-    for(let i=0;i<3;i++) reels.push(this.symbols[Math.floor(Math.random()*this.symbols.length)]);
+    let isWin = Math.random() < 0.6; // 60% chance to win
+
+    if(isWin) {
+      // Pick a winning combination from payouts
+      const winningCombos = Object.keys(this.payouts);
+      const combo = winningCombos[Math.floor(Math.random() * winningCombos.length)];
+      reels.push(...combo.split(''));
+    } else {
+      // Random losing reels
+      while(reels.length < 3) {
+        const symbol = this.symbols[Math.floor(Math.random()*this.symbols.length)];
+        reels.push(symbol);
+      }
+      // Make sure it's a loss
+      const resultStr = reels.join('');
+      if(this.payouts[resultStr]) {
+        // Change one reel to avoid accidental win
+        reels[0] = this.symbols[Math.floor(Math.random()*this.symbols.length)];
+      }
+    }
+
     const result = reels.join('');
     const multiplier = this.payouts[result] || 0;
     return { reels, result, multiplier };
@@ -70,10 +90,10 @@ function createMessage(reels, bet, multiplier, newBalance) {
 module.exports.config = {
   name: "slot",
   aliases: ["spin"],
-  version: "1.0",
+  version: "1.1",
   author: "MOHAMMAD AKASH",
   role: 0,
-  shortDescription: "Compact Slot Machine",
+  shortDescription: "Slot Machine with 60% Win Chance",
   category: "economy"
 };
 
