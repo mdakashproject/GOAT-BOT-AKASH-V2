@@ -45,7 +45,7 @@ function getCardType(balance) {
 
 module.exports.config = {
   name: "balance",
-  aliases: ["bal", "card", "bank", "$"],
+  aliases: ["bal", "bank"],
   version: "12.0",
   author: "MOHAMMAD AKASH",
   countDown: 5,
