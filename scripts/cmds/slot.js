@@ -1,123 +1,106 @@
 const axios = require("axios");
 
+// API URL
 const API_URL = "https://balance-bot-api.onrender.com";
-const MIN_BET = 10;
 
-if (!global.slotGames) global.slotGames = {};
-
-/* ========== HELPERS ========== */
-
-const SYMBOLS = ["🍒", "🍋", "🍉", "🍇", "⭐", "🔔"];
-
-function randSymbol() {
-  return SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
-}
-
-function format(num) {
-  return num.toLocaleString("en-US") + " $";
-}
-
-async function getBalance(uid) {
+// Fetch user balance
+async function getBalance(userID) {
   try {
-    const r = await axios.get(`${API_URL}/api/balance/${uid}`);
-    return r.data.balance || 100;
+    const res = await axios.get(`${API_URL}/api/balance/${userID}`);
+    return res.data.balance || 100;
   } catch {
     return 100;
   }
 }
 
-async function lose(uid, amount) {
+// Add winning amount
+async function winGame(userID, amount) {
   try {
-    await axios.post(`${API_URL}/api/balance/lose`, { userID: uid, amount });
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-async function win(uid, amount) {
-  try {
-    const r = await axios.post(`${API_URL}/api/balance/win`, { userID: uid, amount });
-    return r.data.balance;
+    const res = await axios.post(`${API_URL}/api/balance/win`, { userID, amount });
+    return res.data.success ? res.data.balance : null;
   } catch {
     return null;
   }
 }
 
-/* ========== CONFIG ========== */
+// Subtract losing amount
+async function loseGame(userID, amount) {
+  try {
+    const res = await axios.post(`${API_URL}/api/balance/lose`, { userID, amount });
+    return res.data.success ? res.data.balance : null;
+  } catch {
+    return null;
+  }
+}
 
+// Slot Machine class
+class SlotMachine {
+  constructor() {
+    this.symbols = ["🍒","🍊","🍋","🍉","🍇","⭐","7️⃣","💎"];
+    this.payouts = {
+      "💎💎💎": 100, "7️⃣7️⃣7️⃣": 50, "⭐⭐⭐": 30,
+      "🍇🍇🍇": 20, "🍉🍉🍉": 15, "🍋🍋🍋": 10,
+      "🍊🍊🍊": 8, "🍒🍒🍒": 5
+    };
+  }
+
+  spin() {
+    const reels = [];
+    for(let i=0;i<3;i++) reels.push(this.symbols[Math.floor(Math.random()*this.symbols.length)]);
+    const result = reels.join('');
+    const multiplier = this.payouts[result] || 0;
+    return { reels, result, multiplier };
+  }
+}
+
+// Format currency
+function formatBalance(num) { return num.toLocaleString("en-US") + " $"; }
+
+// Create compact message
+function createMessage(reels, bet, multiplier, newBalance) {
+  const spinDisplay = reels.map(r => r || "❓").join(" | ");
+  if(multiplier > 0) {
+    return `🎰 Sʟᴏᴛ Mᴀᴄʜɪɴᴇ 🎰\n\n[ ${spinDisplay} ]\n\n🎉 Wɪɴ!\n💵 Bᴇᴛ: ${formatBalance(bet)}\n✅ Wɪɴ: ${formatBalance(bet*multiplier)}\n💳 Nᴇᴡ Bᴀʟᴀɴᴄᴇ: ${formatBalance(newBalance)}`;
+  } else {
+    return `🎰 Sʟᴏᴛ Mᴀᴄʜɪɴᴇ 🎰\n\n[ ${spinDisplay} ]\n\n💀 Lᴏss\n💰 Bᴇᴛ: ${formatBalance(bet)}\n❌ Wɪɴ: 0 $\n💳 Nᴇᴡ Bᴀʟᴀɴᴄᴇ: ${formatBalance(newBalance)}`;
+  }
+}
+
+// Module exports
 module.exports.config = {
   name: "slot",
-  aliases: ["slots"],
+  aliases: ["spin"],
   version: "1.0",
-  author: "Mᴏʜᴀᴍᴍᴀᴅ Aᴋᴀsʜ",
+  author: "MOHAMMAD AKASH",
   role: 0,
-  shortDescription: "Slot Machine Game",
-  category: "economy",
-  guide: { en: "{p}slot <amount>" }
+  shortDescription: "Compact Slot Machine",
+  category: "economy"
 };
 
-/* ========== COMMAND ========== */
+module.exports.onStart = async function({ api, event, args, usersData }) {
+  const { threadID, senderID } = event;
+  const userName = await usersData.getName(senderID);
+  const currentBalance = await getBalance(senderID);
+  const slot = new SlotMachine();
 
-module.exports.onStart = async function ({ api, event, args, usersData }) {
-  const { senderID, threadID, messageID } = event;
+  let bet = args[0]?.toLowerCase() === "max" ? Math.floor(currentBalance*0.1) : parseFloat(args[0]);
+  if(isNaN(bet) || bet < 10) bet = 10;
+  if(bet > currentBalance) return api.sendMessage(`❌ Iɴsᴜғғɪᴄɪᴇɴᴛ Bᴀʟᴀɴᴄᴇ\n💳 Balance: ${formatBalance(currentBalance)}\n💰 Bet: ${formatBalance(bet)}`, threadID);
 
-  const bet = Number(args[0]);
-  if (!bet || bet < MIN_BET)
-    return api.sendMessage(`❌ Mɪɴɪᴍᴜᴍ Bᴇᴛ: ${MIN_BET} $`, threadID, messageID);
+  // Initial spin message
+  const spinMsg = await api.sendMessage(`🎰 Sʟᴏᴛ Mᴀᴄʜɪɴᴇ 🎰\n\n[ 🍉 | ❓ | ❓ ]\n\nSᴘɪɴɴɪɴɢ...`, threadID);
+  await new Promise(r => setTimeout(r, 1500));
 
-  const balance = await getBalance(senderID);
-  if (bet > balance)
-    return api.sendMessage(`❌ Iɴsᴜғғɪᴄɪᴇɴᴛ Bᴀʟᴀɴᴄᴇ\n💰 ${format(balance)}`, threadID, messageID);
+  // Spin the reels
+  const spinResult = slot.spin();
+  const winAmount = Math.floor(bet * spinResult.multiplier);
 
-  if (!(await lose(senderID, bet)))
-    return api.sendMessage("❌ Bᴇᴛ Fᴀɪʟᴇᴅ", threadID, messageID);
+  // Update balance
+  let newBalance;
+  if(winAmount > 0) newBalance = await winGame(senderID, winAmount);
+  else newBalance = await loseGame(senderID, bet);
 
-  // Pre-generate final result
-  const finalSlots = [randSymbol(), randSymbol(), randSymbol()];
-  const isWin = finalSlots[0] === finalSlots[1] && finalSlots[1] === finalSlots[2];
-  const multiplier = isWin ? 5 : 0;
-  const winAmount = bet * multiplier;
-
-  const msg = await api.sendMessage(
-    `🎰 Sʟᴏᴛ Mᴀᴄʜɪɴᴇ 🎰\n\n[ ❓ | ❓ | ❓ ]\n\nSᴘɪɴɴɪɴɢ...`,
-    threadID
-  );
-
-  let step = 0;
-  let slots = ["❓", "❓", "❓"];
-
-  const interval = setInterval(async () => {
-    step++;
-
-    // 1–4 animation edits
-    if (step <= 4) {
-      slots[step - 1] = finalSlots[step - 1] || randSymbol();
-
-      await api.editMessage(
-        `🎰 Sʟᴏᴛ Mᴀᴄʜɪɴᴇ 🎰\n\n[ ${slots.join(" | ")} ]\n\nSᴘɪɴɴɪɴɢ...`,
-        msg.messageID,
-        threadID
-      );
-      return;
-    }
-
-    // 5th edit → FINAL RESULT
-    clearInterval(interval);
-
-    if (isWin) {
-      const newBal = await win(senderID, winAmount);
-      return api.editMessage(
-        `🎰 Sʟᴏᴛ Mᴀᴄʜɪɴᴇ 🎰\n\n[ ${finalSlots.join(" | ")} ]\n\n🏆 Jᴀᴄᴋᴘᴏᴛ!\n×${multiplier} Wɪɴ\n\n💰 Bᴇᴛ: ${format(bet)}\n🏆 Wɪɴ: ${format(winAmount)}`,
-        msg.messageID,
-        threadID
-      );
-    } else {
-      return api.editMessage(
-        `🎰 Sʟᴏᴛ Mᴀᴄʜɪɴᴇ 🎰\n\n[ ${finalSlots.join(" | ")} ]\n\n💀 Lᴏss\n\n💰 Bᴇᴛ: ${format(bet)}\n❌ Wɪɴ: 0 $`,
-        msg.messageID,
-        threadID
-      );
-    }
-  }, 1000);
+  // Final message
+  const finalMsg = createMessage(spinResult.reels, bet, spinResult.multiplier, newBalance);
+  await api.editMessage(finalMsg, spinMsg.messageID, threadID);
 };
